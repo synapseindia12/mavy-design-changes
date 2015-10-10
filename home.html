@@ -1,0 +1,277 @@
+
+
+ <style type="text/css">
+	.custom-radio{
+		width: 18px;
+		height: 18px;
+		display: inline-block;
+		position: relative;
+		z-index: 1;
+		top: 3px;
+		background: url("images/radio.png") no-repeat;
+	}
+	.custom-radio:hover{            
+		background: url("images/radio-selected.png") no-repeat;
+	}
+	.custom-radio.selected{
+		background: url("images/radio-selected.png") no-repeat;
+	}
+	.custom-radio input[type="radio"]{
+		margin: 1px;
+		position: absolute;
+		z-index: 2;            
+		cursor: pointer;
+		outline: none;
+		opacity: 0;
+		/* CSS hacks for older browsers */
+		_noFocusLine: expression(this.hideFocus=true); 
+		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+		filter: alpha(opacity=0);
+		-khtml-opacity: 0;
+		-moz-opacity: 0;
+	}
+    /* Let's Beautify Our Form */
+   
+</style>
+<!-- Header -->
+ <div ng-include="'navigation.html'"></div>
+<!-- End header -->
+
+
+<!-- Middle Section Start -->
+<div class="container-fluid mrgn-btm">
+<div class="row">
+<div ng-include="'left_column.html'"></div>
+
+<div class="col-lg-8 col-md-6 col-sm-6 col-xs-12">
+<div class="middle_forum">
+<div class="forumtitle_top feedblue">Feed</div>
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="quizzes_sec clearfix">
+			<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+				<div class="quizeesbox_left clearfix">					
+					<h2 class="titlesame">QUIZZES</h2>
+					<ul>
+						<li>
+							<h3>PICK YOUR PET QUIZ</h3>
+							<div class="pfimg"><img class="img-responsive" src="images/pf_img1.jpg" alt=""></div>
+							<p>It's plain and simple, what's your favorite pet?</p>
+						</li>
+						
+						<li>
+							<h3>COFFEE COFFEE COFFEE</h3>
+							<div class="pfimg"><img class="img-responsive" src="images/pf_img2.jpg" alt=""></div>
+							<p>How do you take your coffee?</p>
+						</li>
+						
+						<li>
+							<h3>WORKSPACE ARCHETYPES</h3>
+							<div class="pfimg"><img class="img-responsive" src="images/pf_img3.jpg" alt=""></div>
+							<p>How do you take your coffee?</p>
+						</li>
+					</ul>
+				</div>
+			</div>
+			
+			
+			<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+				<div class="quizeesbox_right clearfix">
+					<div class="top_postlist">
+					<h2 class="titlesame color-pink">TOP POSTs</h2>
+					
+<ul>
+		<li ng-repeat="post in tempArray | limitTo: 3">
+		<div class="cont_postmsg clearfix">
+		<div class="like_dislike">
+			<ul>
+				<li><span class="likeimg"><a href="#"><img src="images/likeimg.png"alt=""></a></span></li>
+				<li><span class="likeimg"><a href="#">100</a></span></li>
+				<li><span class="likeimg"><a href="#"><img src="images/disclikeimg.png"alt=""></a></span></li>
+			</ul>
+		</div>
+		<div class="postimg_box">
+		<img class="img-responsive img-circle" src="{{post.AvatarUrl}}" alt="">
+		</div>	
+		<div class="msg_postsec clearfix bdr_pink">
+		<span class="postname">{{post.UserName}}</span>		
+		<p>{{post.MostRecentMessage}}</p>		
+		<div class="display_comment clearfix">
+		<ul>
+		<li><a href="#"><img src="images/back_icon.png" alt=""></a></li>
+		<li class="pull-right"><a href="#"><img src="images/comment_icon.png" alt=""> <span class="count_comment">11</span></a></li>				
+		</ul>
+		</div>		
+		</div>	
+		</div>
+		</li>
+		
+		
+		
+</ul>
+					
+		</div>
+		
+		
+		<div class="recent_msglist">
+		<h2 class="titlesame color-cyn">RECENT MESSAGES</h2>
+<ul>
+	<li ng-repeat="message in recentMessages">
+		<div class="cont_postmsg clearfix">		
+		<div class="postimg_box">
+		<img class="img-responsive img-circle" src="{{message.CreatedUser.AvatarUrl}}" alt="">
+		</div>	
+		<div class="msg_postsec clearfix bdr_pink">
+		<span class="postname">{{message.CreatedUser.DisplayName | uppercase}}</span>		
+		<p dynamic="{{message.LastMessage.FilteredBody}}"></p>
+		</div>	
+		</div>
+	</li>
+	
+	<!--<li>
+		<div class="cont_postmsg clearfix">		
+		<div class="postimg_box">
+		<img class="img-responsive img-circle" src="images/recentuser2.jpg" alt="">
+		</div>	
+		<div class="msg_postsec clearfix bdr_pink">
+		<span class="postname">MILEY CYRUS</span>		
+		<p>I know what I'm doing. I know I'm shocking you.</p>
+		</div>	
+		</div>
+	</li><li>
+		<div class="cont_postmsg clearfix">		
+		<div class="postimg_box">
+		<img class="img-responsive img-circle" src="images/recentuser2.jpg" alt="">
+		</div>	
+		<div class="msg_postsec clearfix bdr_pink">
+		<span class="postname">MILEY CYRUS</span>		
+		<p>I know what I'm doing. I know I'm shocking you.</p>
+		</div>	
+		</div>
+	</li>-->
+</ul>
+		
+		</div>
+		
+		
+	</div>
+</div>			
+</div>
+		
+	
+
+
+	
+	</div>			
+</div>
+
+</div>
+</div>
+		
+<div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+	<div class="quickpool_cont">
+<div class="greentitle_top">QUICK POLL</div>
+<div class="quickpool clearfix">
+<h3>How are you today?</h3>
+<ul>
+<li>
+<div class="radio">
+<label><input type="radio" name="browser" value="firefox"> Yes</label>
+</div>
+</li>
+
+<li>
+<div class="radio">
+<label><input type="radio" name="browser" value="firefox"> No</label>
+</div>
+</li>
+
+<li>
+<div class="radio">
+<label><input type="radio" name="browser" value="firefox"> May be</label>
+</div>
+</li>
+
+<li>
+<div class="radio">
+<label><input type="radio" name="browser" value="firefox"> Good</label>
+</div>
+</li>
+</ul>
+	<div class="center_btn">
+	<button class="postbtn">SUBMIT VOTE</button>
+	</div>			
+</div>	
+</div>
+	
+<div class="quickpool_cont qpool2">
+<div class="greentitle_top">QUICK POLL</div>
+<div class="quickpool clearfix">
+<h3>How are you today?</h3>
+<ul>
+<li>
+<div class="radio">
+<label><input type="radio" name="browser" value="firefox"> Yes</label>
+</div>
+</li>
+
+<li>
+<div class="radio">
+<label><input type="radio" name="browser" value="firefox"> No</label>
+</div>
+</li>
+
+<li>
+<div class="radio">
+<label><input type="radio" name="browser" value="firefox"> May be</label>
+</div>
+</li>
+
+<li>
+<div class="radio">
+<label><input type="radio" name="browser" value="firefox"> Good</label>
+</div>
+</li>
+</ul>
+	<div class="center_btn">
+	<button class="postbtn">SUBMIT VOTE</button>
+	</div>			
+</div>	
+</div>
+	
+</div>
+</div>
+</div>
+<!-- Middle Section end -->
+
+
+
+
+<script type="text/javascript">
+    function customRadio(radioName){
+    	
+        var radioButton = $('input[name="'+ radioName +'"]');
+        $(radioButton).each(function(){
+            $(this).wrap( "<span class='custom-radio'></span>" );
+            if($(this).is(':checked')){
+                $(this).parent().addClass("selected");
+            }
+        });
+        $(radioButton).click(function(){
+            if($(this).is(':checked')){
+                $(this).parent().addClass("selected");
+            }
+            $(radioButton).not(this).each(function(){
+                $(this).parent().removeClass("selected");
+            });
+        });
+    }
+  
+	customRadio("browser");
+    customRadio("search-engine");            
+    customRadio("confirm");
+	//$('.selectpicker').selectpicker();
+</script>
+
+
+

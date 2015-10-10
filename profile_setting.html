@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--
+## Project Name   :  Hiring Back end Web Developer _7432_-7432
+## Done by		  :  Html Coding by: Emp ID- 1433
+## Created Date   :  14-08-2014
+## Description    :  HTML development for responsive website.  
+-->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<title>:: HTML development for responsive website ::</title>
+
+
+<!-- Bootstrap -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<!-- End Bootstrap -->
+
+<!-- Custom Fonts -->
+<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Lato:400,700,300,900' rel='stylesheet' type='text/css'>
+<!-- Custom Fonts -->
+
+<!-- Custom css -->
+<link rel="stylesheet" type="text/css" href="css/styles.css">
+<link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+<link rel="stylesheet" href="css/bootstrap-select.css" type="text/css">
+<!-- End Custom css -->
+
+<style type="text/css">
+	.custom-radio{
+		width: 18px;
+		height: 18px;
+		display: inline-block;
+		position: relative;
+		z-index: 1;
+		top: 3px;
+		background: url("images/radio.png") no-repeat;
+	}
+	.custom-radio:hover{            
+		background: url("images/radio-selected.png") no-repeat;
+	}
+	.custom-radio.selected{
+		background: url("images/radio-selected.png") no-repeat;
+	}
+	.custom-radio input[type="radio"]{
+		margin: 1px;
+		position: absolute;
+		z-index: 2;            
+		cursor: pointer;
+		outline: none;
+		opacity: 0;
+		/* CSS hacks for older browsers */
+		_noFocusLine: expression(this.hideFocus=true); 
+		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+		filter: alpha(opacity=0);
+		-khtml-opacity: 0;
+		-moz-opacity: 0;
+	}
+    /* Let's Beautify Our Form */
+   
+</style>
+
+</head>
+ <body class="dashboard_pages">
+<!-- Header -->
+ <header>
+
+<div class="container-fluid">
+<div class="row">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div class="top_header clearfix">
+		<div class="logo"><img src="images/logo.png" alt=""/></div>
+		<div class="head_rightsec">
+			<div class="mobile_nav"><a href="#"><img src="images/mobile-menu.png" alt=""></a></div>
+			<div class="menu_drop">				
+				<select class="selectpicker">
+				<option>Howdy, Dyan!</option>
+				<option>Ketchup</option>
+				<option>Relish</option>
+				</select>
+			</div>
+			<div class="menu_right clearfix">
+			<div class="cross"><a href="#"><img src="images/cross_img.png" alt=""></a></div>
+				<ul>
+				<li ><a href="#">FEED</a></li>
+				<li ><a href="#">QUIZZES</a><span class="notification">3</span></li>
+				<li ><a href="#">MESSAGES</a><span class="notification cyanbg">11</span></li>
+				<li ><a href="#">FORUM</a><span class="notification pinkbg">60</span></li>
+				</ul>			
+			</div>
+			
+			
+		</div>		
+		</div>			
+	</div>	
+</div>
+</div>		
+</div>
+ </div>
+</header>
+<!-- End header -->
+
+
+<!-- Middle Section Start -->
+<div class="container-fluid">
+<div class="row">
+<div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+	<div class="myprofile_cont brd_radius">
+		<div class="bluetitle_top">MY PROFILE</div>
+		<div class="myprofile_inner">
+			<div class="profile_name clearfix">
+			<span class="user_profpic"><img class="img-responsive img-circle" src="images/user.png" alt=""></span>
+			<div class="user_dtl_right">
+			<span class="user_dtl">DAYAN
+			D'ANIELLO</span>
+			<span class="user_alias">@ddaniello</div>
+			</div>
+			<div class="reward_sec clearfix">
+			<span class="rwd_balance">Rewards Balance:</span>
+			<div class="rwd_price">$65</div>
+			</div>
+		</div>
+		
+<div class="profile_listing clearfix">
+<ul>
+	<li><a class="active" href="javascript:void(0)"><span class="reward_icon"></span> REWARDS</a></li>
+	<li><a href="javascript:void(0)"><span class="setting_icon"></span> SETTINGS</a></li>
+	<li><a href="javascript:void(0)"> <span class="badges_icon"></span>BADGES</a></li>
+</ul>
+</div>
+		
+	</div>
+	
+	<div class="profile_bottom clearfix">
+		<ul>
+			<li><a href="#">FEED</a> </li>
+			<li><a href="#">QUIZZES</a> </li>
+			<li><a href="#">MESSAGES</a> </li>
+			<li><a href="#">fORUM</a> </li>
+			<li>MAVY &copy; 2015</li>
+		</ul>
+	
+	</div>
+</div>
+
+<div class="col-lg-8 col-md-6 col-sm-6 col-xs-12">
+<div class="middle_forum">
+	<div class="row profilesetting_top">
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+			<div class="tabs active" data-tab="profile_setting">
+				PROFILE SETTING
+			</div>
+		</div>
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+			<div class="tabs" data-tab="account_setting">
+				ACCOUNT SETTING
+			</div>
+			
+		</div>
+	</div>
+<!--<ul class="profilesetting_top">
+	<li>PROFILE SETTING</li>
+	<li>ACCOUNT SETTING</li>
+</ul>-->
+<div class="row tab-section" id="profile_setting">
+		
+		<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+			<div class="profile_pic_section">
+				<img src="images/profile_pic.png">
+				<a href="#">EDIT PROFILE PICTURE</a>
+			</div>
+		</div>
+		<div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+			<div class="form_section">
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<label>FIRST NAME</label>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<input type="text">
+						<div class="grybdr"></div>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<label>LAST NAME</label>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<input type="text">
+						<div class="grybdr"></div>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<label>EMAIL ADDRESS</label>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<input type="text">
+						<div class="grybdr"></div>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					
+						<table>
+							<tr>
+								<td><label>MONTH</label></td>
+								<td><label>DAY</label></td>
+								<td><label>YEAR</label></td>
+							</tr>
+							<tr>
+								<td>
+									<span>
+										<select class="selectpicker">
+										<option>00</option>
+										<option>00</option>
+										<option>00</option>
+										<option>00</option>
+										</select>
+									</span>
+								</td>
+								<td>
+									<span>
+										<select class="selectpicker">
+										<option>00</option>
+										<option>00</option>
+										<option>00</option>
+										<option>00</option>
+										</select>
+									</span>
+								</td>
+								<td>
+									<span style="max-width:200px;">
+										<select class="selectpicker">
+										<option>0000</option>
+										<option>0000</option>
+										<option>0000</option>
+										<option>0000</option>
+										</select>
+									</span>
+								</td>
+								
+							</tr>
+						</table>
+						<div class="grybdr"></div>
+					</div>
+					
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<label>GENDER</label>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<span style="max-width:100px;">
+										<select class="selectpicker">
+										<option>Male</option>
+										<option>Female</option>						
+										</select>
+									</span>						
+									<div class="grybdr"></div>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<label>ZIP CODE</label>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<input type="text">
+						<div class="grybdr"></div>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<label>MOBILE NUMBER</label>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<input type="text">
+						<div class="grybdr"></div>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<a href="#" class="save">SAVE CHANGES</a>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+</div>
+<div class="row tab-section" id="account_setting">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="account_section">
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<h5>CHANGE PASSWORD</h5>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<label>CURRENT PASSWORD</label>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<input type="password">
+						<div class="grybdr"></div>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<label>NEW PASSWORD</label>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<input type="password">
+						<div class="grybdr"></div>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<label>VERIFY NEW PASSWORD</label>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<input type="password">
+						<div class="grybdr"></div>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<h5>NOTIFICATIONS</h5>
+						<div class="row">
+							<div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+								<label>QUIZZES</label>
+								<div class="btn_sel">
+									<a href="#">EMAIL</a>
+									<a href="#" class="selected">TEXT</a>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+								<label>RESULTS</label>
+								<div class="btn_sel">
+									<a href="#">EMAIL</a>
+									<a href="#">TEXT</a>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+								<label>FORUM</label>
+								<div class="btn_sel">
+									<a href="#">EMAIL</a>
+									<a href="#">TEXT</a>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+								<label>MESSAGES</label>
+								<div class="btn_sel">
+									<a href="#" class="selected">EMAIL</a>
+									<a href="#" class="selected">TEXT</a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<a href="#" class="save">SAVE CHANGES</a>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+</div>
+</div>
+		
+<div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+	<div class="quickpool_cont">
+<div class="greentitle_top">QUICK POLL</div>
+<div class="quickpool clearfix">
+<h3>How are you today?</h3>
+<ul>
+<li>
+<div class="radio">
+<label><input type="radio" name="browser" value="firefox"> Yes</label>
+</div>
+</li>
+
+<li>
+<div class="radio">
+<label><input type="radio" name="browser" value="firefox"> No</label>
+</div>
+</li>
+
+<li>
+<div class="radio">
+<label><input type="radio" name="browser" value="firefox"> May be</label>
+</div>
+</li>
+
+<li>
+<div class="radio">
+<label><input type="radio" name="browser" value="firefox"> Good</label>
+</div>
+</li>
+</ul>
+	<div class="center_btn">
+	<button class="postbtn">SUBMIT VOTE</button>
+	</div>			
+</div>	
+</div>
+	
+<div class="quickpool_cont qpool2">
+<div class="greentitle_top">QUICK POLL</div>
+<div class="quickpool clearfix">
+<h3>How are you today?</h3>
+<ul>
+<li>
+<div class="radio">
+<label><input type="radio" name="browser" value="firefox"> Yes</label>
+</div>
+</li>
+
+<li>
+<div class="radio">
+<label><input type="radio" name="browser" value="firefox"> No</label>
+</div>
+</li>
+
+<li>
+<div class="radio">
+<label><input type="radio" name="browser" value="firefox"> May be</label>
+</div>
+</li>
+
+<li>
+<div class="radio">
+<label><input type="radio" name="browser" value="firefox"> Good</label>
+</div>
+</li>
+</ul>
+	<div class="center_btn">
+	<button class="postbtn">SUBMIT VOTE</button>
+	</div>			
+</div>	
+</div>
+	
+</div>
+</div>
+</div>
+<!-- Middle Section end -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+<!-- Custom Select box -->
+
+<script src="js/bootstrap-select.js"></script>
+
+<script type="text/javascript">
+    function customRadio(radioName){
+        var radioButton = $('input[name="'+ radioName +'"]');
+        $(radioButton).each(function(){
+            $(this).wrap( "<span class='custom-radio'></span>" );
+            if($(this).is(':checked')){
+                $(this).parent().addClass("selected");
+            }
+        });
+        $(radioButton).click(function(){
+            if($(this).is(':checked')){
+                $(this).parent().addClass("selected");
+            }
+            $(radioButton).not(this).each(function(){
+                $(this).parent().removeClass("selected");
+            });
+        });
+    }
+    $(document).ready(function (){
+        customRadio("browser");
+        customRadio("search-engine");            
+        customRadio("confirm");
+    })
+	
+	$('.selectpicker').selectpicker();
+</script>
+
+<script type="text/javascript">
+ $('.mobile_nav').click(function()
+	{
+		if($(this).hasClass('shows'))
+		{			
+			$('.menu_right').animate({'left':'-220px'})
+			$(this).removeClass('shows');	
+		}
+		else
+		{
+			$('.menu_right').animate({'left':'0px'})
+			$(this).addClass('shows');
+		}		
+	});
+	
+	$('.cross').click(function()
+	{
+		$('.menu_right').animate({'left':'-220px'})
+		$('.mobile_nav').removeClass('shows');
+	})
+</script>
+
+
+<!------ tab toggle Emp1682 ------>
+<script type="text/javascript">
+		$('.tab-section').hide();
+		$('#profile_setting').show();
+	$('.tabs').on('click',function(){
+		$tab = $(this).data('tab');
+		$('.tabs').removeClass('active');
+		$(this).addClass('active');
+		$('.tab-section').hide();
+		$('#'+$tab).show();
+	})
+</script>
+
+<!------ ./tab toggle Emp1682 ------>
+
+
+
+</body>
+
+
+
+
+
+</html>

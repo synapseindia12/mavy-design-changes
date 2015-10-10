@@ -1,0 +1,262 @@
+
+
+<style type="text/css">
+	.custom-radio{
+		width: 18px;
+		height: 18px;
+		display: inline-block;
+		position: relative;
+		z-index: 1;
+		top: 3px;
+		background: url("images/radio.png") no-repeat;
+	}
+	.custom-radio:hover{            
+		background: url("images/radio-selected.png") no-repeat;
+	}
+	.custom-radio.selected{
+		background: url("images/radio-selected.png") no-repeat;
+	}
+	.custom-radio input[type="radio"]{
+		margin: 1px;
+		position: absolute;
+		z-index: 2;            
+		cursor: pointer;
+		outline: none;
+		opacity: 0;
+		/* CSS hacks for older browsers */
+		_noFocusLine: expression(this.hideFocus=true); 
+		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+		filter: alpha(opacity=0);
+		-khtml-opacity: 0;
+		-moz-opacity: 0;
+	}
+    /* Let's Beautify Our Form */
+   
+</style>
+
+<!-- Header -->
+<div ng-include="'navigation.html'"></div>
+<!-- End header -->
+
+
+<!-- Middle Section Start -->
+<div class="container-fluid">
+<div class="row">
+<div ng-include="'left_column.html'"></div>
+
+<div class="col-lg-7 col-md-5 col-sm-5 col-xs-12">
+<div class="middle_forum message">
+<div class="forumtitle_top">MESSAGES</div>
+
+<div class="clearfix messageBx" ng-repeat="message in messages track by $index">
+<div class="messageIcon"><a href=""><i class="fa fa-circle"></i></a></div>
+
+<div class="messageBxrt">
+<div class="txtBx"><img alt="" src="{{message.CreatedUser.AvatarUrl}}" class="img-responsive img-circle"></div>
+<div class="text">
+<h2>{{message.CreatedUser.DisplayName}}</h2>
+<p dynamic="{{message.LastMessage.Body}}"></p>
+</div>
+<div class="deleteBx">
+<a href=""><i class="fa back"></i></a>
+<a href=""><i class="fa fa-bank1"></i></a>
+</div>
+<p class="clear"></p>
+<hr/>
+</div></div>
+
+<!--<div class="clearfix messageBx">
+<div class="messageIcon"><a href=""><i class="fa fa-circle"></i></a></div>
+
+<div class="messageBxrt">
+<div class="txtBx"><img alt="" src="images/img.png" class="img-responsive img-circle"></div>
+<div class="text">
+<h2>MILEY CYRUS</h2>
+<p>I know what I'm doing. I know I'm shocking you.
+</p>
+</div>
+<div class="deleteBx">
+<a href=""><i class="fa back"></i></a>
+<a href=""><i class="fa fa-bank1"></i></a>
+</div>
+<p class="clear"></p>
+<hr/>
+</div></div>
+
+<div class="clearfix messageBx">
+<div class="messageIcon"><a href=""><i class="fa fa-circle"></i></a></div>
+
+<div class="messageBxrt">
+<div class="txtBx"><img alt="" src="images/mony.png" class="img-responsive img-circle"></div>
+<div class="text">
+<h2>BENJAMIN FRANKLIN</h2>
+<p>If time be of all things the most precious,
+wasting time must be the greatest prodigality.</p>
+</div>
+<div class="deleteBx">
+<a href=""><i class="fa back"></i></a>
+<a href=""><i class="fa fa-bank1"></i></a>
+</div>
+<p class="clear"></p>
+<hr/>
+</div></div>
+
+<div class="clearfix messageBx">
+<div class="messageIcon"><a href=""><i class="fa fa-circle"></i></a></div>
+
+<div class="messageBxrt">
+<div class="txtBx"><img alt="" src="images/mony.png" class="img-responsive img-circle"></div>
+<div class="text">
+<h2>BENJAMIN FRANKLIN</h2>
+<p>If time be of all things the most precious,
+wasting time must be the greatest prodigality.</p>
+</div>
+<div class="deleteBx">
+<a href=""><i class="fa back"></i></a>
+<a href=""><i class="fa fa-bank1"></i></a>
+</div>
+<p class="clear"></p>
+<hr/>
+</div></div>
+
+<div class="clearfix messageBx">
+<div class="messageIcon"><a href=""><i class="fa fa-circle"></i></a></div>
+
+<div class="messageBxrt">
+<div class="txtBx"><img alt="" src="images/mony.png" class="img-responsive img-circle"></div>
+<div class="text">
+<h2>BENJAMIN FRANKLIN</h2>
+<p>If time be of all things the most precious,
+wasting time must be the greatest prodigality.</p>
+</div>
+<div class="deleteBx">
+<a href=""><i class="fa back"></i></a>
+<a href=""><i class="fa fa-bank1"></i></a>
+</div>
+<p class="clear"></p>
+<hr/>
+</div></div>-->
+
+
+
+</div>
+</div>
+		
+<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+
+<div class="quickpool_cont compose">
+<div class="greentitle_top">COMPOSE</div>
+<div class="quickpool clearfix">
+<input type="text" placeholder="TO:" class="form-control inputbx">
+<textarea class="form-control textarea" placeholder="TYPE your message here"></textarea>
+<div class="center_btn">
+<button class="postbtn">SEND</button>
+</div>			
+</div>	
+</div>
+	
+<div class="quickpool_cont qpool2">
+<div class="greentitle_top">QUICK POLL</div>
+<div class="quickpool clearfix">
+<h3>How are you today?</h3>
+<ul>
+<li>
+<div class="radio">
+<label><input type="radio" name="browser" value="firefox"> Yes</label>
+</div>
+</li>
+
+<li>
+<div class="radio">
+<label><input type="radio" name="browser" value="firefox"> No</label>
+</div>
+</li>
+
+<li>
+<div class="radio">
+<label><input type="radio" name="browser" value="firefox"> May be</label>
+</div>
+</li>
+
+<li>
+<div class="radio">
+<label><input type="radio" name="browser" value="firefox"> Good</label>
+</div>
+</li>
+</ul>
+	<div class="center_btn">
+	<button class="postbtn">SUBMIT VOTE</button>
+	</div>			
+</div>	
+</div>
+	
+</div>
+</div>
+</div>
+<!-- Middle Section end -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+<!-- Custom Select box -->
+
+<script src="js/bootstrap-select.js"></script>
+
+<script type="text/javascript">
+    function customRadio(radioName){
+        var radioButton = $('input[name="'+ radioName +'"]');
+        $(radioButton).each(function(){
+            $(this).wrap( "<span class='custom-radio'></span>" );
+            if($(this).is(':checked')){
+                $(this).parent().addClass("selected");
+            }
+        });
+        $(radioButton).click(function(){
+            if($(this).is(':checked')){
+                $(this).parent().addClass("selected");
+            }
+            $(radioButton).not(this).each(function(){
+                $(this).parent().removeClass("selected");
+            });
+        });
+    }
+    $(document).ready(function (){
+        customRadio("browser");
+        customRadio("search-engine");            
+        customRadio("confirm");
+    })
+	
+	$('.selectpicker').selectpicker();
+</script>
+
+<script type="text/javascript">
+ $('.mobile_nav').click(function()
+	{
+		if($(this).hasClass('shows'))
+		{			
+			$('.menu_right').animate({'left':'-220px'})
+			$(this).removeClass('shows');	
+		}
+		else
+		{
+			$('.menu_right').animate({'left':'0px'})
+			$(this).addClass('shows');
+		}		
+	});
+	
+	$('.cross').click(function()
+	{
+		$('.menu_right').animate({'left':'-220px'})
+		$('.mobile_nav').removeClass('shows');
+	})
+</script>
+
+
+
+</body>
+
+
+
+
+
+</html>
