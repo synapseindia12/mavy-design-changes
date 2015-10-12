@@ -1,36 +1,4 @@
-<style type="text/css">
-	.custom-radio{
-		width: 18px;
-		height: 18px;
-		display: inline-block;
-		position: relative;
-		z-index: 1;
-		top: 3px;
-		background: url("images/radio.png") no-repeat;
-	}
-	.custom-radio:hover{            
-		background: url("images/radio-selected.png") no-repeat;
-	}
-	.custom-radio.selected{
-		background: url("images/radio-selected.png") no-repeat;
-	}
-	.custom-radio input[type="radio"]{
-		margin: 1px;
-		position: absolute;
-		z-index: 2;            
-		cursor: pointer;
-		outline: none;
-		opacity: 0;
-		/* CSS hacks for older browsers */
-		_noFocusLine: expression(this.hideFocus=true); 
-		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-		filter: alpha(opacity=0);
-		-khtml-opacity: 0;
-		-moz-opacity: 0;
-	}
-    /* Let's Beautify Our Form */
-   
-</style>
+
 
 <!-- Header -->
 <div ng-include="'navigation.html'"></div>
@@ -50,15 +18,21 @@
 	<div class="create_postsec">
 		<div class="cptitle_top">Create new post</div>
 		<div class="typepost">
-			<textarea class="form-field">Type your post here. </textarea>
-			<button class="btn_submitpost">Submit Post</button>
+			<form>
+				<input type="text" class="title-field" placeholder="POST TITLE" ng-model="postTitle">
+				<textarea class="form-field" ng-model="postBody" placeholder="Type your post here.">   </textarea>
+				<button class="btn_submitpost" ng-click="submitPost()">Submit Post</button>
+			</form>
 		</div>
 
 	
-<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">	
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+	
 <div class="post_viewsec clearfix">
 
-<div class="cont_postmsg clearfix">
+
+
+<div class="cont_postmsg clearfix" ng-repeat="items in activeThreads">
 <div class="like_dislike">
 	<ul>
 		<li><span class="likeimg"><a href="#"><img src="images/likeimg.png"alt=""></a></span><li>
@@ -68,70 +42,58 @@
 </div>
 
 	<div class="postimg_box">
-	<img class="img-responsive img-circle" src="images/user1.png" alt="">
+	<img class="img-responsive img-circle" src="{{items.Content.CreatedByUser.AvatarUrl}}" alt="">
 	</div>	
 	<div class="msg_postsec clearfix bdr_pink">
-		<span class="postname">BENJAMIN FRANKLIN</span>
-		<span class="postdate">September 30, 2015 12:21 a.m.</span>		
-		<p>If time be of all things the most precious, wasting time must be the greatest prodigality.</p>		
+		<span class="postname">{{items.Author.DisplayName}}</span>
+		<span class="postdate">{{localDate(items.Date) | date:"MM/dd/yyyy 'at' h:mma"}}</span>		
+		<p dynamic="{{items.Body}}"></p>		
 		<div class="display_comment clearfix">
 			<ul>
-				<li><a href="#"><img src="images/back_icon.png" alt=""></a></li>
-				<li><a href="#"><img src="images/comment_icon.png" alt=""> <span class="count_comment">5</span></a></li>				
+				<li><a href="javascript:void(0)"><img src="images/back_icon.png" alt="user"></a></li>
+				<li><a href="javascript:void(0)" ng-click='getChilds(items.Id)'><img src="images/comment_icon.png" alt=""> <span class="count_comment">{{items.ReplyCount}}</span></a></li>				
 			</ul>
-		</div>		
-	</div>	
+		</div>
+<div class="replyBoxParent clearfix showReplyBoxforReply{{items.Id}}" style="display:none;">
+	<form method="post" ng-submit="saveThreadReply(replyText,items.Id)">
+		<textarea placeholder="Reply to Post" ng-model="replyText"></textarea>
+		<div id="upload-content" style="display:none;">
+			<span style="display:inline-block;background:#e6ece1;padding:8px 15px; border-radius:3px; font-size:14px;">{{fileName}}</span>
+		</div>
+		<p>
+			<button>Upload Media</button>
+			<input type="file" name="file" onchange="angular.element(this).scope().uploadFile(this)" ng-click="setProjectId(items.Id, replyText)">
+		</p>
+		<button>Submit</button>
+	</form>
+	
 </div>
 
-
-<div class="cont_postmsg clearfix">
-<div class="like_dislike">
-	<ul>
-		<li><span class="likeimg"><a href="#"><img src="images/likeimg.png"alt=""></a></span><li>
-		<li><span class="likeimg"><a href="#">41</a></span><li>
-		<li><span class="likeimg"><a href="#"><img src="images/disclikeimg.png"alt=""></a></span><li>
-	</ul>
-</div> 
-
-	<div class="postimg_box">
-	<img class="img-responsive img-circle" src="images/user2.png" alt="">
-	</div>	
-	<div class="msg_postsec clearfix">
-		<span class="postname">MILEY CYRUS</span>
-		<span class="postdate">October 1, 2015 2:00 a.m.</span>		
-		<p>I know what I'm doing. I know I'm shocking you.</p>		
-		<div class="display_comment clearfix">
-			<ul>
-				<li><a href="#"><img src="images/back_icon.png" alt=""></a></li>
-				<li><a href="#"><img src="images/comment_icon.png" alt=""> <span class="count_comment">2</span></a></li>				
-			</ul>
-		</div>	
-
 <div class="sub_postmsg">
-	<div class="cont_postmsg clearfix">
+
+	<div class="cont_postmsg clearfix"  ng-repeat="reply in childThreads" ng-if="items.Id == reply.ThreadId && reply.ParentId == 0">
 	<div class="postimg_box">
-	<img class="img-responsive img-circle" src="images/bear.png" alt="">
+	<img class="img-responsive img-circle" src="{{reply.Content.CreatedByUser.AvatarUrl}}" alt="user">
 	</div>	
 	<div class="msg_postsec clearfix bdr_pink">
-	<span class="postname">Bear</span>
-	<span class="postdate">October 1, 2015 12:00 p.m</span>		
-	<p>fish fish fish fish fish fish fish tree tree tree tree fish fish fish fish fish. fish fish fish.</p>		
+	<span class="postname">{{reply.Author.DisplayName}}</span>
+	<span class="postdate">{{localDate(reply.Date) | date:"MM/dd/yyyy 'at' h:mma"}}</span>		
+	<p dynamic="{{reply.FilteredBody}}"></p>		
+	<p ng-if="reply.UnfilteredBodyLinks.image.length>0"><img src="{{reply.UnfilteredBodyLinks.image[0]}}" /></p><p ng-if="reply.UnfilteredBodyLinks.video.length>0">
+        <video width="100%" controls>
+            <source  ng-src="{{trustSrc(reply.UnfilteredBodyLinks.video[0])}}" type="video/mp4" />
+            Your browser does not support the video tag.
+        </video>
+    </p>
+    <p ng-if="reply.UnfilteredBodyLinks.audio.length>0">
+        <audio controls>
+            <source  ng-src="{{trustSrc(reply.UnfilteredBodyLinks.audio[0])}}" type="audio/mpeg" />
+            Your browser does not support the audio tag.
+        </audio>
+    </p>		
 
 	</div>	
 	</div>
-	
-	<div class="cont_postmsg clearfix">
-	<div class="postimg_box">
-	<img class="img-responsive img-circle" src="images/artist.png" alt="">
-	</div>	
-	<div class="msg_postsec clearfix bdr_pink">
-	<span class="postname">THE ARTIST FORMERLY KNOWN AS</span>
-	<span class="postdate">October 1, 2015 1:00 p.m.</span>		
-	<p>If I came back as a dolphin, would you listen to me then? Would you let me be your friend?</p>		
-
-	</div>	
-	</div>
-
 </div>
 	</div>	
 </div>
@@ -147,144 +109,6 @@
 </div>
 </div>
 		
-<div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
-	<div class="quickpool_cont">
-<div class="greentitle_top">QUICK POLL</div>
-<div class="quickpool clearfix">
-<h3>How are you today?</h3>
-<ul>
-<li>
-<div class="radio">
-<label><input type="radio" name="browser" value="firefox"> Yes</label>
-</div>
-</li>
-
-<li>
-<div class="radio">
-<label><input type="radio" name="browser" value="firefox"> No</label>
-</div>
-</li>
-
-<li>
-<div class="radio">
-<label><input type="radio" name="browser" value="firefox"> May be</label>
-</div>
-</li>
-
-<li>
-<div class="radio">
-<label><input type="radio" name="browser" value="firefox"> Good</label>
-</div>
-</li>
-</ul>
-	<div class="center_btn">
-	<button class="postbtn">SUBMIT VOTE</button>
-	</div>			
-</div>	
-</div>
-	
-<div class="quickpool_cont qpool2">
-<div class="greentitle_top">QUICK POLL</div>
-<div class="quickpool clearfix">
-<h3>How are you today?</h3>
-<ul>
-<li>
-<div class="radio">
-<label><input type="radio" name="browser" value="firefox"> Yes</label>
-</div>
-</li>
-
-<li>
-<div class="radio">
-<label><input type="radio" name="browser" value="firefox"> No</label>
-</div>
-</li>
-
-<li>
-<div class="radio">
-<label><input type="radio" name="browser" value="firefox"> May be</label>
-</div>
-</li>
-
-<li>
-<div class="radio">
-<label><input type="radio" name="browser" value="firefox"> Good</label>
-</div>
-</li>
-</ul>
-	<div class="center_btn">
-	<button class="postbtn">SUBMIT VOTE</button>
-	</div>			
-</div>	
-</div>
-	
+<div ng-include="'polls.html'" ng-controller="pollsCtrl"></div>
 </div>
 </div>
-</div>
-<!-- Middle Section end -->
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-
-<!-- Custom Select box -->
-
-<script src="js/bootstrap-select.js"></script>
-
-<script type="text/javascript">
-    function customRadio(radioName){
-        var radioButton = $('input[name="'+ radioName +'"]');
-        $(radioButton).each(function(){
-            $(this).wrap( "<span class='custom-radio'></span>" );
-            if($(this).is(':checked')){
-                $(this).parent().addClass("selected");
-            }
-        });
-        $(radioButton).click(function(){
-            if($(this).is(':checked')){
-                $(this).parent().addClass("selected");
-            }
-            $(radioButton).not(this).each(function(){
-                $(this).parent().removeClass("selected");
-            });
-        });
-    }
-    $(document).ready(function (){
-        customRadio("browser");
-        customRadio("search-engine");            
-        customRadio("confirm");
-    })
-	
-	$('.selectpicker').selectpicker();
-</script>
-
-<script type="text/javascript">
- $('.mobile_nav').click(function()
-	{
-		if($(this).hasClass('shows'))
-		{			
-			$('.menu_right').animate({'left':'-220px'})
-			$(this).removeClass('shows');	
-		}
-		else
-		{
-			$('.menu_right').animate({'left':'0px'})
-			$(this).addClass('shows');
-		}		
-	});
-	
-	$('.cross').click(function()
-	{
-		$('.menu_right').animate({'left':'-220px'})
-		$('.mobile_nav').removeClass('shows');
-	})
-</script>
-
-
-
-</body>
-
-
-
-
-
-</html>

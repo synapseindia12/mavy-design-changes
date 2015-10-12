@@ -62,7 +62,7 @@ myApp.config(function($routeProvider, $httpProvider, $facebookProvider) {
 		
 		$facebookProvider.setAppId('1588022388118943');
 	})
-	/*.run(function($rootScope){
+	.run(function($rootScope){
 		(function(){
 		if (document.getElementById('facebook-jssdk')) {return;}
 		var firstScriptElement = document.getElementsByTagName('script')[0];
@@ -71,7 +71,7 @@ myApp.config(function($routeProvider, $httpProvider, $facebookProvider) {
 		facebookJS.src = 'http://connect.facebook.net/en_US/sdk.js';
 		firstScriptElement.parentNode.insertBefore(facebookJS, firstScriptElement);
 		}());
-	})*/;
+	});
 	
 myApp.controller('createUserCtrl', function($scope, $location){
 	var endpoints = {};
@@ -378,6 +378,10 @@ myApp.controller('pollsCtrl', function($scope, $rootScope, $location, $localStor
 				$scope.checkPolls(result);
 			}
 			else{
+				if($scope.allPolls.length == 0){
+					$scope.incrementedVal = 0;
+					$scope.resultCheckPolls(result);
+				}
 				return;
 			}
 		}
@@ -390,7 +394,11 @@ myApp.controller('pollsCtrl', function($scope, $rootScope, $location, $localStor
 				$scope.resultCheckPolls(result);
 			}
 			else{
-				$location.path('/pollresults');
+				debugger;
+				if($scope.allPolls.length > 0){
+					$location.path('/pollresults');
+					$scope.$apply();
+				}
 			}
 		}
 	};
@@ -405,129 +413,121 @@ myApp.controller('pollsCtrl', function($scope, $rootScope, $location, $localStor
 				if(response.result.result.length > 0){
 				}
 				else{
-					debugger;
 					$scope.allPolls.push($scope.allData.result.result.Entries[$scope.incrementedVal]);
 				}
+				$scope.incrementedVal = $scope.incrementedVal + 1;
+				$scope.recursiveCall(result);
+				$scope.$apply();
 			}
 			
-			endpoints.mobileHandler.getPollResponseCounts($scope.apiKey, $scope.userId, $scope.allData.result.result.Entries[$scope.incrementedVal].taskId, function(response){
-				if(response.result.success){
-					 for(var i=0; i<$scope.allData.result.result.Entries.length; i++){
-						if($scope.allData.result.result.Entries[i]){
-							if(response.result.result[0]){
-								if($scope.allData.result.result.Entries[i].itemId == response.result.result[0].itemId){
-									for(var j=0; j<response.result.result[0].values.length; j++){
-										for(var p=0; p<$scope.allData.result.result.Entries[i].options.categories.length; p++){
-											if(response.result.result[0].values[j]){
-												if(response.result.result[0].values[j].value == $scope.allData.result.result.Entries[i].options.categories[p].values){
-													response.result.result[0].values[j].count = (response.result.result[0].values[j].count /response.result.result[0].responseCount)*100;
-													var resultActualValue = $scope.allData.result.result.Entries[i].options.categories[p].values;
+			// endpoints.mobileHandler.getPollResponseCounts($scope.apiKey, $scope.userId, $scope.allData.result.result.Entries[$scope.incrementedVal].taskId, function(response){
+				// if(response.result.success){
+					 // for(var i=0; i<$scope.allData.result.result.Entries.length; i++){
+						// if($scope.allData.result.result.Entries[i]){
+							// if(response.result.result[0]){
+								// if($scope.allData.result.result.Entries[i].itemId == response.result.result[0].itemId){
+									// for(var j=0; j<response.result.result[0].values.length; j++){
+										// for(var p=0; p<$scope.allData.result.result.Entries[i].options.categories.length; p++){
+											// if(response.result.result[0].values[j]){
+												// if(response.result.result[0].values[j].value == $scope.allData.result.result.Entries[i].options.categories[p].values){
+													// response.result.result[0].values[j].count = (response.result.result[0].values[j].count /response.result.result[0].responseCount)*100;
+													// var resultActualValue = $scope.allData.result.result.Entries[i].options.categories[p].values;
 													//$scope.resultCalculated.push(result.result.result.Entries[i].options.categories[p]);
-													$scope.allData.result.result.Entries[i].options.categories[p].values = Math.round(response.result.result[0].values[j].count);
-													$scope.$apply();
+													// $scope.allData.result.result.Entries[i].options.categories[p].values = Math.round(response.result.result[0].values[j].count);
+													// $scope.$apply();
 													//$scope.resultCalculated[p].values = Math.round(response.result.result[0].values[j].count);
 													//result.result.result.Entries[i].options.categories[p].values = resultActualValue;
-												}
-											}
-											else{
-												$scope.allData.result.result.Entries[i].options.categories[p].values = 0;
+												// }
+											// }
+											// else{
+												// $scope.allData.result.result.Entries[i].options.categories[p].values = 0;
 												//$scope.resultCalculated[p].values = 0;
-											}
-										}						
-									}
+											// }
+										// }						
+									// }
 									
-									$rootScope.totalPollsResults.push($scope.allData.result.result.Entries[i]);
-									if($scope.allPolls.length > 0){
-										if($scope.allData.result.result.Entries[i].itemId != $scope.allPolls[0].itemId){
-											$rootScope.dataforResults.push($scope.allData.result.result.Entries[i]);
-										}
-										else{
-											if(result.result.result.Entries[i-1]){
-												if($rootScope.dataforResults.length == 0)
-													$rootScope.dataforResults.push($scope.allData.result.result.Entries[i-1]);
-											}
-											else{
-												if(result.result.result.Entries[i+1]){
-													if($rootScope.dataforResults.length == 0)
-														$rootScope.dataforResults.push($scope.allData.result.result.Entries[i+1]);
-												}
-											}
-										}
-									}
-									else{
-										if($rootScope.dataforResults.length == 0)
-											$rootScope.dataforResults.push($scope.allData.result.result.Entries[0]);
-									}
-								}
-							}
-						}
-					}
-					$cookieStore.put('totalPollCounts', $rootScope.totalPollsResults);
-					$scope.displayPollresults = $rootScope.dataforResults;
-					$scope.incrementedVal = $scope.incrementedVal + 1;
-					debugger;
-					$scope.recursiveCall(result);
-					$scope.$apply();
-				}
-			});
+									// $rootScope.totalPollsResults.push($scope.allData.result.result.Entries[i]);
+									// if($scope.allPolls.length > 0){
+										// if($scope.allData.result.result.Entries[i].itemId != $scope.allPolls[0].itemId){
+											// $rootScope.dataforResults.push($scope.allData.result.result.Entries[i]);
+										// }
+										// else{
+											// if(result.result.result.Entries[i-1]){
+												// if($rootScope.dataforResults.length == 0)
+													// $rootScope.dataforResults.push($scope.allData.result.result.Entries[i-1]);
+											// }
+											// else{
+												// if(result.result.result.Entries[i+1]){
+													// if($rootScope.dataforResults.length == 0)
+														// $rootScope.dataforResults.push($scope.allData.result.result.Entries[i+1]);
+												// }
+											// }
+										// }
+									// }
+									// else{
+										// if($rootScope.dataforResults.length == 0)
+											// $rootScope.dataforResults.push($scope.allData.result.result.Entries[0]);
+									// }
+								// }
+							// }
+						// }
+					// }
+					// $cookieStore.put('totalPollCounts', $rootScope.totalPollsResults);
+					// $scope.displayPollresults = $rootScope.dataforResults;
+					// $scope.incrementedVal = $scope.incrementedVal + 1;
+					// debugger;
+					// $scope.recursiveCall(result);
+					// $scope.$apply();
+				// }
 		});
 	};
 	
 	$scope.resultCheckPolls = function(result) {
 		$scope.datatoCheckPolls = result;
 		$rootScope.incrementedVal = $scope.incrementedVal;
-		endpoints.mobileHandler.getPanelistPollResponses($scope.apiKey, $scope.userId,$scope.panelistId,$scope.datatoCheckPolls.result.result.Entries[$scope.incrementedVal].taskId, function(response){
-			var ItemId = $scope.datatoCheckPolls.result.result.Entries[$scope.incrementedVal].itemId;
-			if(response.result.success){
-				if(response.result.result.length > 0){
-					
-				}
-				else{
-					debugger;
-					$scope.allPolls.push($scope.datatoCheckPolls.result.result.Entries[$scope.incrementedVal]);
-				}
-			}
-			
-			endpoints.mobileHandler.getPollResponseCounts($scope.apiKey, $scope.userId, $scope.datatoCheckPolls.result.result.Entries[$scope.incrementedVal].taskId, function(response){
-				 for(var i=0; i<$scope.datatoCheckPolls.result.result.Entries.length; i++){
+		endpoints.mobileHandler.getPanelistPollResponses($scope.apiKey, $scope.userId,$scope.panelistId,result.result.result.Entries[$scope.incrementedVal].taskId, function(response){
+			var ItemId = result.result.result.Entries[$scope.incrementedVal].itemId;			
+			endpoints.mobileHandler.getPollResponseCounts($scope.apiKey, $scope.userId, result.result.result.Entries[$scope.incrementedVal].taskId, function(response){
+				 for(var i=0; i<result.result.result.Entries.length; i++){
 					if(response.result.result[0]){
-						if($scope.datatoCheckPolls.result.result.Entries[i].itemId == response.result.result[0].itemId){
+						if(result.result.result.Entries[i].itemId == response.result.result[0].itemId){
 							for(var j=0; j<response.result.result[0].values.length; j++){
-								for(var p=0; p<$scope.datatoCheckPolls.result.result.Entries[i].options.categories.length; p++){
+								for(var p=0; p<result.result.result.Entries[i].options.categories.length; p++){
 									if(response.result.result[0].values[j]){
-										if(response.result.result[0].values[j].value == $scope.datatoCheckPolls.result.result.Entries[i].options.categories[p].values){
+										if(response.result.result[0].values[j].value == result.result.result.Entries[i].options.categories[p].values){
 											response.result.result[0].values[j].count = (response.result.result[0].values[j].count /response.result.result[0].responseCount)*100;
 											//$scope.resultCalculated = result.result.result.Entries[i].options.categories;
-											$scope.datatoCheckPolls.result.result.Entries[i].options.categories[p].values = Math.round(response.result.result[0].values[j].count);
+											result.result.result.Entries[i].options.categories[p].values = Math.round(response.result.result[0].values[j].count);
 										}
 									}
 									else {
-										$scope.datatoCheckPolls.result.result.Entries[i].options.categories[p].values = 0;
+										result.result.result.Entries[i].options.categories[p].values = 0;
 									}
 								}				
 							}
-							$rootScope.totalPollsResults.push($scope.datatoCheckPolls.result.result.Entries[i]);
-							if($scope.allPolls.length > 0){
-								if($scope.datatoCheckPolls.result.result.Entries[i].itemId != $scope.allPolls[0].itemId){
-									$rootScope.dataforResults.push($scope.datatoCheckPolls.result.result.Entries[i]);
-								}
-								else{
-									if($scope.datatoCheckPolls.result.result.Entries[i-1]){
-										if($rootScope.dataforResults.length == 0)
-											$rootScope.dataforResults.push($scope.datatoCheckPolls.result.result.Entries[i-1]);
-									}
-									else{
-										if($scope.datatoCheckPolls.result.result.Entries[i+1]){
-											if($rootScope.dataforResults.length == 0)
-												$rootScope.dataforResults.push($scope.datatoCheckPolls.result.result.Entries[i+1]);
-										}
-									}
-								}
-							}
-							else{
-								if($rootScope.dataforResults.length == 0)
-									$rootScope.dataforResults.push($scope.datatoCheckPolls.result.result.Entries[0]);
-							}
+							$rootScope.totalPollsResults.push(result.result.result.Entries[i]);
+							$rootScope.dataforResults.push(result.result.result.Entries[i]);
+							// if($scope.allPolls.length > 0){
+								// if(result.result.result.Entries[i].itemId != $scope.allPolls[0].itemId){
+									// $rootScope.dataforResults.push(result.result.result.Entries[i]);
+								// }
+								// else{
+									// if(result.result.result.Entries[i-1]){
+										// if($rootScope.dataforResults.length == 0)
+											// $rootScope.dataforResults.push(result.result.result.Entries[i-1]);
+									// }
+									// else{
+										// if($scope.datatoCheckPolls.result.result.Entries[i+1]){
+											// if($rootScope.dataforResults.length == 0)
+												// $rootScope.dataforResults.push($scope.datatoCheckPolls.result.result.Entries[i+1]);
+										// }
+									// }
+								// }
+							// }
+							// else{
+								// if($rootScope.dataforResults.length == 0)
+									// $rootScope.dataforResults.push($scope.datatoCheckPolls.result.result.Entries[0]);
+							// }
 						}
 					}
 				}
@@ -545,6 +545,9 @@ myApp.controller('pollsCtrl', function($scope, $rootScope, $location, $localStor
 		$scope.value = [];
 		$scope.allVotes = [];
 		var value = $('input[name="poll"]:checked').val();
+		$('input[name="pollCheck"]:checked').each(function(){
+			$scope.value.push($(this).val());
+		});	
 		debugger;
 		$scope.value.push(value);
 		debugger;
@@ -614,8 +617,7 @@ myApp.controller('pollResultCtrl', function($scope, $location, $rootScope, $loca
 				}
 			}
 		});
-	}
-	
+	}	
 });
 
 myApp.controller('navCtrl', function($scope, $cookieStore, $rootScope, $location, $localStorage, $timeout){
@@ -1348,6 +1350,8 @@ myApp.controller('forumCtrl', function($scope,$localStorage,$rootScope,$location
 	}
  
 	$scope.getChilds=function(id){
+		debugger;
+		$scope.showReplyBox(id);
 		if($scope.showChilds){
 			$scope.showChilds = false;
 			$scope.childThreads = [];
@@ -1385,10 +1389,12 @@ myApp.controller('forumCtrl', function($scope,$localStorage,$rootScope,$location
 	$scope.showReplyBox = function(Id){
 		if($scope.replyBoxforReplies){
 			$scope.replyBoxforReplies = false;
+			
 			$('.showReplyBoxforReply' + Id).hide();
 		}
 		else{
 			$scope.replyBoxforReplies = true;
+			$('.replyBoxParent').hide();
 			$('.showReplyBoxforReply' + Id).show();
 		}
 	};
@@ -1412,6 +1418,7 @@ myApp.controller('forumCtrl', function($scope,$localStorage,$rootScope,$location
 	};
  
 	$scope.submitPost = function(){
+		debugger;
 		$scope.threadInfo=[{"name":"Subject","value":$scope.postTitle},{"name":"Body","value":$scope.postBody}];
 		endpoints.mobileHandler.createThread($scope.apiKey,$scope.userId,3,$scope.threadInfo,function(response){
 			if(response.result.success){
@@ -2080,6 +2087,15 @@ myApp.controller('profileCtrl', function($scope, $localStorage, $location){
 	$scope.assignmentActive = false;
 	$scope.forumActive = false;
 	$scope.messagesactive = false;
+	$('.tab-section').hide();
+		$('#profile_setting').show();
+	// $('.tabs').on('click',function(){
+		// $tab = $(this).data('tab');
+		// $('.tabs').removeClass('active');
+		// $(this).addClass('active');
+		// $('.tab-section').hide();
+		// $('#'+$tab).show();
+	// });
 	
 	$scope.messages = [];
 	$scope.tempArr = [];
@@ -2176,6 +2192,39 @@ myApp.controller('profileCtrl', function($scope, $localStorage, $location){
 				alert('Profile successfully updated');
 			}
 		});
+	};
+	
+	$scope.uploadFile = function (input){
+		$scope.data = {};
+		$scope.data.userUpload = '';
+		$scope.fileName="";
+		var x="";
+		if(input.files && input.files[0]) {
+			$scope.showLoader = true;
+			var reader = new FileReader();
+			//reader.readAsDataURL(input);
+			reader.onload = function (e) {
+				var mediaT = input.files[0].type.split('/');
+				mediaType = mediaT[0];
+				x=e.target.result.split('base64,');
+				$scope.data.userUpload = x[1];
+				//console.log($scope.data.userUpload.substring(0,64).length);
+				$scope.fileName = input.files[0].name;
+				debugger;
+				endpoints.mobileHandler.updateAvatar($scope.apiKey, $scope.userId, $scope.data.userUpload, $scope.fileName, function(result){
+					if(result.result.success){
+						$scope.showLoader = false;
+						$route.reload();
+					}
+					else{
+						alert('fail');
+					}
+				});
+				$scope.$apply();
+			}					
+			//Renders Image on Page
+			reader.readAsDataURL(input.files[0]);
+		}
 	};
 });
 

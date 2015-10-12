@@ -127,28 +127,6 @@
 		</div>	
 		</div>
 	</li>
-	
-	<!--<li>
-		<div class="cont_postmsg clearfix">		
-		<div class="postimg_box">
-		<img class="img-responsive img-circle" src="images/recentuser2.jpg" alt="">
-		</div>	
-		<div class="msg_postsec clearfix bdr_pink">
-		<span class="postname">MILEY CYRUS</span>		
-		<p>I know what I'm doing. I know I'm shocking you.</p>
-		</div>	
-		</div>
-	</li><li>
-		<div class="cont_postmsg clearfix">		
-		<div class="postimg_box">
-		<img class="img-responsive img-circle" src="images/recentuser2.jpg" alt="">
-		</div>	
-		<div class="msg_postsec clearfix bdr_pink">
-		<span class="postname">MILEY CYRUS</span>		
-		<p>I know what I'm doing. I know I'm shocking you.</p>
-		</div>	
-		</div>
-	</li>-->
 </ul>
 		
 		</div>
@@ -167,111 +145,10 @@
 
 </div>
 </div>
-		
-<div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
-	<div class="quickpool_cont">
-<div class="greentitle_top">QUICK POLL</div>
-<div class="quickpool clearfix">
-<h3>How are you today?</h3>
-<ul>
-<li>
-<div class="radio">
-<label><input type="radio" name="browser" value="firefox"> Yes</label>
-</div>
-</li>
-
-<li>
-<div class="radio">
-<label><input type="radio" name="browser" value="firefox"> No</label>
-</div>
-</li>
-
-<li>
-<div class="radio">
-<label><input type="radio" name="browser" value="firefox"> May be</label>
-</div>
-</li>
-
-<li>
-<div class="radio">
-<label><input type="radio" name="browser" value="firefox"> Good</label>
-</div>
-</li>
-</ul>
-	<div class="center_btn">
-	<button class="postbtn">SUBMIT VOTE</button>
-	</div>			
-</div>	
-</div>
-	
-<div class="quickpool_cont qpool2">
-<div class="greentitle_top">QUICK POLL</div>
-<div class="quickpool clearfix">
-<h3>How are you today?</h3>
-<ul>
-<li>
-<div class="radio">
-<label><input type="radio" name="browser" value="firefox"> Yes</label>
-</div>
-</li>
-
-<li>
-<div class="radio">
-<label><input type="radio" name="browser" value="firefox"> No</label>
-</div>
-</li>
-
-<li>
-<div class="radio">
-<label><input type="radio" name="browser" value="firefox"> May be</label>
-</div>
-</li>
-
-<li>
-<div class="radio">
-<label><input type="radio" name="browser" value="firefox"> Good</label>
-</div>
-</li>
-</ul>
-	<div class="center_btn">
-	<button class="postbtn">SUBMIT VOTE</button>
-	</div>			
-</div>	
-</div>
-	
-</div>
+<div ng-include="'polls.html'" ng-controller="pollsCtrl"></div>
 </div>
 </div>
 <!-- Middle Section end -->
-
-
-
-
-<script type="text/javascript">
-    function customRadio(radioName){
-    	
-        var radioButton = $('input[name="'+ radioName +'"]');
-        $(radioButton).each(function(){
-            $(this).wrap( "<span class='custom-radio'></span>" );
-            if($(this).is(':checked')){
-                $(this).parent().addClass("selected");
-            }
-        });
-        $(radioButton).click(function(){
-            if($(this).is(':checked')){
-                $(this).parent().addClass("selected");
-            }
-            $(radioButton).not(this).each(function(){
-                $(this).parent().removeClass("selected");
-            });
-        });
-    }
-  
-	customRadio("browser");
-    customRadio("search-engine");            
-    customRadio("confirm");
-	//$('.selectpicker').selectpicker();
-</script>
 
 
 

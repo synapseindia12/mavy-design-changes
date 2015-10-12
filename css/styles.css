@@ -431,8 +431,9 @@ header{margin-top:25px; font-family: 'Montserrat', sans-serif;}
 .forumtitle_top { padding:15px; margin:0; background:#d6f5ff; border-bottom:solid 4px #abc4cc; border-radius:10px 10px 0 0; font-size:14px; color:#e465d4; font-weight:300; text-transform:uppercase; font-weight:bold; font-family: 'Montserrat', sans-serif;}
 .create_postsec { padding:0; margin:22px 45px 0 45px; min-height:400px; border-radius:10px 10px 0 0; position:relative;}
 .cptitle_top { padding:15px; margin:0; background:#e465d4; border-bottom:solid 4px #becacc; border-radius:10px 10px 0px 0px; font-size:14px; color:#fff; font-weight:300; text-transform:uppercase; font-weight:bold; font-family: 'Montserrat', sans-serif;}
-.typepost { border-radius:0 0 10px 10px; overflow:hidden; position:relative;}
-.typepost textarea { padding:10px 8px 45px 8px; width:100%; border:none; background:#e3eff1; min-height:160px; resize:none;}
+.typepost { border-radius:0 0 10px 10px; overflow:hidden; position:relative; background: #fff; padding: 0 10px;}
+.typepost .title-field{font-weight:800;border: none;background: transparent;border-bottom: 1px solid #EDEDED;padding: 10px 8px;width:100%;}
+.typepost textarea { padding:10px 8px 45px 8px; width:100%; border:none; background: transparent; min-height:160px; resize:none;}
 .btn_submitpost { position:absolute; right:20px; bottom:20px; background:none; border:none; font-size:14px; font-weight:bold; text-transform:uppercase; color:#0099ff; border:solid 2px #009afe; padding:5px 25px; max-width:165px; border-radius:10px;}
 .btn_submitpost:hover { background:#028dea; color:#fff;}
 
@@ -467,7 +468,7 @@ header{margin-top:25px; font-family: 'Montserrat', sans-serif;}
 .greentitle_top { padding:15px; margin:0; background:#2dd8a3; border-bottom:solid 4px #24ad83; border-radius:10px 10px 0 0; font-size:14px; color:#eafdff; font-weight:300; font-weight:bold; font-family: 'Montserrat', sans-serif;}
 .quickpool { padding:0; margin:15px 10px}
 .quickpool h3 {padding:0; margin:0px 0 15px 0; font-size:14px; color:#5b5b5b; line-height:normal;}
-.quickpool ul { padding:0; margin:0;}
+.quickpool ul {  padding: 0 0 0 20px; margin:0;}
 .quickpool ul li { margin:0 0 15px 0; padding:0 0 0 0px; font-weight:normal; text-transform:uppercase;}
 .quickpool .radio {padding-left:0px;}
 
@@ -815,3 +816,21 @@ footer {margin:40px auto auto}
 .signin:hover{background: #0099ff;opacity: 1;}
 /************** ./Profile/account setting - 07/10/15 - Emp1682 ***************/
 
+.msg_postsec p img{display: block;}
+.cont_postmsg .replyBoxParent{
+  background: white;border-radius: 10px; padding: 10px 20px 10px;
+  margin-bottom: 10px;
+}
+.cont_postmsg .replyBoxParent textarea{
+  background: transparent;border: none;resize:none;min-height: 130px;width:100%;
+}
+.cont_postmsg .replyBoxParent button{background: transparent;color:#0099ff;border:2px solid #0099ff;
+  border-radius: 10px; font-size: 14px;font-weight: bold;max-width: 165px;padding: 5px 25px;float: right;
+  margin-top: 15px;
+}
+.cont_postmsg .replyBoxParent button:hover{color:#fff;background:#0099ff; }
+.cont_postmsg .replyBoxParent p{float: left; margin-top: 15px;position:relative;cursor: pointer;
+}
+.cont_postmsg .replyBoxParent p button{margin: 0;}
+.cont_postmsg .replyBoxParent p input{position: absolute;top:0;left:0; width:100%;height: 100%;opacity: 0;}
+.cont_postmsg .replyBoxParent p:hover button{color:#fff;background:#0099ff; }
