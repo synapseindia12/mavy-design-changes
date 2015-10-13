@@ -111,13 +111,6 @@ myApp.controller('signupCtrl', function($scope, $rootScope, $location, $cookieSt
 	$scope.newArray = [];
 	endpoints.apiKey = "835mzggn289l9wxnjxjr323kny6q";
 	endpoints.mobileHandler = new MobileHandler();
-
-	setTimeout(function(){
-		$('.bxslider').bxSlider({
-            mode: 'vertical',
-            slideMargin: 5
-        });
-	}, 100);
 	
 	$scope.login = function() {
 		debugger;
@@ -305,8 +298,11 @@ myApp.controller('indexCtrl', function($scope, $cookieStore, $rootScope, $localS
 	endpoints.mobileHandler.getPanelistAttributes($scope.apiKey, $scope.userId, $scope.panelistId, function(callback){
 		if(callback.result.success){
 			$scope.avatarUrl = callback.result.result.AvatarUrl;
+			$rootScope.avatarUrl = callback.result.result.AvatarUrl;
 			$scope.fname = callback.result.result.fname;
+			$rootScope.fname = callback.result.result.fname;
 			$scope.lname = callback.result.result.lname;
+			$rootScope.lname = callback.result.result.lname;
 			$rootScope.email = callback.result.result.email;
 			$scope.email = callback.result.result.email;
 			$scope.selectedMonth = callback.result.result.bdate.slice('/')[0];
@@ -632,6 +628,11 @@ myApp.controller('navCtrl', function($scope, $cookieStore, $rootScope, $location
 		});
 	}
 	
+	$scope.initializeSelectpicker = function() {
+		debugger;
+		$('.selectpicker').selectpicker();
+	}
+	
 	// $scope.showHideImages = function() {
 		// $scope.Active = false;
 		// $scope.Assignments = false;
@@ -676,21 +677,24 @@ myApp.controller('navCtrl', function($scope, $cookieStore, $rootScope, $location
 	endpoints.mobileHandler.getPanelistAttributes($scope.apiKey, $scope.userId, $scope.panelistId, function(callback){
 		if(callback.result.success){
 			$scope.avatarUrl = callback.result.result.AvatarUrl;
+			$rootScope.avatarUrl = callback.result.result.AvatarUrl;
 			$scope.fname = callback.result.result.fname;
+			$rootScope.fname = callback.result.result.fname;
 			$scope.lname = callback.result.result.lname;
+			$rootScope.lname = callback.result.result.lname;
 			$rootScope.email = callback.result.result.email;
-			// $scope.email = callback.result.result.email;
-			// $scope.selectedMonth = callback.result.result.bdate.slice('/')[0];
-			// $scope.selectedDate = callback.result.result.bdate.slice('/')[2];
-			// $scope.selectedYear = callback.result.result.bdate.slice('/')[4]+callback.result.result.bdate.slice('/')[5]+callback.result.result.bdate.slice('/')[6]+callback.result.result.bdate.slice('/')[7];
-			// $scope.gender = callback.result.result.gend;
-			// $scope.zipcode = callback.result.result.zipc;
-			// $scope.mobileNumber = callback.result.result.cell_phone;
-			// endpoints.mobileHandler.getIncentives($scope.apiKey, $scope.userId, $scope.panelistId, null, null, function(result){
-				// alert('Got incentives');
-				// debugger;
-			// });
-			$scope.$apply();			
+			$scope.email = callback.result.result.email;
+			$scope.selectedMonth = callback.result.result.bdate.slice('/')[0];
+			$scope.selectedDate = callback.result.result.bdate.slice('/')[2];
+			$scope.selectedYear = callback.result.result.bdate.slice('/')[4]+callback.result.result.bdate.slice('/')[5]+callback.result.result.bdate.slice('/')[6]+callback.result.result.bdate.slice('/')[7];
+			$scope.gender = callback.result.result.gend;
+			$scope.zipcode = callback.result.result.zipc;
+			$scope.mobileNumber = callback.result.result.cell_phone;
+			$scope.options = [{"name": $scope.fname + ' ' + $scope.lname}, {"name": "KetchUp"}, {"name": "Relish"}];
+			endpoints.mobileHandler.getIncentives($scope.apiKey, $scope.userId, $scope.panelistId, null, null, function(result){
+				$scope.redeemable = result.result.result[result.result.result.length-1].redeemable;
+				$scope.$apply();
+			});
 		}
 	});
 	
@@ -704,7 +708,13 @@ myApp.controller('navCtrl', function($scope, $cookieStore, $rootScope, $location
 		delete $localStorage.loggedIn;
 		delete $localStorage.loginDetails;
 		$location.path('/');
-	}
+	};
+	
+	$scope.dropChange = function(model){
+		if(model == 'logout'){
+			$scope.logout();
+		}
+	};
 	
 	$scope.showHideimages = function(item){
 		switch(item){
@@ -799,7 +809,7 @@ myApp.controller('assignmentCtrl', function($scope, $location, $cookieStore, $lo
 	$scope.showAssignmentTasks = function(assignment){
 		$cookieStore.put('assignment', assignment);
 		$location.path('/assignments/showAssignment');
-	}
+	};
 	
 });
 
@@ -1350,8 +1360,8 @@ myApp.controller('forumCtrl', function($scope,$localStorage,$rootScope,$location
 	}
  
 	$scope.getChilds=function(id){
-		debugger;
-		$scope.showReplyBox(id);
+		
+		
 		if($scope.showChilds){
 			$scope.showChilds = false;
 			$scope.childThreads = [];
@@ -1387,16 +1397,9 @@ myApp.controller('forumCtrl', function($scope,$localStorage,$rootScope,$location
 	}
 	
 	$scope.showReplyBox = function(Id){
-		if($scope.replyBoxforReplies){
-			$scope.replyBoxforReplies = false;
-			
-			$('.showReplyBoxforReply' + Id).hide();
-		}
-		else{
-			$scope.replyBoxforReplies = true;
-			$('.replyBoxParent').hide();
-			$('.showReplyBoxforReply' + Id).show();
-		}
+	
+		$('.showReplyBoxforReply' + Id).toggle();
+		
 	};
  
 	$scope.showCommentbox = function(id) {
@@ -1528,7 +1531,13 @@ myApp.controller('forumCtrl', function($scope,$localStorage,$rootScope,$location
   // var hash = CryptoJS.HmacSHA1("Message", "akash");
   // alert(hash);
  // }
- 
+ 	
+ 	$scope.closeThisLevel = function(id){
+ 		$('#displayReplyBox'+id).hide();
+ 		$scope.nextLevelChild = [];
+ 		$scope.$apply();
+ 	}
+
 	$scope.uploadFile = function (input){
 		$scope.data = {};
 		$scope.data.userUpload = '';
@@ -2077,7 +2086,7 @@ myApp.controller('messageconversationCtrl', function($scope,$localStorage,$cooki
 	}
 });
 
-myApp.controller('profileCtrl', function($scope, $localStorage, $location){
+myApp.controller('profileCtrl', function($scope, $localStorage, $location, $rootScope){
 	if(!$localStorage.loginDetails){
 		delete $localStorage.loggedIn;
 		$location.path('/');
@@ -2088,17 +2097,10 @@ myApp.controller('profileCtrl', function($scope, $localStorage, $location){
 	$scope.forumActive = false;
 	$scope.messagesactive = false;
 	$('.tab-section').hide();
-		$('#profile_setting').show();
-	// $('.tabs').on('click',function(){
-		// $tab = $(this).data('tab');
-		// $('.tabs').removeClass('active');
-		// $(this).addClass('active');
-		// $('.tab-section').hide();
-		// $('#'+$tab).show();
-	// });
-	
+	$('#profile_setting').show();
 	$scope.messages = [];
 	$scope.tempArr = [];
+	$scope.resetPassword = {};
 	
 	/* Getting all local Storage data for User Authentication */
 	var loginDetails = $localStorage.loginDetails;
@@ -2116,6 +2118,27 @@ myApp.controller('profileCtrl', function($scope, $localStorage, $location){
 	endpoints.mobileHandler = new MobileHandler();
 	//Querying APi for response using endpoints
 	$scope.profilePage = 'setting-page-active';
+	
+	$scope.redirectTo = function(link){
+		if(link == 'profile'){
+			$rootScope.settings = true;
+			$rootScope.rewards = false;
+			$rootScope.badges = false;
+			$location.path('/profile');
+		}
+		if(link == 'badges'){
+			$rootScope.settings = false;
+			$rootScope.rewards = false;
+			$rootScope.badges = true;
+			//$location.path('/badges');
+		}
+		if(link == 'rewards'){
+			$rootScope.settings = false;
+			$rootScope.rewards = true;
+			$rootScope.badges = false;
+			//$location.path('/rewards');
+		}
+	};
 	
 	endpoints.mobileHandler.getPanelistAttributes($scope.apiKey, $scope.userId, $scope.panelistId, function(callback){
 		if(callback.result.success){
@@ -2225,6 +2248,348 @@ myApp.controller('profileCtrl', function($scope, $localStorage, $location){
 			//Renders Image on Page
 			reader.readAsDataURL(input.files[0]);
 		}
+	};
+	
+	$scope.resetPass = function(resetPassword) {
+
+		$scope.currentPass = $scope.resetPassword.cpass;
+		$scope.newPass = $scope.resetPassword.npass;
+		$scope.verifyNewPass = $scope.resetPassword.vnpass;
+		if($scope.resetPassword.vnpass == $scope.resetPassword.npass){
+			endpoints.mobileHandler.changePassword($scope.apiKey, $scope.userId, $scope.currentPass, $scope.newPass, function(result){
+				if(result.result.success){
+					alert('Password Changed');
+					$scope.resetPassword.cpass = '';
+					$scope.resetPassword.npass = '';
+					$scope.resetPassword.vnpass = '';
+					delete $localStorage.loggedIn;
+					delete $localStorage.loginDetails;
+					$location.path('/');
+					$scope.$apply();
+				}
+				else{
+					alert(result.result.message);
+				}
+			});
+		}
+		else{
+			alert('Password Do not match');
+			$scope.resetPassword.npass = '';
+			$scope.resetPassword.vnpass = '';
+			return;
+		}
+	};
+	
+	/* Notification for the new design */
+	
+	endpoints.mobileHandler.getNotifications($scope.apiKey, $scope.userId, $scope.panelistId, function(result){
+		if(result.result.success){
+			var resultArray = result.result.result;
+			$scope.preferences = resultArray;
+			for(var i=0; i<resultArray.length; i++){
+				switch(resultArray[i]){
+					case "3a": 
+						if($scope.preferences.indexOf("3e") !== -1){
+							if($scope.preferences.indexOf("3h") !== -1){
+								$scope.pushCheck = true;
+							}
+						}	
+					break;
+					case "2a": 
+						if($scope.preferences.indexOf("2e") !== -1){
+							if($scope.preferences.indexOf("2h") !== -1){
+								$scope.smsCheck = true;
+							}
+						}
+					break;
+					case "1a": 
+						if($scope.preferences.indexOf("1e") !== -1){
+							if($scope.preferences.indexOf("1h") !== -1){
+								$scope.emailCheck = true;
+							}
+						}
+					break;
+					case "3b": 
+						if($scope.preferences.indexOf("3c") !== -1){
+							$scope.forumPush = true;							
+						}
+					break;
+					case "2b": 
+						if($scope.preferences.indexOf("2c") !== -1){
+							$scope.forumSMS = true;
+						}
+					break;
+					case "1b": 
+						if($scope.preferences.indexOf("1c") !== -1){
+							$scope.forumEmail = true;
+						}
+					break;
+					case "3f": 
+						$scope.messagesPush = true;
+					break;
+					case "2f": 
+						$scope.messagesSMS = true;
+					break;
+					case "1f": 
+						$scope.messagesEmail = true;
+					break;
+					case "3d":
+						$scope.resultsPush = true;
+						break;
+					case "2d":
+						$scope.resultsSMS = true;
+						break;
+					case "1d":
+						$scope.resultsEmail = true;
+						break;
+				}
+			}
+			$scope.$apply();
+		}
+	});
+	
+	$scope.updateNotification = function() {
+		debugger;
+		if($scope.emailCheck){
+			if($scope.preferences.indexOf("3a") == -1)
+				$scope.preferences.push("3a", "3e", "3h");
+		}
+		else{
+			var findIndexes = [];
+			if($scope.preferences.indexOf("3a") !== -1){
+				findIndexes.push($scope.preferences.indexOf("3a"));
+				findIndexes.push($scope.preferences.indexOf("3e"));
+				findIndexes.push($scope.preferences.indexOf("3h"));
+				if(findIndexes.length > 0){
+					for(var i=0; i< findIndexes.length; i++){
+						$scope.preferences.splice(findIndexes[i], 1);
+					}
+				}
+			}
+		}
+		if($scope.smsCheck){
+			if($scope.preferences.indexOf("2a") == -1){
+				endpoints.mobileHandler.getPanelistAttributes($scope.apiKey, $scope.userId, $scope.panelistId, function(callback){
+					if(callback.result.success){
+						if(callback.result.result.cellphone){
+							$scope.mobileNumber = callback.result.result.cellphone.replace(/-/g, "");
+							if($scope.mobileNumber.length == 10){
+								$scope.preferences.push("2a", "2e", "2h");
+							}
+							else{
+								alert('Phone Number not valid');
+								$scope.smsCheck = '';
+								$location.path('/profile');
+							}
+						}
+						else{
+							alert('Please update your phone number');
+							$scope.smsCheck = '';
+							$location.path('/profile');
+						}
+					}
+					$scope.$apply();
+				});
+			}
+		}
+		else{
+			var findIndexes = [];
+			if($scope.preferences.indexOf("2a") !== -1){
+				findIndexes.push($scope.preferences.indexOf("2a"));
+				findIndexes.push($scope.preferences.indexOf("2e"));
+				findIndexes.push($scope.preferences.indexOf("2h"));
+				if(findIndexes.length > 0){
+					for(var i=0; i< findIndexes.length; i++){
+						$scope.preferences.splice(findIndexes[i], 1);
+					}
+				}
+			}
+		}
+		if($scope.pushCheck){
+			if($scope.preferences.indexOf("1a") == -1)
+				$scope.preferences.push("1a", "1e", "1h");
+		}
+		else {
+			var findIndexes = [];
+			if($scope.preferences.indexOf("1a") !== -1){
+				findIndexes.push($scope.preferences.indexOf("1a"));
+				findIndexes.push($scope.preferences.indexOf("1e"));
+				findIndexes.push($scope.preferences.indexOf("1h"));
+				if(findIndexes.length > 0){
+					for(var i=0; i< findIndexes.length; i++){
+						$scope.preferences.splice(findIndexes[i], 1);
+					}
+				}
+			}
+		}
+		if($scope.forumEmail){
+			if($scope.preferences.indexOf("3b") == -1)
+				$scope.preferences.push("3b", "3c");
+		}
+		else {
+			var findIndexes = [];
+			if($scope.preferences.indexOf("3b") !== -1){
+				findIndexes.push($scope.preferences.indexOf("3b"));
+				findIndexes.push($scope.preferences.indexOf("3c"));
+				if(findIndexes.length > 0){
+					for(var i=0; i< findIndexes.length; i++){
+						$scope.preferences.splice(findIndexes[i], 1);
+					}
+				}
+			}
+		}
+		if($scope.forumSMS){
+			if($scope.preferences.indexOf("2b") == -1){
+				endpoints.mobileHandler.getPanelistAttributes($scope.apiKey, $scope.userId, $scope.panelistId, function(callback){
+					if(callback.result.success){
+						if(callback.result.result.cellphone){
+							$scope.mobileNumber = callback.result.result.cellphone.replace(/-/g, "");
+							if($scope.mobileNumber.length == 10){
+								$scope.preferences.push("2b", "2c");
+							}
+							else{
+								alert('Phone Number not valid');
+								$scope.forumSMS = '';
+								$location.path('/profile');
+							}
+						}
+						else{
+							alert('Please update your phone number');
+							$scope.forumSMS = '';
+							$location.path('/profile');
+						}
+					}
+					$scope.$apply();
+				});
+			}
+		}
+		else{
+			var findIndexes = [];
+			if($scope.preferences.indexOf("2b") !== -1){
+				findIndexes.push($scope.preferences.indexOf("2b"));
+				findIndexes.push($scope.preferences.indexOf("2c"));
+				if(findIndexes.length > 0){
+					for(var i=0; i< findIndexes.length; i++){
+						$scope.preferences.splice(findIndexes[i], 1);
+					}
+				}
+			}
+		}
+		if($scope.forumPush){
+			if($scope.preferences.indexOf("1b") == -1)
+				$scope.preferences.push("1b", "1c");
+		}
+		else{
+			var findIndexes = [];
+			if($scope.preferences.indexOf("1b") !== -1){
+				findIndexes.push($scope.preferences.indexOf("1b"));
+				findIndexes.push($scope.preferences.indexOf("1c"));
+				if(findIndexes.length > 0){
+					for(var i=0; i< findIndexes.length; i++){
+						$scope.preferences.splice(findIndexes[i], 1);
+					}
+				}
+			}
+		}
+		if($scope.resultsEmail){
+			if($scope.preferences.indexOf("3d") == -1)
+				$scope.preferences.push("3d");
+		}
+		else{
+			var index = $scope.preferences.indexOf("3d");
+			if(index !== -1)
+				$scope.preferences.splice(index, 1);
+		}
+		if($scope.resultsSMS){
+			if($scope.preferences.indexOf("2d") == -1){
+				endpoints.mobileHandler.getPanelistAttributes($scope.apiKey, $scope.userId, $scope.panelistId, function(callback){
+					if(callback.result.success){
+						if(callback.result.result.cellphone){
+							$scope.mobileNumber = callback.result.result.cellphone.replace(/-/g, "");
+							if($scope.mobileNumber.length == 10){
+								$scope.preferences.push("2d");
+							}
+							else{
+								alert('Phone Number not valid');
+								$scope.forumSMS = '';
+								$location.path('/profile');
+							}
+						}
+						else{
+							alert('Please update your phone number');
+							$scope.forumSMS = '';
+							$location.path('/profile');
+						}
+					}
+					$scope.$apply();
+				});
+			}
+		}
+		else{
+			var index = $scope.preferences.indexOf("2d");
+			if(index !== -1)
+				$scope.preferences.splice(index, 1);
+		}
+		if($scope.resultsPush){
+			if($scope.preferences.indexOf("1d") == -1)
+				$scope.preferences.push("1d");
+		}
+		else{
+			var index = $scope.preferences.indexOf("1d");
+			if(index !== -1)
+				$scope.preferences.splice(index, 1);
+		}
+		if($scope.messagesEmail){
+			if($scope.preferences.indexOf("3f") == -1)
+				$scope.preferences.push("3f");
+		}
+		else{
+			var index = $scope.preferences.indexOf("3f");
+			if(index !== -1)
+				$scope.preferences.splice(index, 1);
+		}
+		if($scope.messagesSMS){
+			if($scope.preferences.indexOf("2f") == -1){
+				endpoints.mobileHandler.getPanelistAttributes($scope.apiKey, $scope.userId, $scope.panelistId, function(callback){
+					if(callback.result.success){
+						if(callback.result.result.cellphone){
+							$scope.mobileNumber = callback.result.result.cellphone.replace(/-/g, "");
+							if($scope.mobileNumber.length == 10){
+								$scope.preferences.push("2f");
+							}
+							else{
+								alert('Phone Number not valid');
+								$scope.forumSMS = '';
+								$location.path('/profile');
+							}
+						}
+						else{
+							alert('Please update your phone number');
+							$scope.forumSMS = '';
+							$location.path('/profile');
+						}
+					}
+					$scope.$apply();
+				});
+			}
+		}
+		else{
+			var index = $scope.preferences.indexOf("2f");
+			if(index !== -1)
+				$scope.preferences.splice(index, 1);
+		}
+		if($scope.messagesPush){
+			if($scope.preferences.indexOf("1f") == -1)
+				$scope.preferences.push("1f");
+		}
+		else{
+			var index = $scope.preferences.indexOf("1f");
+			if(index !== -1)
+				$scope.preferences.splice(index, 1);
+		}
+		endpoints.mobileHandler.updateNotifications($scope.apiKey, $scope.userId, $scope.panelistId, $scope.preferences, function(result){
+			
+		});
 	};
 });
 
@@ -2835,19 +3200,13 @@ myApp.controller('rewardDetailsCtrl', function($scope, $rootScope, $modalInstanc
             }
         };
     }])
-	
-.directive('selectWatcher', function ($timeout) {
-    return {
-        link: function (scope, element, attr) {
-            var last = attr.last;
-            if (last === "true") {
-                $timeout(function () {
-                    $(element).parent().selectpicker('val', 'any');
-                    $(element).parent().selectpicker('refresh');
-                });
-            }
-        }
-    };
+
+.directive('mainslider', function($timeout){
+  return {
+      link: function(scope, elm, attrs) {
+            elm.bxSlider({mode: 'vertical'}, {slideMargin: 5});
+       }
+	}
 });
 
 myApp.filter('trustAsResourceUrl', ['$sce', function($sce) {
@@ -2900,6 +3259,7 @@ angular.module('angular-bootstrap-select', [])
             scope.$evalAsync(function () {
               if (!attrs.ngOptions || /track by/.test(attrs.ngOptions)) element.val(newVal);
               element.selectpicker('refresh');
+			  scope.dropChange(newVal);
             });
           });
 
@@ -2943,13 +3303,3 @@ angular.module('angular-bootstrap-select.extra', [])
       }
     };
   });
-
-// $(function(){
-	
-             // $(document).on('click','.reply-to-post a',function(){
-                // if($(this).closest('.grid-content').find('.comment-form.assignm').css('display')=='none'){
-	                // $('.comment-form.assignm').hide();
-	                // $(this).closest('.grid-content').find('.comment-form.assignm').slideDown();
-            	// }
-            // })
- // })

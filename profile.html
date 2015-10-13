@@ -40,7 +40,9 @@
 <!-- Middle Section Start -->
 <div class="container-fluid">
 <div class="row">
-<div ng-include="'left_column.html'"></div>
+<div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+	<div ng-include="'left_column.html'"></div>
+</div>
 
 <div class="col-lg-8 col-md-6 col-sm-6 col-xs-12">
 <div class="middle_forum" ng-init="profile = true">
@@ -249,68 +251,71 @@
 		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 			<div class="account_section">
 				<div class="row">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<h5>CHANGE PASSWORD</h5>
-					</div>
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<label>CURRENT PASSWORD</label>
-					</div>
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<input type="password">
-						<div class="grybdr"></div>
-					</div>
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<label>NEW PASSWORD</label>
-					</div>
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<input type="password">
-						<div class="grybdr"></div>
-					</div>
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<label>VERIFY NEW PASSWORD</label>
-					</div>
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<input type="password">
-						<div class="grybdr"></div>
-					</div>
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<h5>NOTIFICATIONS</h5>
-						<div class="row">
-							<div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
-								<label>QUIZZES</label>
-								<div class="btn_sel">
-									<a href="#">EMAIL</a>
-									<a href="#" class="selected">TEXT</a>
+					<form id="change-password" ng-submit="resetPass(resetPassword)" method="post">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<h5>CHANGE PASSWORD</h5>
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<label>CURRENT PASSWORD</label>
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<input type="text" name="current_password" id="currentPasssword"  class="bottom-border" ng-model="resetPassword.cpass" required />
+							<div class="grybdr"></div>
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<label>NEW PASSWORD</label>
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<input type="text" name="new_password" class="bottom-border" id="newPassword" ng-model="resetPassword.npass" required />
+							<div class="grybdr"></div>
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<label>VERIFY NEW PASSWORD</label>
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<input type="text" name="verify_password" id="verify_password" class="bottom-border" ng-model="resetPassword.vnpass" required />
+							<div class="grybdr"></div>
+						</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<h5>NOTIFICATIONS</h5>
+							<div class="row">
+								<div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+									<label>QUIZZES</label>
+									<div class="btn_sel">
+										<a href="javascript: void(0)" ng-click="updateNotification()">EMAIL</a>
+										<a href="javascript: void(0)" ng-click="updateNotification()" class="selected">TEXT</a>
+									</div>
+								</div>
+								<div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+									<label>RESULTS</label>
+									<div class="btn_sel">
+										<a href="javascript: void(0)" ng-click="updateNotification()">EMAIL</a>
+										<a href="javascript: void(0)" ng-click="updateNotification()">TEXT</a>
+									</div>
 								</div>
 							</div>
-							<div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
-								<label>RESULTS</label>
-								<div class="btn_sel">
-									<a href="#">EMAIL</a>
-									<a href="#">TEXT</a>
+							<div class="row">
+								<div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+									<label>FORUM</label>
+									<div class="btn_sel">
+										<a href="javascript: void(0)" ng-click="updateNotification()">EMAIL</a>
+										<a href="javascript: void(0)" ng-click="updateNotification()">TEXT</a>
+									</div>
+								</div>
+								<div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
+									<label>MESSAGES</label>
+									<div class="btn_sel">
+										<a href="javascript: void(0)" ng-click="updateNotification()" class="selected">EMAIL</a>
+										<a href="javascript: void(0)" ng-click="updateNotification()" class="selected">TEXT</a>
+									</div>
 								</div>
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
-								<label>FORUM</label>
-								<div class="btn_sel">
-									<a href="#">EMAIL</a>
-									<a href="#">TEXT</a>
-								</div>
-							</div>
-							<div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
-								<label>MESSAGES</label>
-								<div class="btn_sel">
-									<a href="#" class="selected">EMAIL</a>
-									<a href="#" class="selected">TEXT</a>
-								</div>
-							</div>
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<!--<a type="submit" class="save">SAVE CHANGES</a>-->
+							<button class="save" type="submit">SAVE CHANGES</button>
 						</div>
-					</div>
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<a href="#" class="save">SAVE CHANGES</a>
-					</div>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -320,11 +325,3 @@
 <div ng-include="'polls.html'" ng-controller="pollsCtrl"></div>
 </div>
 </div>
-<!-- Middle Section end -->
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-
-<!-- Custom Select box -->
-
-<script src="js/bootstrap-select.js"></script>

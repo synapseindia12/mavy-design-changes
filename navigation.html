@@ -1,3 +1,11 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css">
+
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.min.js"></script>
 <div  ng-controller="navCtrl">
 <header>
 <div class="container-fluid">
@@ -7,11 +15,11 @@
 		<div class="logo"><img src="images/logo.png" alt=""/></div>
 		<div class="head_rightsec">
 			<div class="mobile_nav"><a href="javascript:void(0)"><img src="images/mobile-menu.png" alt=""></a></div>
-			<div class="menu_drop">				
-				<select class="selectpicker" selectpicker="" ng-model="model" toggle-dropdown>
+			<div class="menu_drop">
+				<select class="selectpicker" selectpicker=" " ng-model="model" toggle-dropdown>
 					<option>Howdy, {{fname}}!</option>
-					<option>Ketchup</option>
-					<option>Relish</option>
+					<option value="ketchup"> Ketchup</option>
+					<option value="logout">Log Out</option>
 				</select>
 			</div>
 			<div class="menu_right clearfix">
@@ -33,8 +41,6 @@
 </div>
  </div>
 </header>
-<script src="js/bootstrap-select.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script type="text/javascript">
  $('.mobile_nav').click(function()
 	{

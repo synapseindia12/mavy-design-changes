@@ -778,8 +778,8 @@ footer {margin:40px auto auto}
 }
 .account_section .btn_sel a:hover,.account_section .btn_sel a.selected{background: #008fed; color:#fff;}
 
-.account_section a.save{color:#008fed;text-decoration: none;font-size: 12px; font-weight: bold; display: inline-block;
-  padding: 3px 7px; border: 2px solid #008fed; border-radius: 10px; float: right; margin:20px 50px 30px;
+.account_section button.save{color:#008fed;text-decoration: none;font-size: 12px; font-weight: bold; display: inline-block;
+  padding: 3px 7px; border: 2px solid #008fed; border-radius: 10px; float: right; margin:20px 50px 30px; background: transparent;
 }
 .account_section a.save:hover{background: #008fed; color:#fff;}
 @media (max-width: 1199px){
@@ -818,19 +818,56 @@ footer {margin:40px auto auto}
 
 .msg_postsec p img{display: block;}
 .cont_postmsg .replyBoxParent{
-  background: white;border-radius: 10px; padding: 10px 20px 10px;
+  background: transparent;border-radius: 10px; padding: 10px 20px 10px;
   margin-bottom: 10px;
 }
 .cont_postmsg .replyBoxParent textarea{
-  background: transparent;border: none;resize:none;min-height: 130px;width:100%;
+  background: #fff;border: none;resize:none;min-height: 40px;width:100%;border-radius: 10px;padding: 10px;
+ 
 }
 .cont_postmsg .replyBoxParent button{background: transparent;color:#0099ff;border:2px solid #0099ff;
-  border-radius: 10px; font-size: 14px;font-weight: bold;max-width: 165px;padding: 5px 25px;float: right;
-  margin-top: 15px;
+  border-radius: 10px; font-size: 14px;font-weight: bold;max-width: 165px;padding: 5px 40px 5px 10px;float: left;
+  margin-top: 15px; margin-right: 20px; background: url(../images/send.png) no-repeat; background-position: 85% center;
 }
-.cont_postmsg .replyBoxParent button:hover{color:#fff;background:#0099ff; }
-.cont_postmsg .replyBoxParent p{float: left; margin-top: 15px;position:relative;cursor: pointer;
+/*.cont_postmsg .replyBoxParent button:hover{color:#fff;background:#0099ff; }*/
+.cont_postmsg .replyBoxParent p{float: left; margin-top: 15px;position:relative; cursor: pointer;
 }
-.cont_postmsg .replyBoxParent p button{margin: 0;}
-.cont_postmsg .replyBoxParent p input{position: absolute;top:0;left:0; width:100%;height: 100%;opacity: 0;}
-.cont_postmsg .replyBoxParent p:hover button{color:#fff;background:#0099ff; }
+.cont_postmsg .replyBoxParent p button{margin: 0; color:#5b5b5b;border:2px solid #5b5b5b;
+ background: url(../images/attach.png) no-repeat;
+background-position: 90% center}
+.cont_postmsg .replyBoxParent p input{position: absolute;top:0;left:0; width:100%;height: 100%;opacity: 0;cursor: pointer;}
+/*.cont_postmsg .replyBoxParent p:hover button{color:#fff;background:#0099ff; }*/
+.cont_postmsg .replyBoxParent textarea::-webkit-input-placeholder {
+   color: #0099ff;font-weight: 800;
+}
+
+.cont_postmsg .replyBoxParent textarea:-moz-placeholder { /* Firefox 18- */
+   color: #0099ff;  font-weight: 800;
+}
+
+.cont_postmsg .replyBoxParent textarea::-moz-placeholder {  /* Firefox 19+ */
+   color: #0099ff;  font-weight: 800;
+}
+
+.cont_postmsg .replyBoxParent textarea:-ms-input-placeholder {  
+   color: #0099ff;  font-weight: 800;
+}
+.cont_postmsg .replyBoxParent img{width:50px; height:50px; border-radius: 50%;float:left;}
+.cont_postmsg .replyBoxParent label{color:#0099ff; font-weight: 800;margin-left: 20px; text-transform: uppercase;}
+.cont_postmsg .replyBoxParent .lvl1{width:80%;float: left;margin-left: 20px;}
+.cont_postmsg .replyBoxParent a{color:#0099ff;text-decoration: none; float: right;margin-top: 20px;}
+.replytopost{ margin-left:10px; border-left: 1px solid #000; font-size: 12px;font-weight: 700;margin-left: 7px;
+    padding-left: 7px;}
+.replytopost a{text-decoration: none; color:#5b5b5b;}
+.replytopost a:hover{text-decoration: underline;}
+.card.internalCards {
+    padding: 20px 0 20px 30px;
+}
+
+/* style for app launch */
+.indexheader.custom-heading {padding-top: 7%;}
+.custom-heading h2 {color: #0099ff;
+  font-size: 30px;
+  margin: 0 auto;
+  width: 50%;
+}

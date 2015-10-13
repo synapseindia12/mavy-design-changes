@@ -1,5 +1,5 @@
 <div ng-controller="profileCtrl">
-	<div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+
 		<div class="myprofile_cont brd_radius">
 			<div class="bluetitle_top">MY PROFILE</div>
 			<div class="myprofile_inner">
@@ -16,11 +16,11 @@
 			</div>
 			
 	<div class="profile_listing clearfix">
-	<ul>
-		<li><a class="active" href="javascript:void(0)"><span class="reward_icon"></span> REWARDS</a></li>
-		<li><a href="#/profile"><span class="setting_icon"></span> SETTINGS</a></li>
-		<li><a href="javascript:void(0)"> <span class="badges_icon"></span>BADGES</a></li>
-	</ul>
+		<ul>
+			<li><a ng-class="rewards == true ? 'active': ''" ng-click="redirectTo('rewards')"><span class="reward_icon"></span> REWARDS</a></li>
+			<li><a ng-class="settings == true ? 'active': ''" ng-click="redirectTo('profile')"><span class="setting_icon"></span> SETTINGS</a></li>
+			<li><a ng-class="badges == true ? 'active': ''" ng-click="redirectTo('badges')"><span class="badges_icon"></span>BADGES</a></li>
+		</ul>
 	</div>
 			
 		</div>
@@ -35,5 +35,5 @@
 			</ul>
 		
 		</div>
-	</div>
+
 </div>
