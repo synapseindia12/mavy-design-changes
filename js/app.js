@@ -2086,7 +2086,7 @@ myApp.controller('messageconversationCtrl', function($scope,$localStorage,$cooki
 	}
 });
 
-myApp.controller('profileCtrl', function($scope, $localStorage, $location, $rootScope){
+myApp.controller('profileCtrl', function($scope, $localStorage, $location, $rootScope, $route){
 	if(!$localStorage.loginDetails){
 		delete $localStorage.loggedIn;
 		$location.path('/');
@@ -2235,6 +2235,7 @@ myApp.controller('profileCtrl', function($scope, $localStorage, $location, $root
 				$scope.fileName = input.files[0].name;
 				debugger;
 				endpoints.mobileHandler.updateAvatar($scope.apiKey, $scope.userId, $scope.data.userUpload, $scope.fileName, function(result){
+					debugger;
 					if(result.result.success){
 						$scope.showLoader = false;
 						$route.reload();
@@ -2248,6 +2249,10 @@ myApp.controller('profileCtrl', function($scope, $localStorage, $location, $root
 			//Renders Image on Page
 			reader.readAsDataURL(input.files[0]);
 		}
+	};
+	
+	$scope.openFile = function(){
+		$('.profile_pic_section input').click();
 	};
 	
 	$scope.resetPass = function(resetPassword) {

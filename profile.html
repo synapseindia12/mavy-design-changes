@@ -67,10 +67,14 @@
 		
 		<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
 			<div class="profile_pic_section">
-				<input type="file" name="file" onchange="angular.element(this).scope().uploadFile(this)" id="photo-upload" style="height:220px;position:absolute;width:100%;opacity:0;cursor:pointer;" />
-				<img src="{{avatarUrl}}">
-				<img alt="Uploading Image" ng-if="showLoader" class="profile uploadLoader" src="images/loading45.gif" style="position:absolute;left:0;"/>
-				<a href="javascript: void(0)">EDIT PROFILE PICTURE</a>
+				<span style="position:relative;display:inline-block;">
+					
+					<img src="{{avatarUrl}}" ng-if="!showLoader" />
+					<img alt="Uploading Image" ng-if="showLoader" class="profile uploadLoader" src="images/loading45.gif" style="position:relative;left:0;top:48%;height:100%;"/>
+					<input type="file" name="file" onchange="angular.element(this).scope().uploadFile(this)" id="photo-upload" style="height:185px;position:absolute;width:100%;opacity:0;cursor:pointer;top:0px;" />
+				</span>
+				
+				<a href="javascript: void(0)" ng-click="openFile()">EDIT PROFILE PICTURE</a>
 			</div>
 		</div>
 		<div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">

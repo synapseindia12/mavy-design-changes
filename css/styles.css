@@ -871,3 +871,21 @@ background-position: 90% center}
   margin: 0 auto;
   width: 50%;
 }
+
+.quiz-title {
+    color: #008dea;
+    font-size: 20px;
+    font-weight: 700 !important;
+    margin: 20px;
+    text-transform: capitalize;
+}
+.quiz-des {
+    color: #5b5b5b;
+    font-size: 16px;
+    font-weight: 500 !important;
+    margin:0 20px 10px;
+    
+}
+.quiz-frame{
+  width:100%;min-height:400px;max-height:500px;border:none;
+}

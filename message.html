@@ -91,81 +91,6 @@
 		</div>
 	</div>
 </div>
-
-<!--<div class="clearfix messageBx">
-<div class="messageIcon"><a href=""><i class="fa fa-circle"></i></a></div>
-
-<div class="messageBxrt">
-<div class="txtBx"><img alt="" src="images/img.png" class="img-responsive img-circle"></div>
-<div class="text">
-<h2>MILEY CYRUS</h2>
-<p>I know what I'm doing. I know I'm shocking you.
-</p>
-</div>
-<div class="deleteBx">
-<a href=""><i class="fa back"></i></a>
-<a href=""><i class="fa fa-bank1"></i></a>
-</div>
-<p class="clear"></p>
-<hr/>
-</div></div>
-
-<div class="clearfix messageBx">
-<div class="messageIcon"><a href=""><i class="fa fa-circle"></i></a></div>
-
-<div class="messageBxrt">
-<div class="txtBx"><img alt="" src="images/mony.png" class="img-responsive img-circle"></div>
-<div class="text">
-<h2>BENJAMIN FRANKLIN</h2>
-<p>If time be of all things the most precious,
-wasting time must be the greatest prodigality.</p>
-</div>
-<div class="deleteBx">
-<a href=""><i class="fa back"></i></a>
-<a href=""><i class="fa fa-bank1"></i></a>
-</div>
-<p class="clear"></p>
-<hr/>
-</div></div>
-
-<div class="clearfix messageBx">
-<div class="messageIcon"><a href=""><i class="fa fa-circle"></i></a></div>
-
-<div class="messageBxrt">
-<div class="txtBx"><img alt="" src="images/mony.png" class="img-responsive img-circle"></div>
-<div class="text">
-<h2>BENJAMIN FRANKLIN</h2>
-<p>If time be of all things the most precious,
-wasting time must be the greatest prodigality.</p>
-</div>
-<div class="deleteBx">
-<a href=""><i class="fa back"></i></a>
-<a href=""><i class="fa fa-bank1"></i></a>
-</div>
-<p class="clear"></p>
-<hr/>
-</div></div>
-
-<div class="clearfix messageBx">
-<div class="messageIcon"><a href=""><i class="fa fa-circle"></i></a></div>
-
-<div class="messageBxrt">
-<div class="txtBx"><img alt="" src="images/mony.png" class="img-responsive img-circle"></div>
-<div class="text">
-<h2>BENJAMIN FRANKLIN</h2>
-<p>If time be of all things the most precious,
-wasting time must be the greatest prodigality.</p>
-</div>
-<div class="deleteBx">
-<a href=""><i class="fa back"></i></a>
-<a href=""><i class="fa fa-bank1"></i></a>
-</div>
-<p class="clear"></p>
-<hr/>
-</div></div>-->
-
-
-
 </div>
 </div>
 		
@@ -183,45 +108,55 @@ wasting time must be the greatest prodigality.</p>
 	</div>
 </form>
 </div>
-	
-<div class="quickpool_cont qpool2">
-<div class="greentitle_top">QUICK POLL</div>
-<div class="quickpool clearfix">
-<h3>How are you today?</h3>
-<ul>
-<li>
-<div class="radio">
-<label><input type="radio" name="browser" value="firefox"> Yes</label>
-</div>
-</li>
+<div ng-controller="pollsCtrl">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-if="allPolls.length > 0">
+		<form class="dailyPoll" name="pollForm" ng-submit="submitPoll(item, option)">
+			<div class="quickpool_cont" ng-repeat="item in allPolls | limitTo: 2">
+				<div class="greentitle_top">QUICK POLL</div>
+				<div class="quickpool clearfix"> 
+					<h3 bind-html-compile="item.pollTitle"></h3>
+					<ul>
+						<li ng-repeat="option in item.options.categories" ng-if="item.type == 'SingleChoice'">
+							<div class="radio">
+								<label><input type="radio" name="poll" id="poll-radio-{{$index}}" value="{{option.values}}" ng-model="option.pollvote" /> {{option.description}}</label>
+							</div>
+						</li>
+						<li ng-repeat="option in item.options.categories" ng-if="item.type != 'SingleChoice'">
+							<div class="radio">
+								<label><input type="checkbox" name="poll" id="poll-radio-{{$index}}" value="{{option.values}}" ng-model="option.pollvote" /> {{option.description}}</label>
+							</div>
+						</li>
+					</ul>
+					<div class="center_btn">
+						<button class="postbtn">SUBMIT VOTE</button>
+					</div>			
+				</div>	
+			</div>
+		</form>
+	</div>
 
-<li>
-<div class="radio">
-<label><input type="radio" name="browser" value="firefox"> No</label>
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-if="allPolls.length == 0">
+		<div class="quickpool_cont" ng-repeat="item in displayPollresults | limitTo: 2">
+			<div class="greentitle_top">Results For Previous Polls</div>
+			<div class="quickpool clearfix">
+				<h3 bind-html-compile="item.pollTitle"></h3>
+				<ul>
+					<li ng-repeat="option in item.options.categories">
+						<span class="result-text" id="result-poll-{{$index}}" ng-class="{'bgColor': applyBackground(item.itemId, $index)}">
+							{{option.values}}%
+						</span>
+						{{option.description}}
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
 </div>
-</li>
+</div>
 
-<li>
-<div class="radio">
-<label><input type="radio" name="browser" value="firefox"> May be</label>
 </div>
-</li>
+</div>
 
-<li>
-<div class="radio">
-<label><input type="radio" name="browser" value="firefox"> Good</label>
-</div>
-</li>
-</ul>
-	<div class="center_btn">
-	<button class="postbtn">SUBMIT VOTE</button>
-	</div>			
-</div>	
-</div>
-	
-</div>
-</div>
-</div>
 <!-- Middle Section end -->
 
 <script type="text/javascript">
