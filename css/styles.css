@@ -494,8 +494,8 @@ h2.titlesame { padding:5px 5px 5px 0; margin:0px 0 0 0; font-size:14px; color:#0
 /* Plateform feed page css end */
 
 /* quiz feed page css start */
-.mypet_quiz { margin:25px 0;}
-.mypet_quiz ul li { padding:0; margin:5px 0 20px 0; border-bottom:solid 1px #ccc;}
+.mypet_quiz { margin:0px 0;}
+.mypet_quiz ul li { padding:20px 0;}
 .mypet_quiz ul li h3 { padding:0px; margin:0px 0; font-size:14px; color:#5b5b5b; font-weight:300; text-transform:uppercase; font-weight:bold; font-family: 'Montserrat', sans-serif; line-height:normal;}
 /* quiz feed page css end */
 
@@ -504,7 +504,7 @@ h2.titlesame { padding:5px 5px 5px 0; margin:0px 0 0 0; font-size:14px; color:#0
 
 /* sachin css start here */
 .available_box { padding:15px; margin:0; background:#d6f5ff; border-bottom:solid 4px #abc4cc; border-radius:10px 10px 0 0; font-size:14px; color:#008eeb; font-weight:300; text-transform:uppercase; font-weight:bold;}
-.main_box{margin:0px 45px 0px 45px; overflow:hidden; }
+.main_box{ overflow:hidden; }
 .content_box p{color:#717475; margin:0; padding:0px 0; text-transform:uppercase; line-height:24px; font-size:11px; font-family: 'Montserrat', sans-serif; font-weight:600;}
 .redeem_button {border:2px solid #008eeb; border-radius:10px;color:#008eeb;display:inline-block;float:right;font-size:14px; margin-top:12px; padding:4px 18px; font-weight:600;font-family: 'Montserrat', sans-serif;  }
 .redeem_button:hover { background:#028dea; color:#fff;}
@@ -568,6 +568,7 @@ h2.titlesame { padding:5px 5px 5px 0; margin:0px 0 0 0; font-size:14px; color:#0
 .message .txtBx {float:left;width:14%;}
 .message .img-responsive {border-radius: 50%;display: block;height: 70px;max-width: 100%;width: 70px;}
 .message .text {float:left;width:75%;}
+
 .message .text h2{font-size:14px;margin:5px 0 5px 0;padding:0;color:#5b5b5b;font-family: 'Montserrat', sans-serif;}
 .message .text p{color:#5b5b5b;font-size:14px;}
 .message .deleteBx {float:left;width:11%;margin:25px 0 0 0}
@@ -888,4 +889,213 @@ background-position: 90% center}
 }
 .quiz-frame{
   width:100%;min-height:400px;max-height:500px;border:none;
+}
+
+
+/******** Akash 231015 ***********/
+
+.mypet_quiz ul li:nth-child(even){
+  background: #d6f3ff;
+}
+.mypet_quiz ul li p{margin: 0;}
+.mypet_quiz ul li cite{
+  color:#008eeb;
+  border:1px solid #008eeb;
+  width:40px;
+  height:40px;
+  border-radius: 50%;
+  font-size: 22px;
+  text-align: center;
+  font-weight: 400;
+  display: block;
+  margin: 0px auto;
+  padding-top: 8px;
+  font-family: 'Montserrat', sans-serif;
+}
+.mypet_quiz ul li a{display: inline-block; margin-top: 10px;}
+
+@media (max-width:991px){
+  .qz_text{text-align: center; margin: 10px 0;}
+}
+
+
+
+/****************** Reward Page ****************/
+.reward_page{padding: 30px 40px 0;}
+.reward_page .separator{border-bottom: 1px solid #ccc; margin-top: 30px;}
+.reward_page p{color:#717475;text-transform: uppercase; font-size: 11px; font-weight: 700; font-family: 'Montserrat', sans-serif;}
+.reward_page img{width:150px;height:100px;display: block; margin: 0px auto; border-radius: 20px;}
+.reward_page a.redeem{
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: 2px solid #009afe;
+    border-radius: 10px;
+    bottom: 0;
+    color: #0099ff;
+    font-size: 12px;
+    font-weight: bold;
+    margin: 15px 0 0px;
+    max-width: 165px;
+    padding: 3px 20px;
+    position: relative;
+    right: 0;
+    text-transform: uppercase;
+    float: right;
+}
+.reward_page a.redeem:hover{background:#009afe; color:#fff;}
+
+.reward_page a.coming{
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: 2px solid #717475;
+    border-radius: 10px;
+    bottom: 0;
+    color: #717475;
+    font-size: 12px;
+    font-weight: bold;
+    margin: 15px 0 0px;
+    max-width: 165px;
+    padding: 3px 20px;
+    position: relative;
+    right: 0;
+    text-transform: uppercase;
+    float: right;
+}
+.credit_info{
+    background: none repeat scroll 0 0 #eafdff;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    font-family: 'Montserrat', sans-serif;
+}
+.credit_info .credits{padding: 20px 10px;}
+.credit_info span{
+  text-transform: uppercase;
+  color:#969d9f;
+  font-size: 16px;
+  font-weight: 700; 
+}
+.credit_info label{font-size: 30px;color:#008dea; font-weight: 400;margin-top: 7px;}
+.history span{color:#008dea; margin-top: 7px; display: inline-block;}
+.history label{color:#969d9f; font-size: 12px; margin: 0;}
+@media (max-width:767px){
+  .credit_info{margin-top: 30px;}
+}
+
+
+.msg_internal{padding: 20px 30px 10px;}
+.msg_internal .sender{width:60px;height:60px;border-radius: 50%; display: block;margin: 0px auto;}
+.msg_internal .show_message{
+  background: none repeat scroll 0 0 #fff;
+    border-radius: 10px;
+    min-height: 100px;
+    padding: 5px;
+    position: relative;
+}
+.msg_internal .show_message::before{
+  content:'';
+  background-image: url('../images/icon_triwhite.png');
+  background-repeat: no-repeat;
+  width:20px;
+  height:25px;
+  position:absolute; 
+  left:-20px;
+  top:20px;
+}
+.msg_internal .show_message label{
+  color:#5b5b5b;
+  font-weight: 700;
+  padding: 0 20px;
+  text-transform: uppercase;
+  border-right: 1px solid #5b5b5b;
+  margin-right: 20px;
+}
+.msg_internal .show_message .delete-thread{
+  color:#5b5b5b;
+  text-decoration: none;
+  font-size: 10px;
+}
+.msg_internal .show_message .delete-thread:hover{
+  text-decoration: underline;
+}
+.msg_internal .show_message .date-show{
+  color:#5b5b5b;
+  text-decoration: none;
+  font-size: 10px;
+  float: right;
+  margin-right: 20px;
+  font-family: 'Lato', sans-serif;
+}
+.msg_internal .show_message .msg-content{
+  font-size: 14px;
+  color:#5b5b5b; 
+  padding: 20px;
+  font-size: 14px;
+    font-family: 'Lato', sans-serif;
+}
+
+.receiver .show_message{
+  background: #0099ff;
+  color:#fff !important;
+}
+.receiver .show_message::before{
+  content:'';
+  background-image: url('../images/icon_triblue.png');
+  background-repeat: no-repeat;
+  width:30px;
+  height:25px;
+  position:absolute; 
+  right:-20px;
+  top:20px;
+  left:auto;
+}
+.receiver .show_message .date-show{
+  color:#fff;
+  float:left;
+  margin-left: 20px;
+}
+.receiver .show_message .msg-content{
+  color:#fff;
+}
+.textbox{
+  margin-bottom: 20px;
+}
+.textbox .submit-message{
+  border:none;
+  border-radius: 10px;
+  width: 100%;
+  resize:none;
+  height: 80px;
+  padding: 10px;
+  font-size: 12px;
+  position: relative;
+}
+.textbox .submit-messag{position: relative;width:100%;}
+.textbox .submit-messag::before{
+  content:'';
+  background-image: url('../images/icon_triwhite1.png');
+  background-repeat: no-repeat;
+  width:30px;
+  height:25px;
+  position:absolute; 
+  right:-20px;
+  top:20px;
+  left:auto;
+}
+.textbox .submit-text{
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: 2px solid #009afe;
+    border-radius: 10px;
+    bottom: 0;
+    color: #0099ff;
+    font-size: 12px;
+    font-weight: bold;
+    margin: 15px 0 0px;
+    max-width: 90px;
+    padding: 3px 20px;
+    position: relative;
+    right: 0;
+    text-transform: uppercase;
+    float: right;
+}
+.textbox .submit-text:hover{
+  background: #009afe;
+  color:#fff;
 }
