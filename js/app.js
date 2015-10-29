@@ -53,7 +53,7 @@ myApp.config(function($routeProvider, $httpProvider, $facebookProvider) {
 			controller: 'resetpasswordCtrl'
         })
 		.when('/rewards', {
-            templateUrl: 'rewards.html',
+            templateUrl: 'rewards_page-recovered.html',
 			controller: 'rewardsCtrl'
         })
 		.otherwise({
@@ -105,8 +105,8 @@ myApp.controller('signupCtrl', function($scope, $rootScope, $location, $cookieSt
 	if ($localStorage.loggedIn) {
 		$('body').addClass('dashboard_pages');
 		$location.path('/dashboard');
-
 	}
+	
 	var endpoints = {};
 	$scope.newArray = [];
 	endpoints.apiKey = "835mzggn289l9wxnjxjr323kny6q";
@@ -2059,11 +2059,25 @@ myApp.controller('messageconversationCtrl', function($scope,$localStorage,$cooki
 	
 	$scope.internalMessages = [];
 	endpoints.mobileHandler.getInboxMessages($scope.apiKey, $scope.userId, $routeParams.conversationId, null, null, function(result){
-		for(var i=0; i<result.result.result.Messages.length; i++){
+		debugger;
+		for(var i=1; i<result.result.result.Messages.length; i++){
 				$scope.internalMessages.push(result.result.result.Messages[i]);
 		}		
 		$scope.$apply();
 	});	
+
+	$scope.localDate = function(date){	
+		
+		var d = new Date(date);
+		var offset = d.getTimezoneOffset() / 60;
+		var hours = d.getHours();
+		var minsLim = Math.floor(offset)-offset;
+		var mins = d.getMinutes()/60;
+		
+		d.setHours(hours - Math.ceil(offset));
+		d.setMinutes((mins - minsLim)*60);
+		return d;
+	};
 	
 	$scope.submitMessageReply = function() {
 		if($scope.messageReplyText){
@@ -2071,12 +2085,25 @@ myApp.controller('messageconversationCtrl', function($scope,$localStorage,$cooki
 				if(result.result.success){
 					alert('Successfully Updated');
 					$scope.messageReplyText = '';
+					$scope.internalMessages = [];
+					$scope.messages = [];
+					$rootScope.messages=[];
+					endpoints.mobileHandler.getInbox($scope.apiKey, $scope.userId, null, null, function(result){
+						if(result.result.result.Conversations){
+							for(var i=0; i<result.result.result.Conversations.length; i++){
+								$scope.messages.push(result.result.result.Conversations[i]);
+								$rootScope.messages.push(result.result.result.Conversations[i]);
+							}
+						}
+						$scope.$apply();
+					});
 					endpoints.mobileHandler.getInboxMessages($scope.apiKey, $scope.userId, $routeParams.conversationId, null, null, function(result){
-						for(var i=0; i<result.result.result.Messages.length; i++){
+						for(var i=1; i<result.result.result.Messages.length; i++){
 								$scope.internalMessages.push(result.result.result.Messages[i]);
 						}						
 						$scope.$apply();
 					});	
+
 				}
 				else{
 					alert('Error');
@@ -2085,6 +2112,7 @@ myApp.controller('messageconversationCtrl', function($scope,$localStorage,$cooki
 		}
 	}
 });
+
 
 myApp.controller('profileCtrl', function($scope, $localStorage, $location, $rootScope, $route){
 	if(!$localStorage.loginDetails){
@@ -2136,7 +2164,7 @@ myApp.controller('profileCtrl', function($scope, $localStorage, $location, $root
 			$rootScope.settings = false;
 			$rootScope.rewards = true;
 			$rootScope.badges = false;
-			//$location.path('/rewards');
+			$location.path('/rewards');
 		}
 	};
 	
