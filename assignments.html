@@ -68,9 +68,11 @@
 									
 								</div>
 								<div class="col-lg-2 col-md-3 col-sm-12" style="text-align:center">
-									<a href="#"><img src="images/qtr_watch.png"></a>
-									<a href="#"><img src="images/desktop.png"></a>
-									<a href="#"><img src="images/mobile_icon.png"></a>
+									<a href="javascript:void(0)" title="{{assignment.modules[0].lengthInMinutes}} minutes" ng-if="assignment.modules[0].lengthInMinutes>=15"><img src="images/qtr_watch.png" alt="More than 15 mins"></a>
+									<a href="javascript:void(0)" title="{{assignment.modules[0].lengthInMinutes}} minutes" ng-if="assignment.modules[0].lengthInMinutes>=5 && assignment.modules[0].lengthInMinutes<15"><img src="images/less15watch.png" alt="less than 15 mins"></a>
+									<a href="javascript:void(0)" title="{{assignment.modules[0].lengthInMinutes}} minutes" ng-if="assignment.modules[0].lengthInMinutes<5"><img src="images/less5watch.png" alt="less than 5 mins"></a>
+									<a href="javascript:void(0)"><img src="images/desktop.png"></a>
+									<a href="javascript:void(0)"><img src="images/mobile_icon.png"></a>
 								</div>
 							</div>
 							

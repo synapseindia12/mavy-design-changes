@@ -52,14 +52,17 @@
 			<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
 				<div class="quizeesbox_left clearfix">					
 					<h2 class="titlesame">QUIZZES</h2>
+					
 					<ul>
-						<li>
-							<h3>PICK YOUR PET QUIZ</h3>
-							<div class="pfimg"><img class="img-responsive" src="images/pf_img1.jpg" alt=""></div>
-							<p>It's plain and simple, what's your favorite pet?</p>
+						<li ng-repeat="assignment in allAssignments" ng-click="showAssignmentTasks(assignment)" style="cursor:pointer;">
+							<h3>{{assignment.modules[0].moduleTitle}}</h3>
+							<div class="pfimg">
+								<!--<img class="img-responsive" src="images/pf_img1.jpg" alt="">-->
+							</div>
+							<p dynamic="{{assignment.modules[0].options.instructions}}"></p>
 						</li>
 						
-						<li>
+					<!--	<li>
 							<h3>COFFEE COFFEE COFFEE</h3>
 							<div class="pfimg"><img class="img-responsive" src="images/pf_img2.jpg" alt=""></div>
 							<p>How do you take your coffee?</p>
@@ -69,7 +72,7 @@
 							<h3>WORKSPACE ARCHETYPES</h3>
 							<div class="pfimg"><img class="img-responsive" src="images/pf_img3.jpg" alt=""></div>
 							<p>How do you take your coffee?</p>
-						</li>
+						</li>-->
 					</ul>
 				</div>
 			</div>
@@ -78,7 +81,7 @@
 			<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
 				<div class="quizeesbox_right clearfix">
 					<div class="top_postlist">
-					<h2 class="titlesame color-pink">TOP POSTs</h2>
+					<h2 class="titlesame color-pink">RECENT POSTs</h2>
 					
 <ul>
 		<li ng-repeat="post in tempArray | limitTo: 3">
@@ -94,12 +97,12 @@
 		<img class="img-responsive img-circle" src="{{post.AvatarUrl}}" alt="">
 		</div>	
 		<div class="msg_postsec clearfix bdr_pink">
-		<span class="postname">{{post.UserName}}</span>		
-		<p>{{post.MostRecentMessage}}</p>		
+		<span class="postname">{{post.Author.DisplayName}}</span>		
+		<p dynamic="{{post.Body}}"></p>		
 		<div class="display_comment clearfix">
 		<ul>
-		<li><a href="#"><img src="images/back_icon.png" alt=""></a></li>
-		<li class="pull-right"><a href="#"><img src="images/comment_icon.png" alt=""> <span class="count_comment">11</span></a></li>				
+		<li><a href="#/forum" ng-href="#/forum"><img src="images/back_icon.png" alt=""></a></li>
+		<li class="pull-right"><a href="#/forum" ng-href="#/forum"><img src="images/comment_icon.png" alt=""> <span class="count_comment">{{post.ReplyCount}}</span></a></li>				
 		</ul>
 		</div>		
 		</div>	

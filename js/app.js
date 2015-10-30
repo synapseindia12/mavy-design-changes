@@ -53,7 +53,7 @@ myApp.config(function($routeProvider, $httpProvider, $facebookProvider) {
 			controller: 'resetpasswordCtrl'
         })
 		.when('/rewards', {
-            templateUrl: 'rewards_page-recovered.html',
+            templateUrl: 'rewards.html',
 			controller: 'rewardsCtrl'
         })
 		.otherwise({
@@ -105,8 +105,8 @@ myApp.controller('signupCtrl', function($scope, $rootScope, $location, $cookieSt
 	if ($localStorage.loggedIn) {
 		$('body').addClass('dashboard_pages');
 		$location.path('/dashboard');
+
 	}
-	
 	var endpoints = {};
 	$scope.newArray = [];
 	endpoints.apiKey = "835mzggn289l9wxnjxjr323kny6q";
@@ -247,20 +247,23 @@ myApp.controller('indexCtrl', function($scope, $cookieStore, $rootScope, $localS
 	});
 	endpoints.mobileHandler.getDashboard($scope.apiKey, $scope.userId, 1, null, null, function(result){
 		if (result.result.success){
+			
 			for (var i=0; i< result.result.result.Entries.length; i++) {
 				$scope.allAssignments.push(result.result.result.Entries[i]);
+
 			}
+
 			$cookieStore.put('assignments', $scope.allAssignments);
 		}
 		$scope.$apply();
 	});
-	endpoints.mobileHandler.getDashboard($scope.apiKey,$scope.userId,2,null,null, function(result){
+	/*endpoints.mobileHandler.getDashboard($scope.apiKey,$scope.userId,2,null,null, function(result){
 		$scope.replyPosts = result.result.result;
 		for(var i=0; i< $scope.replyPosts.Entries.length; i++){
 			$scope.tempArray.push($scope.replyPosts.Entries[i]);
 			$scope.$apply();
 		}
-	});
+	});*/
 	
 	$scope.submitPoll = function(poll) {
 		var index = $scope.allPolls.indexOf(poll);
@@ -328,6 +331,33 @@ myApp.controller('indexCtrl', function($scope, $cookieStore, $rootScope, $localS
 			$scope.$apply();
 		}	
 	});
+
+
+	/*********** Active Forum Threads **********/
+	$scope.loadActiveThreads = function(){
+		endpoints.mobileHandler.getActiveThreads($scope.apiKey,$scope.userId,3,null,null,function(forums){
+			if(forums.result.result.Threads) {
+
+			 $rootScope.forumsCount=forums.result.result.Threads.length;
+			 $rootScope.allForums=forums.result.result.Threads;
+			 for(var i=0; i<$rootScope.allForums.length; i++){   
+			  $scope.tempArray.push($rootScope.allForums[i]);
+			 }
+			}
+			$scope.$apply();
+		});
+	};
+
+	if($rootScope.allForums) {
+	   for(var i=0; i<$rootScope.allForums.length; i++){   
+		$scope.tempArray.push($rootScope.allForums[i]);
+	   }
+   
+	}
+	else {
+		$scope.loadActiveThreads();
+	}
+	/*********** ./Active Forum Threads **********/
 });
 
 myApp.controller('pollsCtrl', function($scope, $rootScope, $location, $localStorage, $cookieStore){
@@ -796,6 +826,7 @@ myApp.controller('assignmentCtrl', function($scope, $location, $cookieStore, $lo
 	
 	endpoints.mobileHandler.getDashboard($scope.apiKey, $scope.userId, 1, null, null, function(result){
 		if (result.result.success){
+			debugger;
 			for (var i=0; i< result.result.result.Entries.length; i++) {
 				$scope.allAssignments.push(result.result.result.Entries[i]);
 				if(result.result.result.Entries[i].modules[0].options.featured == 1){
@@ -1903,6 +1934,119 @@ myApp.controller('forumExpandedCtrl', function($scope,$localStorage,$rootScope,$
 	};
 });
 
+/*myApp.controller('messagesCtrl', function($scope, $cookieStore, $rootScope, $localStorage, $location, $route){
+	if(!$localStorage.loginDetails){
+		delete $localStorage.loggedIn;
+		$location.path('/');
+	}
+	
+	$scope.feedActive = false;
+	$scope.assignmentActive = false;
+	$scope.forumActive = false;
+	$scope.messagesactive = true;
+	
+	$rootScope.forumActive = false;
+	$rootScope.messagesactive = true;
+	$rootScope.feedActive = false;
+	$rootScope.assignmentActive = false;
+	
+	$scope.showExpandMessage = false;
+	var conversationId = '';
+	$scope.messages = [];
+	$rootScope.messages = [];
+	$scope.tempArr = [];
+	$scope.displayConversations = true;*/
+	/* Getting all local Storage data for User Authentication */
+	/*var loginDetails = $localStorage.loginDetails;
+	$scope.apiKey = loginDetails[0].value;
+	$scope.userId = loginDetails[1].value;
+	$scope.panelistId = loginDetails[2].value;
+	$scope.registrationId = loginDetails[3].value;
+	var sectionId = 2;
+	
+	var endpoints = {};
+	endpoints.apiKey = $scope.apiKey;
+	// Creating new handler for APIs
+	endpoints.mobileHandler = new MobileHandler();
+	//Querying APi for response using endpoints
+	
+	endpoints.mobileHandler.getInbox($scope.apiKey, $scope.userId, null, null, function(result){
+		if(result.result.result.Conversations){
+			for(var i=0; i<result.result.result.Conversations.length; i++){
+				$scope.messages.push(result.result.result.Conversations[i]);
+				$rootScope.messages.push(result.result.result.Conversations[i]);
+			}
+		}
+		$scope.$apply();
+	});
+	
+	$scope.showMessage = function(message) {
+		$rootScope.message = message;
+		$location.path('/messages/'+message.LastMessage.ConversationId);
+	}
+	
+	$scope.expandMessage = function(message){
+		if($scope.showExpandMessage){
+			$scope.showExpandMessage = false;
+			$scope.internalMessages = [];
+		}
+		else {
+			$scope.showExpandMessage = true;
+			$scope.internalMessages = [];
+			$scope.message = message;
+			conversationId = message.LastMessage.ConversationId;
+			debugger;
+			endpoints.mobileHandler.getInboxMessages($scope.apiKey, $scope.userId, conversationId, null, null, function(result){
+				for(var i=0; i<result.result.result.Messages.length; i++){
+					$scope.internalMessages.push(result.result.result.Messages[i]);
+				}			
+				$scope.$apply();
+			});
+		}
+	};
+	
+	$scope.createNewMessage = function() {
+		$scope.userNames = [];
+		$scope.projectId = '';
+		if($rootScope.messages.length > 0){
+			for(var i=0; i<$rootScope.messages[0].Participants.length; i++){
+				$scope.userNames.push($rootScope.messages[0].Participants[i].Username);
+			}
+		}
+		else{
+			$scope.userNames.push($cookieStore.get('userName'));
+		}
+		debugger;
+		if($scope.userNames.length > 0){
+			endpoints.mobileHandler.sendMessage($scope.apiKey, $scope.userId, $scope.subject, $scope.messageBody, $scope.userNames, null, null, function(result){
+				if(result.result.success){
+					alert('Successfully created');
+					$scope.subject = '';
+					$scope.messageBody = '';
+					$route.reload();
+				}
+			});
+		}
+	};
+	
+	$scope.submitMessageReply = function(items) {
+		if(items.messageReplyText){
+			endpoints.mobileHandler.sendMessageReply($scope.apiKey, $scope.userId, conversationId, items.messageReplyText, function(result){
+				if(result.result.success){
+					items.messageReplyText = '';
+					$scope.internalMessages = [];
+					endpoints.mobileHandler.getInboxMessages($scope.apiKey, $scope.userId, conversationId, null, null, function(result){
+						for(var i=0; i<result.result.result.Messages.length; i++){
+								$scope.internalMessages.push(result.result.result.Messages[i]);
+						}						
+						$scope.$apply();
+					});	
+				}
+			});
+		}
+	}
+});*/
+
 myApp.controller('messagesCtrl', function($scope, $cookieStore, $rootScope, $localStorage, $location, $route){
 	if(!$localStorage.loginDetails){
 		delete $localStorage.loggedIn;
@@ -1940,6 +2084,7 @@ myApp.controller('messagesCtrl', function($scope, $cookieStore, $rootScope, $loc
 	//Querying APi for response using endpoints
 	
 	endpoints.mobileHandler.getInbox($scope.apiKey, $scope.userId, null, null, function(result){
+		debugger;
 		if(result.result.result.Conversations){
 			for(var i=0; i<result.result.result.Conversations.length; i++){
 				$scope.messages.push(result.result.result.Conversations[i]);
@@ -2113,8 +2258,7 @@ myApp.controller('messageconversationCtrl', function($scope,$localStorage,$cooki
 	}
 });
 
-
-myApp.controller('profileCtrl', function($scope, $localStorage, $location, $rootScope, $route){
+myApp.controller('profileCtrl', function($scope, $localStorage, $location, $rootScope){
 	if(!$localStorage.loginDetails){
 		delete $localStorage.loggedIn;
 		$location.path('/');
@@ -2164,7 +2308,7 @@ myApp.controller('profileCtrl', function($scope, $localStorage, $location, $root
 			$rootScope.settings = false;
 			$rootScope.rewards = true;
 			$rootScope.badges = false;
-			$location.path('/rewards');
+			//$location.path('/rewards');
 		}
 	};
 	
@@ -2263,7 +2407,6 @@ myApp.controller('profileCtrl', function($scope, $localStorage, $location, $root
 				$scope.fileName = input.files[0].name;
 				debugger;
 				endpoints.mobileHandler.updateAvatar($scope.apiKey, $scope.userId, $scope.data.userUpload, $scope.fileName, function(result){
-					debugger;
 					if(result.result.success){
 						$scope.showLoader = false;
 						$route.reload();
@@ -2277,10 +2420,6 @@ myApp.controller('profileCtrl', function($scope, $localStorage, $location, $root
 			//Renders Image on Page
 			reader.readAsDataURL(input.files[0]);
 		}
-	};
-	
-	$scope.openFile = function(){
-		$('.profile_pic_section input').click();
 	};
 	
 	$scope.resetPass = function(resetPassword) {
