@@ -56,6 +56,10 @@ myApp.config(function($routeProvider, $httpProvider, $facebookProvider) {
             templateUrl: 'rewards.html',
 			controller: 'rewardsCtrl'
         })
+        .when('/badges', {
+            templateUrl: 'badges.html',
+			controller: 'badgesCtrl'
+        })
 		.otherwise({
             redirectTo: '/'
         });
@@ -2302,13 +2306,13 @@ myApp.controller('profileCtrl', function($scope, $localStorage, $location, $root
 			$rootScope.settings = false;
 			$rootScope.rewards = false;
 			$rootScope.badges = true;
-			//$location.path('/badges');
+			$location.path('/badges');
 		}
 		if(link == 'rewards'){
 			$rootScope.settings = false;
 			$rootScope.rewards = true;
 			$rootScope.badges = false;
-			//$location.path('/rewards');
+			$location.path('/rewards');
 		}
 	};
 	
