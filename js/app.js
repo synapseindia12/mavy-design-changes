@@ -179,7 +179,20 @@ myApp.controller('signupCtrl', function($scope, $rootScope, $location, $cookieSt
 				}
 			}
 		}, {scope: "email"});
-	};	
+	};
+	
+	if($('#pagepiling').length){
+		$('#pagepiling').pagepiling({
+			navigation: {
+			  'textColor': '#000',
+			  'bulletsColor': '#fff',
+			  'position': 'left'
+			}
+		});
+	}
+	else{
+		alert('pagepiling not found');
+	}
 });
 
 myApp.controller('signupModalctrl', function($scope, $modalInstance, $facebook, $location, $localStorage, accessToken, userId){
@@ -3381,6 +3394,8 @@ myApp.controller('rewardDetailsCtrl', function($scope, $rootScope, $modalInstanc
   return {
       link: function(scope, elm, attrs) {
             elm.bxSlider({mode: 'vertical'}, {slideMargin: 5});
+			debugger;
+			scope.initializePagepipling();
        }
 	}
 });

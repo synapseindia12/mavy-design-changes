@@ -336,9 +336,9 @@ ul.bxslider {  list-style: none;}
 .slide3 .top-nav ol li button.button {border:2px solid #fff;color:#fff;}
 .slide3 .top-nav ol li button.signup {background:#fff;color:#c562a6;}
 .slide3.top-nav ol li button.button:hover {color:#999}
-.slide5  .nav1 a{color:#fff;}
-.slide5 .top-nav ol li button.button {border:2px solid #000;color:#000;}
-.slide5 .top-nav ol li button.signup {background:#fff;color:#000;border:none;}
+.slide4-bg-image  .nav1 a{color:#fff;}
+.slide4-bg-image .top-nav ol li button.button {border:2px solid #000;color:#000;}
+.slide4-bg-image .top-nav ol li button.signup {background:#fff;color:#000;border:none;}
 .content_div{margin-left:15%;margin-right:15%;position:absolute;z-index:999;top:0px;left:0px;margin-top:110px;}
 .content_div h1{font-size:50px;font-family: 'Lato', sans-serif;font-weight:300;color:#fff;margin:0px;padding:0px;}
 .content_div h3{font-size:50px;font-family: 'Lato', sans-serif;font-weight:300;color:#fff;margin-top:60px;line-height:55px;margin-bottom:70px;}
@@ -346,12 +346,12 @@ ul.bxslider {  list-style: none;}
 .content_div a{background: none repeat scroll 0 0 rgba(0, 0, 0, 0);border: 2px solid #fff;border-radius:25px;font-weight: 400;padding: 17px 38px;text-transform:uppercase;color:#fff;font-family: 'Montserrat', sans-serif;font-size:12px;}
 .content_div a img{width:auto;height:auto;max-width:auto;min-width:auto;display:inline;margin-left:25px;max-width:none;min-width:0;}
 .content_div.color1>*{color:#e4eff0;}
-.slide5 h2{color:#1b1f2d;font-size:50px;font-weight:300;padding:0 20%;margin:0}
-.slide5 .btn-app-store {background:url(../images/google-play.png) no-repeat;height:48px;width:140px;float:left;
+.slide4-bg-image h2{color:#1b1f2d;font-size:50px;font-weight:300;padding:0 20%;margin:0}
+.slide4-bg-image .btn-app-store {background:url(../images/google-play.png) no-repeat;height:48px;width:140px;float:left;
 margin:100px 10px 0 0;background-size:100%}
-.slide5 .btn-google-play {background:url(../images/app-store.png) no-repeat;height:48px;width:140px;float:left;margin:100px 0px 0 0;background-size:100%}
-.slide5 .panel-subscription {top:25%;}
-.slide5 .top-nav ol li button.button:hover {color:#999}
+.slide4-bg-image .btn-google-play {background:url(../images/app-store.png) no-repeat;height:48px;width:140px;float:left;margin:100px 0px 0 0;background-size:100%}
+.panel-subscription {top:25%;}
+.slide4-bg-image .top-nav ol li button.button:hover {color:#999}
 .downarrow {position:absolute;bottom:60px;margin:auto;text-align:center;left:50%}
 /* landing page css End */
 
@@ -598,9 +598,9 @@ h2.titlesame { padding:5px 5px 5px 0; margin:0px 0 0 0; font-size:14px; color:#0
 
 .bx-wrapper img {object-fit:cover;}
 .MAVYApp-subscription {width:60%}
-.slide5 h2 {padding:0 5%}
+.slide4-bg-image h2 {padding:0 5%}
 .content_div {margin:110px 5% 0 10%;}
-.slide5 .btn-app-store, .slide5 .btn-google-play {margin:30px 10px 0 0}
+.slide4-bg-image .btn-app-store, .slide4-bg-image .btn-google-play {margin:30px 10px 0 0}
 footer {margin:40px auto auto}
 
 /* message css */
@@ -654,8 +654,8 @@ footer {margin:40px auto auto}
 .bx-wrapper img {object-fit:cover;}
 .top-nav ol li {width: 100%;padding:0 10px}
 .bx-wrapper .bx-pager-item, .bx-wrapper .bx-controls-auto .bx-controls-auto-item {margin:0 0 9px 10px}
-.slide5 h2 {padding:0 2%}
-.MAVYApp-subscription h2.title, .slide5 h2, .content_div h3, .content_div h1 {font-size:30px;line-height:30px;margin:20px 0;}
+.slide4-bg-image h2 {padding:0 2%}
+.MAVYApp-subscription h2.title, .slide4-bg-image h2, .content_div h3, .content_div h1 {font-size:30px;line-height:30px;margin:20px 0;}
 
 .MAVYApp-subscription {top:15%;}
 .top-nav ol li button.button {margin:0 0 8px 0;}
@@ -692,9 +692,9 @@ footer {margin:40px auto auto}
 .top-nav ol li:last-child {margin:10px 0 0 0;}
 .MAVYApp-subscription {width:84%}
 .MAVYApp-subscription .btn-google-play {margin:10px 0 0;}
-.MAVYApp-subscription h2.title, .slide5 h2, .content_div h3, .content_div h1 {font-size:22px;line-height:30px;margin: 14px 0;}
+.MAVYApp-subscription h2.title, .slide4-bg-image h2, .content_div h3, .content_div h1 {font-size:22px;line-height:30px;margin: 14px 0;}
 .content_div p {margin:0 0 40px}
-.slide5 .btn-app-store, .slide5 .btn-google-play {margin:30px 10px 0 0}
+.slide4-bg-image .btn-app-store, .slide4-bg-image .btn-google-play {margin:30px 10px 0 0}
 footer {margin:40px auto auto}
 
 /* message css */
@@ -717,9 +717,10 @@ footer {margin:40px auto auto}
 /************** Profile/Account setting - 07/10/15 - Emp1682 ***************/
 
 .profilesetting_top{
-  margin: 0;padding:0;display: block;border-bottom: 4px solid #abc4cc;
+  margin: 0;padding:0 15px;display: block;
 }
-.profilesetting_top>div{padding: 0;}
+.profilesetting_top>div{padding: 0;border-bottom: 4px solid #abc4cc;}
+
 .profilesetting_top .tabs{
   display:block;background: #d6f5ff;font-size: 14px;padding: 15px 0 15px 20px;
   color:#72c4ff; font-weight: bold;margin: 0;cursor: pointer;
@@ -1100,3 +1101,9 @@ background-position: 90% center}
   background: #009afe;
   color:#fff;
 }
+/* Slider CSS */
+.slide-bg-image{background-image: url(../images/slide.png) !important;}
+.slide1-bg-image{background-image: url(../images/slide1.png) !important;}
+.slide2-bg-image{background-image: url(../images/slide3.jpeg) !important;}
+.slide3-bg-image{background-image: url(../images/slide4.jpeg) !important;}
+.slide4-bg-image{background-image: url(../images/slide5.png) !important;}
