@@ -1,4 +1,4 @@
-   <ul class="bxslider" id="pagepiling">
+   <ul class="bxslider" pagepiling>
 		<li class="section slide-bg-image">
 			<!-- Changing some structure -->
 			<!--<img src="images/slide.png" />-->
@@ -31,27 +31,7 @@
 				<div class="text-align-center">
 					<img src="images/logo1.png">
 				</div>
-				 <div class="panel-body">
-                    <div role="form" class="form-horizontal trial-form">
-                        <form ng-submit="login()" method="post">
-                            <fieldset>
-                            <div class="form-group">
-                                <input type="text" required="true" placeholder="Username" name="trial-name" id="" class="form-control username" ng-model="sign.uname">
-                            </div>
-                            <div class="form-group">
-                                <input type="password" required="true" placeholder="Password" name="trial-email" id="" class="form-control password" ng-model="sign.password">
-                            </div>
-                            <div class="form-group">
-                               <button type="submit" class="btn btn-lg signupfacebook signin">Log In</button>
-                            </div>
-                        </fieldset>
-                        </form>
-                    </div>
-                </div>
-                <div class="panel-footer">
-                    <label class="text-center or">OR</label>
-                    <button type="submit" class="btn btn-lg signupfacebook">Sign In with Facebook</button>
-                </div>
+				<div ng-include="'loginform.html'"></div>
 			</div>
 			<!-- <div class="downarrow"><a href=""><img src="images/arrow.png"></a></div> -->
 			<!-- End Here -->
@@ -220,28 +200,7 @@
 
 
             <div class="panel-subscription">
-                <!-- <div ng-include="'loginform.html'"></div> -->
-                <div class="panel-body">
-                    <div role="form" class="form-horizontal trial-form">
-                        <form ng-submit="login()" method="post">
-                            <fieldset>
-                            <div class="form-group">
-                                <input type="text" required="true" placeholder="Username" name="trial-name" id="" class="form-control username" ng-model="sign.uname">
-                            </div>
-                            <div class="form-group">
-                                <input type="password" required="true" placeholder="Password" name="trial-email" id="" class="form-control password" ng-model="sign.password">
-                            </div>
-                            <div class="form-group">
-                               <button type="submit" class="btn btn-lg signupfacebook signin">Log In</button>
-                            </div>
-                        </fieldset>
-                        </form>
-                    </div>
-                </div>
-                <div class="panel-footer">
-                    <label class="text-center or">OR</label>
-                    <button type="submit" class="btn btn-lg signupfacebook">Sign In with Facebook</button>
-                </div>
+				<div ng-include="'loginform.html'"></div>
                 <a class="btn-app-store" href="#"></a>
                 <a class="btn-google-play" href="#"></a>
                 <p class="clear"></p>
@@ -252,10 +211,7 @@
 
                     <p><a href=""><i class="fa fa-facebook"></i></a><a href=""><i class="fa fa-twitter"></i></a>
                     </p>
-
-
                 </footer>
-
             </div>
         </li>
     </ul>
