@@ -49,7 +49,7 @@
 <div class="forumtitle_top">MESSAGES</div>
 
 <div class="clearfix messageBx" ng-repeat="message in messages track by $index">
-	<div class="messageIcon"><a href=""><i class="fa fa-circle"></i></a></div>
+	<div class="messageIcon"><a><i class="fa fa-circle"></i></a></div>
 
 	<div class="messageBxrt">
 		<div class="txtBx"><img alt="" src="{{message.CreatedUser.AvatarUrl}}" class="img-responsive img-circle"></div>
@@ -110,7 +110,9 @@
 </form>
 </div>
 </div>
-<div ng-include="'polls.html'" ng-controller="pollsCtrl"></div>
+<div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">	
+	<div ng-include="'polls.html'" ng-controller="pollsCtrl"></div>
+</div>
 </div>
 </div>
 

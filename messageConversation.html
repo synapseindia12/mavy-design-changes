@@ -46,7 +46,7 @@
 
 <div class="col-lg-7 col-md-5 col-sm-5 col-xs-12">
 <div class="middle_forum">
-	<div class="forumtitle_top feedblue">MESSAGES</div>
+	<div class="forumtitle_top feedblue">MESSAGES<a class="back_quiz" href="#/messages" ng-href="#/messages"><< Back to Messages</a></div>
 
 	<div class="msg_internal">
 		<div class="row">
@@ -60,7 +60,7 @@
 						<a href="javascript:void(0)" class="delete-thread">Delete Thread</a>
 						<cite class="date-show">{{localDate(messages[0].CreatedDate) | date:"MM/dd/yyyy 'at' h:mma"}}</cite>
 					</div>
-					<p class="msg-content" ng-bind="messages[0].LastMessage.Body"></p>
+					<p class="msg-content" bind-html-compile="messages[0].LastMessage.Body"></p>
 				</div>
 			</div>
 			<div class="col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
@@ -84,24 +84,7 @@
 			</div>
 		</div>
 	</div>
-	<!--<div class="msg_internal">
-		<div class="row">
-			<div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
-				<img src="images/mony.png" class="sender">
-			</div>
-			<div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
-				<div class="show_message">
-					<div class="clearfix">
-						<label>Benjamin Franklin</label>
-						<a href="javascript:void(0)" class="delete-thread">Delete Thread</a>
-						<cite class="date-show">October 1, 2015 2:00 a.m.</cite>
-					</div>
-					<p class="msg-content">I observed...that the more public provisions were made for the poor, the less they provided for themselves, and of course became poorer. And, on the contrary, the less was done for them, the more they did for themselves, and became richer.</p>
-				</div>
-			</div>
-			<div class="col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
-		</div>
-	</div>	-->
+	
 	<div class="msg_internal textbox">
 		<form method="post" ng-submit="submitMessageReply()">
 			<div class="row">
@@ -141,7 +124,9 @@
 </form>
 </div>
 </div>
-<div ng-include="'polls.html'" ng-controller="pollsCtrl"></div>
+<div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">	
+	<div ng-include="'polls.html'" ng-controller="pollsCtrl"></div>
+</div>
 </div>
 </div>
 

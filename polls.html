@@ -1,4 +1,4 @@
-<div class="col-lg-2 col-md-3 col-sm-3 col-xs-12" ng-if="allPolls.length > 0">
+<div ng-if="allPolls.length > 0">
 	<form class="dailyPoll" name="pollForm" ng-submit="submitPoll(item, option)">
 		<div class="quickpool_cont" ng-repeat="item in allPolls | limitTo: 2">
 			<div class="greentitle_top">QUICK POLL</div>
@@ -24,7 +24,7 @@
 	</form>
 </div>
 
-<div class="col-lg-2 col-md-3 col-sm-3 col-xs-12" ng-if="allPolls.length == 0">
+<div ng-if="allPolls.length == 0">
 	<div class="quickpool_cont" ng-repeat="item in displayPollresults | limitTo: 2">
 		<div class="greentitle_top">Results For Previous Polls</div>
 		<div class="quickpool clearfix">

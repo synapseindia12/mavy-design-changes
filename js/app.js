@@ -29,9 +29,9 @@ myApp.config(function($routeProvider, $httpProvider, $facebookProvider) {
             templateUrl: 'forum.html',
 			controller: 'forumCtrl'
         })
-		.when('/forum-expanded/:forumId', {
-            templateUrl: 'forum-expanded.html',
-			controller: 'forumExpandedCtrl'
+		.when('/forum/:forumId', {
+            templateUrl: 'forum.html',
+			controller: 'forumCtrl'
         })
 		.when('/messages', {
             templateUrl: 'message.html',
@@ -123,7 +123,7 @@ myApp.controller('signupCtrl', function($scope, $rootScope, $location, $cookieSt
 		if($scope.sign.uname && $scope.sign.password){
 			endpoints.mobileHandler.login($scope.sign.uname, $scope.sign.password, $scope.userSysteminfo, function(result){
 				if(result){
-					debugger;
+					$scope.isLoggedIn = true;
 					$cookieStore.put('userName', $scope.sign.uname);
 					$scope.sign.uname = '';
 					$scope.sign.password = '';
@@ -181,18 +181,6 @@ myApp.controller('signupCtrl', function($scope, $rootScope, $location, $cookieSt
 			}
 		}, {scope: "email"});
 	};
-	// if($('#pagepiling').length){
-		// $('#pagepiling').pagepiling({
-			// navigation: {
-			  // 'textColor': '#000',
-			  // 'bulletsColor': '#fff',
-			  // 'position': 'left'
-			// }
-		// });
-	// }
-	// else{
-		// alert('pagepiling not found');
-	// }
 });
 
 myApp.controller('signupModalctrl', function($scope, $modalInstance, $facebook, $location, $localStorage, accessToken, userId){
@@ -265,6 +253,10 @@ myApp.controller('indexCtrl', function($scope, $cookieStore, $rootScope, $localS
 	endpoints.mobileHandler.getDashboard($scope.apiKey,$scope.userId,7,null,null, function(result){
 
 	});
+
+	$scope.showForum = function(forumId){
+		$location.path('/forum/'+forumId);
+	}
 	endpoints.mobileHandler.getDashboard($scope.apiKey, $scope.userId, 1, null, null, function(result){
 		if (result.result.success){
 			
@@ -311,7 +303,7 @@ myApp.controller('indexCtrl', function($scope, $cookieStore, $rootScope, $localS
 		var offset = d.getTimezoneOffset() / 60;
 		var hours = d.getHours();
 		var minsLim = Math.floor(offset)-offset;
-		var mins = d.getMinutes()/60;
+		var mins = (d.getMinutes()-3)/60;
 		
 		d.setHours(hours - Math.ceil(offset));
 		d.setMinutes((mins - minsLim)*60);
@@ -622,7 +614,12 @@ myApp.controller('pollsCtrl', function($scope, $rootScope, $location, $localStor
 			if(response.result.success){
 				if(response.result.result.length > 0){
 					if(response.result.result[0].responses[0].values[0] == index +1){
-						$('#result-poll-'+ index).css({'background': '#9193c1'});
+						$('#result-poll-'+ index).css({'background': '#9193c1','border-radius': '50%','color': '#fff','display': 'inline-block',
+													    'height': '35px',
+													    'min-width': '35px',
+													    'padding-top': '7px',
+													    'text-align': 'center',
+													    'vertical-align': 'middle'});
 						return true;
 					}
 				}
@@ -749,6 +746,7 @@ myApp.controller('navCtrl', function($scope, $cookieStore, $rootScope, $location
 	});
 	
 	$scope.logout = function() {
+		$rootScope.initialized = false;
 		$cookieStore.remove('userName');
 		delete $localStorage.loggedIn;
 		delete $localStorage.loginDetails;
@@ -1367,7 +1365,7 @@ myApp.controller('assignmentCtrl', function($scope, $location, $cookieStore, $lo
 	}
 });
 
-myApp.controller('forumCtrl', function($scope,$localStorage,$rootScope,$location, $route, $sce){
+myApp.controller('forumCtrl', function($scope,$localStorage,$rootScope,$routeParams,$location, $route, $sce){
 	
 	$rootScope.settings = false;
 	$rootScope.rewards = false;
@@ -1393,7 +1391,8 @@ myApp.controller('forumCtrl', function($scope,$localStorage,$rootScope,$location
 	endpoints.apiKey = $scope.apiKey;
 	endpoints.mobileHandler = new MobileHandler();
 	endpoints.mediaHandler = new MediaHandler();
-	
+	//var childCounter=0;
+
  //endpoints.mobileHandler.getActiveThreads($scope.apiKey,$scope.userId,3,null,null,function(result){
  	$scope.loadActiveThreads = function(){
 		endpoints.mobileHandler.getActiveThreads($scope.apiKey,$scope.userId,3,null,null,function(forums){
@@ -1406,27 +1405,65 @@ myApp.controller('forumCtrl', function($scope,$localStorage,$rootScope,$location
 			}
 			$scope.$apply();
 		});
+		//directChild();
 	};
-
+	 
 	if($rootScope.allForums) {
 	   for(var i=0; i<$rootScope.allForums.length; i++){   
 		$scope.activeThreads.push($rootScope.allForums[i]);
 	   }
+	  if($routeParams.forumId){
+		  	setTimeout(function(){
+		  		var fid=$routeParams.forumId;
+				
+				$("html, body").stop().animate({scrollTop:($('#customid'+fid).parent('div.cont_postmsg').offset().top-100)}, '500', 'swing', function() {});
+				
+				$('#customid'+fid).parent('div.cont_postmsg').css({'background':'#d6f5ff'});
+				$scope.getChilds(fid);
+				$('.showReplyBoxforReply'+fid).show();
+				setTimeout(function(){
+					$('#customid'+fid).parent('div.cont_postmsg').removeAttr('style');
+				},2000)
+		  	},1000)
+		}
    
 	}
 	else {
 		$scope.loadActiveThreads();
+		if($routeParams.forumId){
+		  	setTimeout(function(){
+		  		var fid=$routeParams.forumId;
+				
+				$("html, body").stop().animate({scrollTop:($('#customid'+fid).parent('div.cont_postmsg').offset().top-100)}, '500', 'swing', function() {});
+				
+				$('#customid'+fid).parent('div.cont_postmsg').css({'background':'#d6f5ff'});
+				$scope.getChilds(fid);
+				$('.showReplyBoxforReply'+fid).show();
+				setTimeout(function(){
+					$('#customid'+fid).parent('div.cont_postmsg').removeAttr('style');
+				},2000)
+		  	},1000)
+		}
 	}
- 
+ 	var preID = 0;
 	$scope.getChilds=function(id){
 		
-		
-		if($scope.showChilds){
-			$scope.showChilds = false;
-			$scope.childThreads = [];
+		if(id==preID){
+			if($scope.showChilds){
+				$scope.showChilds = false;
+				$scope.childThreads = [];
+			}
+			else
+				$scope.showChilds = true;
 		}
-		else
+		else{
+			preID=id;
+			$scope.childThreads = [];
 			$scope.showChilds = true;
+			$('.replyBoxParent').hide();
+		}
+			
+		
 			
 		if($scope.showChilds){
 			$rootScope.currentId = id;
@@ -1478,12 +1515,13 @@ myApp.controller('forumCtrl', function($scope,$localStorage,$rootScope,$location
 			}
 		}
 	};
- 
+	
 	$scope.submitPost = function(){
 		debugger;
 		$scope.threadInfo=[{"name":"Subject","value":$scope.postTitle},{"name":"Body","value":$scope.postBody}];
 		endpoints.mobileHandler.createThread($scope.apiKey,$scope.userId,3,$scope.threadInfo,function(response){
 			if(response.result.success){
+				$scope.activeThreads = [];
 				endpoints.mobileHandler.getActiveThreads($scope.apiKey,$scope.userId,3,null,null,function(forums){
 					if(forums.result.result.Threads) {
 						$rootScope.forumsCount=forums.result.result.Threads.length;
@@ -1499,6 +1537,7 @@ myApp.controller('forumCtrl', function($scope,$localStorage,$rootScope,$location
 			}
 		});  
 	};
+
 	
 	$scope.expandForumPage =function(id){ 
 		$location.path('/forum-expanded/'+id);
@@ -1677,7 +1716,7 @@ myApp.controller('forumCtrl', function($scope,$localStorage,$rootScope,$location
 		var offset = d.getTimezoneOffset() / 60;
 		var hours = d.getHours();
 		var minsLim = Math.floor(offset)-offset;
-		var mins = d.getMinutes()/60;
+		var mins = (d.getMinutes()-3)/60;
 		
 		d.setHours(hours - Math.ceil(offset));
 		d.setMinutes((mins - minsLim)*60);
@@ -1785,12 +1824,14 @@ myApp.controller('forumExpandedCtrl', function($scope,$localStorage,$rootScope,$
 		}
 	};
  
-	$scope.localDate = function(date){		
+	$scope.localDate = function(date){	
+		
 		var d = new Date(date);
 		var offset = d.getTimezoneOffset() / 60;
 		var hours = d.getHours();
 		var minsLim = Math.floor(offset)-offset;
-		var mins = d.getMinutes()/60;		
+		var mins = (d.getMinutes()-3)/60;
+		
 		d.setHours(hours - Math.ceil(offset));
 		d.setMinutes((mins - minsLim)*60);
 		return d;
@@ -1957,94 +1998,6 @@ myApp.controller('forumExpandedCtrl', function($scope,$localStorage,$rootScope,$
 		return $sce.trustAsResourceUrl(src);
 	};
 });
-	$scope.apiKey = loginDetails[0].value;
-	$scope.userId = loginDetails[1].value;
-	$scope.panelistId = loginDetails[2].value;
-	$scope.registrationId = loginDetails[3].value;
-	var sectionId = 2;
-	
-	var endpoints = {};
-	endpoints.apiKey = $scope.apiKey;
-	// Creating new handler for APIs
-	endpoints.mobileHandler = new MobileHandler();
-	//Querying APi for response using endpoints
-	
-	endpoints.mobileHandler.getInbox($scope.apiKey, $scope.userId, null, null, function(result){
-		if(result.result.result.Conversations){
-			for(var i=0; i<result.result.result.Conversations.length; i++){
-				$scope.messages.push(result.result.result.Conversations[i]);
-				$rootScope.messages.push(result.result.result.Conversations[i]);
-			}
-		}
-		$scope.$apply();
-	});
-	
-	$scope.showMessage = function(message) {
-		$rootScope.message = message;
-		$location.path('/messages/'+message.LastMessage.ConversationId);
-	}
-	
-	$scope.expandMessage = function(message){
-		if($scope.showExpandMessage){
-			$scope.showExpandMessage = false;
-			$scope.internalMessages = [];
-		}
-		else {
-			$scope.showExpandMessage = true;
-			$scope.internalMessages = [];
-			$scope.message = message;
-			conversationId = message.LastMessage.ConversationId;
-			debugger;
-			endpoints.mobileHandler.getInboxMessages($scope.apiKey, $scope.userId, conversationId, null, null, function(result){
-				for(var i=0; i<result.result.result.Messages.length; i++){
-					$scope.internalMessages.push(result.result.result.Messages[i]);
-				}			
-				$scope.$apply();
-			});
-		}
-	};
-	
-	$scope.createNewMessage = function() {
-		$scope.userNames = [];
-		$scope.projectId = '';
-		if($rootScope.messages.length > 0){
-			for(var i=0; i<$rootScope.messages[0].Participants.length; i++){
-				$scope.userNames.push($rootScope.messages[0].Participants[i].Username);
-			}
-		}
-		else{
-			$scope.userNames.push($cookieStore.get('userName'));
-		}
-		debugger;
-		if($scope.userNames.length > 0){
-			endpoints.mobileHandler.sendMessage($scope.apiKey, $scope.userId, $scope.subject, $scope.messageBody, $scope.userNames, null, null, function(result){
-				if(result.result.success){
-					alert('Successfully created');
-					$scope.subject = '';
-					$scope.messageBody = '';
-					$route.reload();
-				}
-			});
-		}
-	};
-	
-	$scope.submitMessageReply = function(items) {
-		if(items.messageReplyText){
-			endpoints.mobileHandler.sendMessageReply($scope.apiKey, $scope.userId, conversationId, items.messageReplyText, function(result){
-				if(result.result.success){
-					items.messageReplyText = '';
-					$scope.internalMessages = [];
-					endpoints.mobileHandler.getInboxMessages($scope.apiKey, $scope.userId, conversationId, null, null, function(result){
-						for(var i=0; i<result.result.result.Messages.length; i++){
-								$scope.internalMessages.push(result.result.result.Messages[i]);
-						}						
-						$scope.$apply();
-					});	
-				}
-			});
-		}
-	}
-});*/
 
 myApp.controller('messagesCtrl', function($scope, $cookieStore, $rootScope, $localStorage, $location, $route){
 	if(!$localStorage.loginDetails){
@@ -2220,7 +2173,7 @@ myApp.controller('messageconversationCtrl', function($scope,$localStorage,$cooki
 		var offset = d.getTimezoneOffset() / 60;
 		var hours = d.getHours();
 		var minsLim = Math.floor(offset)-offset;
-		var mins = d.getMinutes()/60;
+		var mins = (d.getMinutes()-3)/60;
 		
 		d.setHours(hours - Math.ceil(offset));
 		d.setMinutes((mins - minsLim)*60);
@@ -3385,18 +3338,47 @@ myApp.controller('rewardDetailsCtrl', function($scope, $rootScope, $modalInstanc
 	}
 })
 
-.directive('pagepiling', function(){
+.directive('pagepiling', function($rootScope){
 	return{
 		restrict: 'A',
 		link: function (scope, element, attrs) {
-			element.pagepiling({
-				navigation: {
-				  'textColor': '#000',
-				  'bulletsColor': '#fff',
-				  'position': 'left'
-				},
-				keyboardScrolling: false
+			debugger;
+			if(!$rootScope.initialized){
+				if($('#pp-nav').length){
+					$('#pp-nav').remove();
+				}
+				element.pagepiling({
+					navigation: {
+					  'textColor': '#000',
+					  'bulletsColor': '#fff',
+					  'position': 'left'
+					},
+					keyboardScrolling: false
+				});
+				$rootScope.initialized = true;
+			}
+		}
+	}
+}).directive('initializeSelectpicker', function($rootScope){
+	return{
+		restrict: 'A',
+		require: 'ngModel',
+		link: function(scope, element, attrs, ngModel){
+			element.selectpicker();
+			debugger;
+			scope.$watch(attrs.ngModel, function (newVal, oldVal) {
+				scope.$evalAsync(function () {
+				  if (!attrs.ngOptions || /track by/.test(attrs.ngOptions)) element.val(newVal);
+				  element.selectpicker('refresh');
+				  scope.dropChange(newVal);
+				});
 			});
+
+			ngModel.$render = function () {
+				scope.$evalAsync(function () {
+				  element.selectpicker('refresh');
+				});
+			}			
 		}
 	}
 });

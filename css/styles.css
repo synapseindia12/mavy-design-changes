@@ -127,7 +127,7 @@ a:hover {
   color: #70857b;
   text-decoration: none;
 }
-a:hover, a:focus {text-decoration: none;}
+a:hover, a:focus {text-decoration: none !important;}
 
 h1,
 h2,
@@ -370,7 +370,7 @@ footer .fa:hover {color:#333;}
 .right {float:right;}
 .left {float:right;}
 .mrgn-btm{margin-bottom:45px}
-.dashboard_pages{background:url('../images/body-bg.jpg') top center; background-size:cover;}
+.dashboard_pages{background:url('../images/body-bg.jpg') top center; background-size:cover; background-attachment: fixed;}
 header{margin-top:25px; font-family: 'Montserrat', sans-serif;}
 .top_header{padding:0; margin:26px 0 50px 0;}
 .logo {float:left;}
@@ -427,7 +427,7 @@ header{margin-top:25px; font-family: 'Montserrat', sans-serif;}
 .profile_bottom a {color:#fff; font-size:13px; text-transform:uppercase;}
 
 
-.middle_forum { padding:0; margin:0; background:#edfdff; border-radius:10px 10px 10px 10px;}
+.middle_forum { padding:0; margin:0 0 10px; background:#edfdff; border-radius:10px 10px 10px 10px;}
 .forumtitle_top { padding:15px; margin:0; background:#d6f5ff; border-bottom:solid 4px #abc4cc; border-radius:10px 10px 0 0; font-size:14px; color:#e465d4; font-weight:300; text-transform:uppercase; font-weight:bold; font-family: 'Montserrat', sans-serif;}
 .create_postsec { padding:0; margin:22px 45px 0 45px; min-height:400px; border-radius:10px 10px 0 0; position:relative;}
 .cptitle_top { padding:15px; margin:0; background:#e465d4; border-bottom:solid 4px #becacc; border-radius:10px 10px 0px 0px; font-size:14px; color:#fff; font-weight:300; text-transform:uppercase; font-weight:bold; font-family: 'Montserrat', sans-serif;}
@@ -447,7 +447,7 @@ header{margin-top:25px; font-family: 'Montserrat', sans-serif;}
 .like_dislike ul li { margin:2px 0;}
 .like_dislike ul li a {color:#e465d4; font-size:14px;}
 .cont_postmsg { position:relative; padding-left:100px; border-bottom:solid 1px #d4e3e6; margin-bottom:7px; min-height:83px;}
-.postimg_box {position:absolute; left:30px; top:5px; width:48px; height:48px;}
+.postimg_box {position:absolute; height: 64px; left: 10px; width: 64px;}
 .postname {font-weight:bold; font-size:14px; color:#5b5b5b; font-family: 'Montserrat', sans-serif; margin:0 15px 0 0; position:relative; display:inline; text-transform:uppercase;}
 .postname:before {position:absolute; right:-10px; top:3px; height:15px; width:1px; background:#000; content:"";}
 .msg_postsec { padding:0; margin:0;}
@@ -460,14 +460,14 @@ header{margin-top:25px; font-family: 'Montserrat', sans-serif;}
 .sub_postmsg  { padding:0; margin:25px 0 0 0 ;}
 .sub_postmsg .postimg_box { left:0px; top:2px;}
 .sub_postmsg .cont_postmsg { padding-left:55px; padding-bottom:10px;}
-.sub_postmsg .postimg_box { width:38px; height:38px;}
+.sub_postmsg .postimg_box {}
 .sub_postmsg .cont_postmsg:last-child { border-bottom:0px;}
 
-.cont_postmsg  .postimg_box img { width:48px; height:48px;}
+.cont_postmsg  .postimg_box img { width:64px; height:64px;}
 
 .greentitle_top { padding:15px; margin:0; background:#2dd8a3; border-bottom:solid 4px #24ad83; border-radius:10px 10px 0 0; font-size:14px; color:#eafdff; font-weight:300; font-weight:bold; font-family: 'Montserrat', sans-serif;}
 .quickpool { padding:0; margin:15px 10px}
-.quickpool h3 {padding:0; margin:0px 0 15px 0; font-size:14px; color:#5b5b5b; line-height:normal;}
+.quickpool h3 {padding:0; margin:0px 0 15px 0; font-size:14px; color:#5b5b5b; line-height:normal; font-weight: 700;}
 .quickpool ul {  padding: 0 0 0 20px; margin:0;}
 .quickpool ul li { margin:0 0 15px 0; padding:0 0 0 0px; font-weight:normal; text-transform:uppercase;}
 .quickpool .radio {padding-left:0px;}
@@ -495,7 +495,8 @@ h2.titlesame { padding:5px 5px 5px 0; margin:0px 0 0 0; font-size:14px; color:#0
 
 /* quiz feed page css start */
 .mypet_quiz { margin:0px 0;}
-.mypet_quiz ul li { padding:20px 0;}
+.mypet_quiz ul li { padding:20px 0; cursor: pointer;}
+.mypet_quiz ul li:hover{border-left:5px solid #0074c1;}
 .mypet_quiz ul li h3 { padding:0px; margin:0px 0; font-size:14px; color:#5b5b5b; font-weight:300; text-transform:uppercase; font-weight:bold; font-family: 'Montserrat', sans-serif; line-height:normal;}
 /* quiz feed page css end */
 
@@ -1107,3 +1108,73 @@ background-position: 90% center}
 .slide2-bg-image{background-image: url(../images/slide3.jpeg) !important;}
 .slide3-bg-image{background-image: url(../images/slide4.jpeg) !important;}
 .slide4-bg-image{background-image: url(../images/slide5.png) !important;}
+
+/* CSS by Akash 24-11-15 */
+
+ #mob_nav{display: none;}
+@media (max-width: 767px){
+ .slide-bg-image .indexheader{ background: none repeat scroll 0 0 #212121;padding: 10px 0;top: 0;}
+.slide-bg-image .top-nav {
+    border-top: 1px solid #101010;
+    display: none;
+    margin-top: 10px;
+}
+  .slide-bg-image .indexheader .logo{height: 35px;  }
+  #mob_nav{ 
+   border: 1px solid #333;
+    border-radius: 5px;
+    display: block;
+    height: 34px;
+    padding: 9.4px 9px;
+    position: absolute;
+    right: 30px;
+    top: 11px;
+    width: 43px;
+    z-index: 999;
+  }
+  #mob_nav:hover{
+    background: #333;
+  }
+  #mob_nav span{
+    display: block;
+    width:100%;
+    position: relative;
+    height: 2px;
+    background: #0099FF;
+    margin: 4px 0;
+    vertical-align: middle;
+    border-radius: 10px;
+  }
+  #mob_nav span:first-child{margin-top: 0;}
+  .slide-bg-image .top-nav li {
+      display: block;
+      height: auto !important;
+      padding: 8px 0;
+  }
+  .slide-bg-image .top-nav ol li button.button{
+    padding: 6px 15px;
+  }
+  .slide-bg-image .top-nav li a:hover,
+  .slide-bg-image .top-nav li button.button:hover{color:#0099ff;}
+}
+
+/**** new css Akash 241115 ********/
+
+.sub_postmsg .msg_postsec {
+    left: 15px;
+    position: relative;
+}
+.back_quiz {
+    float: right;
+    font-size: 11px;
+    margin-top: 3px;
+}
+body{
+  font-family: 'Lato', sans-serif !important;
+ 
+}
+.result-text {
+    display: inline-block;
+    min-width: 35px;
+    text-align: center;
+}

@@ -137,17 +137,12 @@
 		</div>
 	</div>	
 </div>
-<div ng-include="'polls.html'" ng-controller="pollsCtrl"></div>
+<div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">	
+	<div ng-include="'polls.html'" ng-controller="pollsCtrl"></div>
+</div>
 </div>
 </div>
 <!-- Middle Section end -->
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-
-<!-- Custom Select box -->
-
-<script src="js/bootstrap-select.js"></script>
 
 <script type="text/javascript">
     function customRadio(radioName){
@@ -172,8 +167,6 @@
         customRadio("search-engine");            
         customRadio("confirm");
     })
-	
-	$('.selectpicker').selectpicker();
 </script>
 
 <script type="text/javascript">

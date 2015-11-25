@@ -86,23 +86,23 @@
 <ul>
 		<li ng-repeat="post in tempArray | limitTo: 3">
 		<div class="cont_postmsg clearfix">
-		<div class="like_dislike">
+	<!--	<div class="like_dislike">
 			<ul>
 				<li><span class="likeimg"><a href="#"><img src="images/likeimg.png"alt=""></a></span></li>
 				<li><span class="likeimg"><a href="#">100</a></span></li>
 				<li><span class="likeimg"><a href="#"><img src="images/disclikeimg.png"alt=""></a></span></li>
 			</ul>
-		</div>
+		</div>-->
 		<div class="postimg_box">
-		<img class="img-responsive img-circle" src="{{post.AvatarUrl}}" alt="">
+		<img class="img-responsive img-circle" src="{{post.Content.CreatedByUser.AvatarUrl}}" alt="">
 		</div>	
 		<div class="msg_postsec clearfix bdr_pink">
 		<span class="postname">{{post.Author.DisplayName}}</span>		
 		<p dynamic="{{post.Body}}"></p>		
 		<div class="display_comment clearfix">
 		<ul>
-		<li><a href="#/forum" ng-href="#/forum"><img src="images/back_icon.png" alt=""></a></li>
-		<li class="pull-right"><a href="#/forum" ng-href="#/forum"><img src="images/comment_icon.png" alt=""> <span class="count_comment">{{post.ReplyCount}}</span></a></li>				
+		<li><a href="javascript:void(0)" ng-click="showForum(post.Id)"><img src="images/back_icon.png" alt=""></a></li>
+		<li class="pull-right"><a href="javascript:void(0)" ng-click="showForum(post.Id)"><img src="images/comment_icon.png" alt=""> <span class="count_comment">{{post.ReplyCount}}</span></a></li>				
 		</ul>
 		</div>		
 		</div>	
@@ -148,7 +148,9 @@
 
 </div>
 </div>
-<div ng-include="'polls.html'" ng-controller="pollsCtrl"></div>
+<div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">	
+	<div ng-include="'polls.html'" ng-controller="pollsCtrl"></div>
+</div>
 </div>
 </div>
 <!-- Middle Section end -->

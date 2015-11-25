@@ -1,13 +1,19 @@
+	<link rel="stylesheet" type="text/css" href="css/jquery.pagepiling.css" />
    <ul class="bxslider" pagepiling>
 		<li class="section slide-bg-image">
 			<!-- Changing some structure -->
 			<!--<img src="images/slide.png" />-->
 			<!-- HEADER -->
 			<section class="indexheader">
+				<a href="javascript:void(0)" id="mob_nav">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </a>
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-xs-12 col-sm-3 col-md-3 col-lg-5">
-							<img src="images/logo.png" class="logo">
+							<img src="images/logo.png" class="logo" />
 						</div>
 						<div class="col-xs-12 col-sm-9 col-md-9 col-lg-7">
 							<div class="top-nav">
@@ -29,48 +35,20 @@
 			</section>
 			<div class="panel-subscription">
 				<div class="text-align-center">
-					<img src="images/logo1.png">
+					<img src="images/logo1.png" />
 				</div>
 				<div ng-include="'loginform.html'"></div>
 			</div>
-			<!-- <div class="downarrow"><a href=""><img src="images/arrow.png"></a></div> -->
-			<!-- End Here -->
-				<!--<img src="images/slide1.png" />-->
-				<!-- <header class="indexheader">
-					<div class="container-fluid">
-						<div class="row">
-							<div class="col-xs-3 col-sm-3 col-md-3 col-lg-5">
-								<div class="nav1"><a id="App" href="#">App</a>
-								</div>
-							</div>
-
-							<div class="col-xs-9 col-sm-9 col-md-9 col-lg-7">
-								<div class="top-nav">
-									<ol>
-										<li>
-											<button class="button" type="button">Log In</button>
-										</li>
-										<li>
-											<button class="button signup" type="button ">SIGN Up</button>
-										</li>
-									</ol>
-								</div>
-							</div>
-
-						</div>
-					</div>
-				</header> -->
-		</li>
-		
+		</li>		
 		<li class="section slide1-bg-image">
 			<div class="MAVYApp-subscription">
-					<h2 class="title">MAVY App is here.</h2>
-					<h2 class="title">Download the app now.</h2>
-					<p>The MAVY app is a source of ongoing understanding of the dynamic millennial consumer segments as they age and move into different stages of their lives. </p>
+				<h2 class="title">MAVY App is here.</h2>
+				<h2 class="title">Download the app now.</h2>
+				<p>The MAVY app is a source of ongoing understanding of the dynamic millennial consumer segments as they age and move into different stages of their lives. </p>
 
 
-					<a href="#" class="btn-app-store"></a>
-					<a href="#" class="btn-google-play"></a>
+				<a href="#" class="btn-app-store"></a>
+				<a href="#" class="btn-google-play"></a>
 			</div>
 			<header class="indexheader">
 				<div class="container-fluid">
@@ -130,7 +108,6 @@
                 <a class="button" href="#">LEARN MORE <img src="images/left_arrow.png" alt=""/></a>
             </div>
         </li>
-
         <li class="section slide3-bg-image">
             <!--<img src="images/slide4.jpeg" />-->
             <header class="indexheader">
@@ -161,11 +138,10 @@
             <div class="content_div color1">
                 <h1>What's in it for me?</h1>
                 <h3>Share your voice. Tell your favorite brands exactly what you want.</h3>
-                <p>Besides the satisfaction of having your voice heard and being a part of a like-minded community, you get paid! The more you use MAV, the stronger your voice will be. MAVV provides each of us the opportunity to earn badges for sharing our opinions, and let's us collect points that can be cashed out for cool prizes.</p>
+                <p>Besides the satisfaction of having your voice heard and being a part of a like-minded community, you get paid! The more you use MAVY, the stronger your voice will be. MAVY provides each of us the opportunity to earn badges for sharing our opinions, and let's us collect points that can be cashed out for cool prizes.</p>
                 <a class="button" href="#">LEARN MORE <img src="images/left_arrow.png" alt=""/></a>
             </div>
         </li>
-
         <li class="section slide4-bg-image">
             <!--<img src="images/slide5.png" />-->
             <header class="indexheader">
@@ -204,8 +180,8 @@
                 <a class="btn-app-store" href="#"></a>
                 <a class="btn-google-play" href="#"></a>
                 <p class="clear"></p>
-                <footer>
-                    <p><a href="" class="active">APP</a><a href="">ABout</a><a href="">Rewards</a>
+                <footer class="footer">
+                    <p class="signup-links"><a href="javascript: void(0)" data-ind='1'>APP</a><a href="javascript: void(0)" data-ind='2'>ABout</a><a href="javascript: void(0)" data-ind='3'>Rewards</a>
                     </p>
                     <p>CopyRight &#9400 2015 Mavy</p>
 
@@ -215,15 +191,46 @@
             </div>
         </li>
     </ul>
-	<script>
-		$('.top-nav li a').click(function(){
+	 <script>
+		$('.slide-bg-image .top-nav li a').click(function(){
+            var winW = $(window).width();
+            alert
+            if(winW<768){
+               $('.slide-bg-image .top-nav').slideUp(); 
+            }
+           //$('.slide-bg-image .top-nav').slideUp();
+		   debugger;
 			var index = $(this).data('ind');
 			$('.section').removeClass('active');
 			$('.section').eq(index).addClass('active');
 			$('#pp-nav ul li a').removeClass('active');
 			$('#pp-nav ul li a').eq(index).addClass('active');
-			for(var i=$(this).data('ind')-1;i>=0;i--){
+			for(var i=$(this).data('ind');i>=0;i--){
 				$('.section').eq(i).css({"transform": "translate3d(0px, -100%, 0px)"});
 			}			
 		});
+		
+		$('.footer .signup-links a').click(function(){
+            var winW = $(window).width();
+            if(winW<768){
+               $('.slide-bg-image .top-nav').slideUp(); 
+            }
+           //$('.slide-bg-image .top-nav').slideUp();
+		   debugger;
+			var index = $(this).data('ind');
+			$('.section').removeClass('active');
+			$('.section').eq(index).addClass('active');
+			$('#pp-nav ul li a').removeClass('active');
+			$('#pp-nav ul li a').eq(index).addClass('active');
+			for(var i=$(this).data('ind');i>=0;i--){
+				$('.section').css({"transform": "translate3d(0px, 0%, 0px)"});
+				$('.section').eq(i).css({"transform": "translate3d(0px, -100%, 0px)"});
+			}			
+		});
+		
+
+        $(document).on('click','#mob_nav',function(){
+            $('.slide-bg-image .top-nav').slideToggle();
+        });
+       
 	</script>
