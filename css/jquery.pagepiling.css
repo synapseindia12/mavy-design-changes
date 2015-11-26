@@ -43,7 +43,7 @@ html, body {
     right: 17px;
 }
 #pp-nav.left {
-    left: 17px;
+
 }
 .pp-section.pp-table{
     display: block;
@@ -69,13 +69,12 @@ html, body {
 #pp-nav ul,
 .pp-slidesNav ul {
   margin: 0;
-  padding: 0;
+  padding: 20px 0 0;
 }
 #pp-nav li,
 .pp-slidesNav li {
     display: block;
-	margin-top: 15px;
-	position: relative;
+	 margin: 0 0 9px 40px;
 }
 .pp-slidesNav li {
     display: inline-block;
@@ -132,4 +131,11 @@ html, body {
 .pp-scrollable{
     overflow-y: scroll;
     height: 100%;
+}
+
+#pp-nav > ul {
+    position: fixed;
+    top: 40%;
+    width: 30px;
+    z-index: 1000;
 }

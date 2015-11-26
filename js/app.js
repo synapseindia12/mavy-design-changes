@@ -89,7 +89,7 @@ myApp.controller('createUserCtrl', function($scope, $location){
 		}
 		else{
 			// var attributes = [{'name': 'email', 'value': $scope.uemail}, {'name': 'username', 'value': $scope.uname}, {'name': 'password', 'value': $scope.password}];
-			debugger;
+			
 			var attributes = [{"name": "username","value": "Akash_19"},{"name": "email","value": "akash19@sampatti.com"},{"name": "bdate","value": "4/15/1980"},{"name": "gend","value": "M"},{ "name": "education","value": "edu_7"},{"name": "hispanic","value": "No"},{"name": "ethnicitymultichoice","value": "s6_2::"},{"name": "kidsunder18","value": "Yes"},{ "name": "zipc","value": "60607"},{"name": "state", "value": "IL"},{"name": "region","value": "Midwest"},{"name": "income","value": "s9_5"},{"name": "employmentmultichoice","value": "s10_1::s10_2::s10_3::s10_6::"},{"name": "employmentcensus","value": "s10_1"},{"name": "signupmethod","value": "CreateUser"},{"name": "src","value": "src_5"},{"name": "fname","value": "Diego"},{"name": "lname","value": "C"},{"name": "cellphone","value": "773-123-1234"},{"name": "otpdelivery","value": "1"},{"name": "password", "value": "admin@123"}];
 
 
@@ -432,7 +432,7 @@ myApp.controller('pollsCtrl', function($scope, $rootScope, $location, $localStor
 				$scope.resultCheckPolls(result);
 			}
 			else{
-				debugger;
+				
 				if($scope.allPolls.length > 0){
 					$location.path('/pollresults');
 					$scope.$apply();
@@ -442,7 +442,7 @@ myApp.controller('pollsCtrl', function($scope, $rootScope, $location, $localStor
 	};
 	
 	$scope.checkPolls = function(result) {
-		debugger;
+		
 		$scope.allData = result;
 		$rootScope.incrementedVal = $scope.incrementedVal;
 		endpoints.mobileHandler.getPanelistPollResponses($scope.apiKey, $scope.userId,$scope.panelistId,$scope.allData.result.result.Entries[$scope.incrementedVal].taskId, function(response){
@@ -513,7 +513,7 @@ myApp.controller('pollsCtrl', function($scope, $rootScope, $location, $localStor
 					// $cookieStore.put('totalPollCounts', $rootScope.totalPollsResults);
 					// $scope.displayPollresults = $rootScope.dataforResults;
 					// $scope.incrementedVal = $scope.incrementedVal + 1;
-					// debugger;
+					// 
 					// $scope.recursiveCall(result);
 					// $scope.$apply();
 				// }
@@ -586,11 +586,11 @@ myApp.controller('pollsCtrl', function($scope, $rootScope, $location, $localStor
 		$('input[name="pollCheck"]:checked').each(function(){
 			$scope.value.push($(this).val());
 		});	
-		debugger;
+		
 		$scope.value.push(value);
-		debugger;
+		
 		var response = {"projectId": $scope.allPolls[0].projectId, "moduleId": $scope.allPolls[0].moduleId, "taskId": $scope.allPolls[0].taskId, "itemId": $scope.allPolls[0].itemId, "isTestData": false, "notes": $scope.notes, "values": $scope.value};
-		debugger;
+		
 		endpoints.mobileHandler.savePollResponse($scope.apiKey, $scope.userId, $scope.panelistId, response, function(result){
 			if(result.result.success){
 				alert('Thanks for your vote.');
@@ -843,7 +843,7 @@ myApp.controller('assignmentCtrl', function($scope, $location, $cookieStore, $lo
 	
 	endpoints.mobileHandler.getDashboard($scope.apiKey, $scope.userId, 1, null, null, function(result){
 		if (result.result.success){
-			debugger;
+			
 			for (var i=0; i< result.result.result.Entries.length; i++) {
 				$scope.allAssignments.push(result.result.result.Entries[i]);
 				if(result.result.result.Entries[i].modules[0].options.featured == 1){
@@ -1517,7 +1517,7 @@ myApp.controller('forumCtrl', function($scope,$localStorage,$rootScope,$routePar
 	};
 	
 	$scope.submitPost = function(){
-		debugger;
+		
 		$scope.threadInfo=[{"name":"Subject","value":$scope.postTitle},{"name":"Body","value":$scope.postBody}];
 		endpoints.mobileHandler.createThread($scope.apiKey,$scope.userId,3,$scope.threadInfo,function(response){
 			if(response.result.success){
@@ -1677,7 +1677,7 @@ myApp.controller('forumCtrl', function($scope,$localStorage,$rootScope,$routePar
 								replyText = "[View:"+result.result.result.URL+":0:0]";
 						}
 						endpoints.mobileHandler.saveReply($scope.apiKey,$scope.userId,$scope.ThreadId,$scope.ParentId,replyText,function(response){
-							debugger;
+							
 							$route.reload();
 						});
 					}
@@ -2160,7 +2160,7 @@ myApp.controller('messageconversationCtrl', function($scope,$localStorage,$cooki
 	
 	$scope.internalMessages = [];
 	endpoints.mobileHandler.getInboxMessages($scope.apiKey, $scope.userId, $routeParams.conversationId, null, null, function(result){
-		debugger;
+		
 		for(var i=1; i<result.result.result.Messages.length; i++){
 				$scope.internalMessages.push(result.result.result.Messages[i]);
 		}		
@@ -2360,7 +2360,7 @@ myApp.controller('profileCtrl', function($scope, $localStorage, $location, $root
 				$scope.data.userUpload = x[1];
 				//console.log($scope.data.userUpload.substring(0,64).length);
 				$scope.fileName = input.files[0].name;
-				debugger;
+				
 				endpoints.mobileHandler.updateAvatar($scope.apiKey, $scope.userId, $scope.data.userUpload, $scope.fileName, function(result){
 					if(result.result.success){
 						$scope.showLoader = false;
@@ -2476,7 +2476,7 @@ myApp.controller('profileCtrl', function($scope, $localStorage, $location, $root
 	});
 	
 	$scope.updateNotification = function() {
-		debugger;
+		
 		if($scope.emailCheck){
 			if($scope.preferences.indexOf("3a") == -1)
 				$scope.preferences.push("3a", "3e", "3h");
@@ -2774,7 +2774,7 @@ myApp.controller('badgesCtrl', function($scope, $localStorage, $location, $route
 				$scope.data.userUpload = x[1];
 				//console.log($scope.data.userUpload.substring(0,64).length);
 				$scope.fileName = input.files[0].name;
-				debugger;
+				
 				endpoints.mobileHandler.updateAvatar($scope.apiKey, $scope.userId, $scope.data.userUpload, $scope.fileName, function(result){
 					if(result.result.success){
 						$scope.showLoader = false;
@@ -2883,7 +2883,7 @@ myApp.controller('notificationCtrl', function($scope, $localStorage, $location){
 	});
 	
 	$scope.updateNotification = function() {
-		debugger;
+		
 		if($scope.emailCheck){
 			if($scope.preferences.indexOf("3a") == -1)
 				$scope.preferences.push("3a", "3e", "3h");
@@ -3332,7 +3332,7 @@ myApp.controller('rewardDetailsCtrl', function($scope, $rootScope, $modalInstanc
   return {
       link: function(scope, elm, attrs) {
             elm.bxSlider({mode: 'vertical'}, {slideMargin: 5});
-			debugger;
+			
 			scope.initializePagepipling();
        }
 	}
@@ -3342,7 +3342,7 @@ myApp.controller('rewardDetailsCtrl', function($scope, $rootScope, $modalInstanc
 	return{
 		restrict: 'A',
 		link: function (scope, element, attrs) {
-			debugger;
+			
 			if(!$rootScope.initialized){
 				if($('#pp-nav').length){
 					$('#pp-nav').remove();
@@ -3365,7 +3365,7 @@ myApp.controller('rewardDetailsCtrl', function($scope, $rootScope, $modalInstanc
 		require: 'ngModel',
 		link: function(scope, element, attrs, ngModel){
 			element.selectpicker();
-			debugger;
+			
 			scope.$watch(attrs.ngModel, function (newVal, oldVal) {
 				scope.$evalAsync(function () {
 				  if (!attrs.ngOptions || /track by/.test(attrs.ngOptions)) element.val(newVal);
@@ -3453,7 +3453,7 @@ angular.module('angular-bootstrap-select.extra', [])
     return {
       restrict: 'A',
       link: function (scope, element, attrs) {
-		debugger;
+		
         // prevent directive from attaching itself to everything that defines a toggle attribute
         if (!element.hasClass('selectpicker')) {
           return;
