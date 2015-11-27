@@ -97,7 +97,8 @@
 		<img class="img-responsive img-circle" src="{{post.Content.CreatedByUser.AvatarUrl}}" alt="">
 		</div>	
 		<div class="msg_postsec clearfix bdr_pink">
-		<span class="postname">{{post.Author.DisplayName}}</span>		
+		<p class="postname">{{post.Author.DisplayName}}</p>
+		<p class="posttitle">{{post.Subject}}</p>
 		<p dynamic="{{post.Body}}"></p>		
 		<div class="display_comment clearfix">
 		<ul>

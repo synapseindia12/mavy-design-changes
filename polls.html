@@ -1,6 +1,6 @@
-<div ng-if="allPolls.length > 0">
+<div ng-if="pollforvotes.length > 0">
 	<form class="dailyPoll" name="pollForm" ng-submit="submitPoll(item, option)">
-		<div class="quickpool_cont" ng-repeat="item in allPolls | limitTo: 2">
+		<div class="quickpool_cont" ng-repeat="item in pollforvotes | limitTo: 2">
 			<div class="greentitle_top">QUICK POLL</div>
 			<div class="quickpool clearfix"> 
 				<h3 bind-html-compile="item.pollTitle"></h3>
@@ -24,17 +24,17 @@
 	</form>
 </div>
 
-<div ng-if="allPolls.length == 0">
-	<div class="quickpool_cont" ng-repeat="item in displayPollresults | limitTo: 2">
+<div ng-if="dataforResults.length > 0">
+	<div class="quickpool_cont" ng-repeat="item in dataforResults | limitTo: 2">
 		<div class="greentitle_top">Results For Previous Polls</div>
 		<div class="quickpool clearfix">
 			<h3 bind-html-compile="item.pollTitle"></h3>
 			<ul>
-				<li ng-repeat="option in item.options.categories">
+				<li ng-repeat="option in item.pollresults">
 					<span class="result-text" id="result-poll-{{$index}}" ng-class="{'bgColor': applyBackground(item.itemId, $index)}">
-						{{option.values}}%
+						{{option.count}}%
 					</span>
-					{{option.description}}
+					{{option.category}}
 				</li>
 			</ul>
 		</div>

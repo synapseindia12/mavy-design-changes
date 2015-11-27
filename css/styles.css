@@ -461,12 +461,12 @@ header{margin-top:25px; font-family: 'Montserrat', sans-serif;}
 .like_dislike ul li { margin:2px 0;}
 .like_dislike ul li a {color:#e465d4; font-size:14px;}
 .cont_postmsg { position:relative; padding-left:100px; border-bottom:solid 1px #d4e3e6; margin-bottom:7px; min-height:83px;}
-.postimg_box {position:absolute; left:30px; top:5px; width:48px; height:48px;}
+.postimg_box {position:absolute; left:20px; top:5px; width:64px; height:64px;}
 .postname {font-weight:bold; font-size:14px; color:#5b5b5b; font-family: 'Montserrat', sans-serif; margin:0 15px 0 0; position:relative; display:inline; text-transform:uppercase;}
 .postname:before {position:absolute; right:-10px; top:3px; height:15px; width:1px; background:#000; content:"";}
 .msg_postsec { padding:0; margin:0;}
 .postdate { padding:0; margin:0; font-size:10px; display:inline-block;}
-.msg_postsec p { font-size:13px; color:#5b5b5b; padding:0; margin:0 0 10px 0;}
+.msg_postsec p { font-size:13px; color:#5b5b5b; padding:0; margin:0 0 10px 0; display: block;}
 .display_comment { padding:0; margin:15px 0;}
 .display_comment ul li{float:left; margin:0 20px 0 0; padding:0px;}
 .count_comment {color:#e465d4; font-size:14px; margin-left:3px;}
@@ -477,7 +477,7 @@ header{margin-top:25px; font-family: 'Montserrat', sans-serif;}
 .sub_postmsg .postimg_box { width:38px; height:38px;}
 .sub_postmsg .cont_postmsg:last-child { border-bottom:0px;}
 
-.cont_postmsg  .postimg_box img { width:48px; height:48px;}
+.cont_postmsg  .postimg_box img { width:64px; height:64px;}
 
 .greentitle_top { padding:15px; margin:0; background:#2dd8a3; border-bottom:solid 4px #24ad83; border-radius:10px 10px 0 0; font-size:14px; color:#eafdff; font-weight:300; font-weight:bold; font-family: 'Montserrat', sans-serif;}
 .quickpool { padding:0; margin:15px 10px}
@@ -1201,3 +1201,95 @@ background-position: 90% center}
   background: #009afe;
   color:#fff;
 }
+
+/* Slider CSS */
+.slide-bg-image{background-image: url(../images/slide.png) !important;}
+.slide1-bg-image{background-image: url(../images/slide1.png) !important;}
+.slide2-bg-image{background-image: url(../images/slide3.jpeg) !important;}
+.slide3-bg-image{background-image: url(../images/slide4.jpeg) !important;}
+.slide4-bg-image{background-image: url(../images/slide5.png) !important;}
+
+/* CSS by Akash 24-11-15 */
+
+ #mob_nav{display: none;}
+@media (max-width: 767px){
+ .slide-bg-image .indexheader{ background: none repeat scroll 0 0 #212121;padding: 10px 0;top: 0;}
+.slide-bg-image .top-nav {
+    border-top: 1px solid #101010;
+    display: none;
+    margin-top: 10px;
+}
+  .slide-bg-image .indexheader .logo{height: 35px;  }
+  #mob_nav{ 
+   border: 1px solid #333;
+    border-radius: 5px;
+    display: block;
+    height: 34px;
+    padding: 9.4px 9px;
+    position: absolute;
+    right: 30px;
+    top: 11px;
+    width: 43px;
+    z-index: 999;
+  }
+  #mob_nav:hover{
+    background: #333;
+  }
+  #mob_nav span{
+    display: block;
+    width:100%;
+    position: relative;
+    height: 2px;
+    background: #0099FF;
+    margin: 4px 0;
+    vertical-align: middle;
+    border-radius: 10px;
+  }
+  #mob_nav span:first-child{margin-top: 0;}
+  .slide-bg-image .top-nav li {
+      display: block;
+      height: auto !important;
+      padding: 8px 0;
+  }
+  .slide-bg-image .top-nav ol li button.button{
+    padding: 6px 15px;
+  }
+  .slide-bg-image .top-nav li a:hover,
+  .slide-bg-image .top-nav li button.button:hover{color:#0099ff;}
+}
+
+/**** new css Akash 241115 ********/
+
+.sub_postmsg .msg_postsec {
+    left: 15px;
+    position: relative;
+}
+.back_quiz {
+    float: right;
+    font-size: 11px;
+    margin-top: 3px;
+}
+body{
+  font-family: 'Lato', sans-serif !important;
+ 
+}
+.result-text {
+    display: inline-block;
+    min-width: 35px;
+    text-align: center;
+}
+
+/* CSS edited by Rishabh 27-11-15 */
+.back_quiz {
+    float: right;
+}
+.top_postlist .postimg_box{
+	height: 64px;
+	width: 64px;
+	left: 10px;
+}
+.posttitle{
+	font-weight: 700;
+	font-style: italic;
+}
+/* Ends Here */

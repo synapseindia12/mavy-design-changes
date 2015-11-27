@@ -52,7 +52,7 @@
 							<div class="col-xs-9 col-sm-9 col-md-9 col-lg-7">
 								<div class="top-nav">
 									<ol>
-										<li>
+										<li class="app-link">
 											<button class="button" type="button">Log In</button>
 										</li>
 										<!-- <li>
@@ -92,7 +92,7 @@
 							<div class="col-xs-9 col-sm-9 col-md-9 col-lg-7">
 								<div class="top-nav">
 									<ol>
-										<li>
+										<li class="app-link">
 											<button class="button" type="button">Log In</button>
 										</li>
 										<!-- <li>
@@ -126,7 +126,7 @@
 							<div class="col-xs-9 col-sm-9 col-md-9 col-lg-7">
 								<div class="top-nav">
 									<ol>
-										<li>
+										<li class="app-link">
 											<button class="button" type="button">Log In</button>
 										</li>
 										<!-- <li>
@@ -157,7 +157,7 @@
 							<div class="col-xs-9 col-sm-9 col-md-9 col-lg-7">
 								<div class="top-nav">
 									<ol>
-										<li>
+										<li class="app-link">
 											<button id="lastLogin"class="button" type="button">Log In</button>
 										</li>
 										<!-- <li>
@@ -223,7 +223,16 @@
 			$('.section').css({"transform": "translate3d(0px, 0%, 0px)"});
 			for(var i=$(this).data('ind')-1;i>=0;i--){
 				$('.section').eq(i).css({"transform": "translate3d(0px, -100%, 0px)"});
-			}			
+			}
+		});
+		
+		$('.app-link button').click(function(){
+			//alert('Hi');
+			$('#pp-nav ul li a').removeClass('active');
+			$('#pp-nav ul li a').eq(0).addClass('active');
+			$('.section').removeClass('active');
+			$('.section').eq(0).addClass('active');
+			$('.section').css({"transform": "translate3d(0px, 0%, 0px)"});
 		});
 		
 
