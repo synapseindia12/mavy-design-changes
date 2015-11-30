@@ -384,7 +384,7 @@ footer .fa:hover {color:#333;}
 .right {float:right;}
 .left {float:right;}
 .mrgn-btm{margin-bottom:45px}
-.dashboard_pages{background:url('../images/body-bg.jpg') top center; background-size:cover;}
+.dashboard_pages{background:url('../images/body-bg.jpg') top center; background-size:cover; background-attachment: fixed;}
 header{margin-top:25px; font-family: 'Montserrat', sans-serif;}
 .top_header{padding:0; margin:26px 0 50px 0;}
 .logo {float:left;}
@@ -424,7 +424,7 @@ header{margin-top:25px; font-family: 'Montserrat', sans-serif;}
 .rwd_price {font-size:22px; color:#008dea; font-weight:normal; margin-top:2px; float:right; float:left;}
 .profile_listing { padding:0px 15px 15px 15px;}
 .profile_listing ul li { padding:0; margin:0 0 15px 0; line-height:45px; float:left; width:100%;}
-.profile_listing ul li a {font-size:12px; text-transform:uppercase; color:#5b5b5b; font-weight:bold;}
+.profile_listing ul li a {font-size:12px; text-transform:uppercase; color:#5b5b5b; font-weight:bold; cursor: pointer;}
 .reward_icon { background:url(../images/reward_icon.png) center center no-repeat; width:45px; height:45px; float:left; margin-right:15px; border:solid 2px #008fed; border-radius:50%;}
 .profile_listing ul li a:hover .reward_icon { background:#008dea url(../images/reward_icon_hover.png) center center no-repeat; border-radius:50%;}
 .profile_listing ul li a.active .reward_icon { background:#008dea url(../images/reward_icon_hover.png) center center no-repeat; border-radius:50%;}
@@ -441,7 +441,7 @@ header{margin-top:25px; font-family: 'Montserrat', sans-serif;}
 .profile_bottom a {color:#fff; font-size:13px; text-transform:uppercase;}
 
 
-.middle_forum { padding:0; margin:0; background:#edfdff; border-radius:10px 10px 10px 10px;}
+.middle_forum { padding:0; margin:0 0 10px; background:#edfdff; border-radius:10px 10px 10px 10px;}
 .forumtitle_top { padding:15px; margin:0; background:#d6f5ff; border-bottom:solid 4px #abc4cc; border-radius:10px 10px 0 0; font-size:14px; color:#e465d4; font-weight:300; text-transform:uppercase; font-weight:bold; font-family: 'Montserrat', sans-serif;}
 .create_postsec { padding:0; margin:22px 45px 0 45px; min-height:400px; border-radius:10px 10px 0 0; position:relative;}
 .cptitle_top { padding:15px; margin:0; background:#e465d4; border-bottom:solid 4px #becacc; border-radius:10px 10px 0px 0px; font-size:14px; color:#fff; font-weight:300; text-transform:uppercase; font-weight:bold; font-family: 'Montserrat', sans-serif;}
@@ -461,12 +461,12 @@ header{margin-top:25px; font-family: 'Montserrat', sans-serif;}
 .like_dislike ul li { margin:2px 0;}
 .like_dislike ul li a {color:#e465d4; font-size:14px;}
 .cont_postmsg { position:relative; padding-left:100px; border-bottom:solid 1px #d4e3e6; margin-bottom:7px; min-height:83px;}
-.postimg_box {position:absolute; left:20px; top:5px; width:64px; height:64px;}
+.postimg_box {position:absolute; height: 64px; left: 10px; width: 64px;}
 .postname {font-weight:bold; font-size:14px; color:#5b5b5b; font-family: 'Montserrat', sans-serif; margin:0 15px 0 0; position:relative; display:inline; text-transform:uppercase;}
 .postname:before {position:absolute; right:-10px; top:3px; height:15px; width:1px; background:#000; content:"";}
 .msg_postsec { padding:0; margin:0;}
 .postdate { padding:0; margin:0; font-size:10px; display:inline-block;}
-.msg_postsec p { font-size:13px; color:#5b5b5b; padding:0; margin:0 0 10px 0; display: block;}
+.msg_postsec p { font-size:13px; color:#5b5b5b; padding:0; margin:0 0 10px 0;}
 .display_comment { padding:0; margin:15px 0;}
 .display_comment ul li{float:left; margin:0 20px 0 0; padding:0px;}
 .count_comment {color:#e465d4; font-size:14px; margin-left:3px;}
@@ -474,14 +474,14 @@ header{margin-top:25px; font-family: 'Montserrat', sans-serif;}
 .sub_postmsg  { padding:0; margin:25px 0 0 0 ;}
 .sub_postmsg .postimg_box { left:0px; top:2px;}
 .sub_postmsg .cont_postmsg { padding-left:55px; padding-bottom:10px;}
-.sub_postmsg .postimg_box { width:38px; height:38px;}
+.sub_postmsg .postimg_box {}
 .sub_postmsg .cont_postmsg:last-child { border-bottom:0px;}
 
 .cont_postmsg  .postimg_box img { width:64px; height:64px;}
 
 .greentitle_top { padding:15px; margin:0; background:#2dd8a3; border-bottom:solid 4px #24ad83; border-radius:10px 10px 0 0; font-size:14px; color:#eafdff; font-weight:300; font-weight:bold; font-family: 'Montserrat', sans-serif;}
 .quickpool { padding:0; margin:15px 10px}
-.quickpool h3 {padding:0; margin:0px 0 15px 0; font-size:14px; color:#5b5b5b; line-height:normal;}
+.quickpool h3 {padding:0; margin:0px 0 15px 0; font-size:14px; color:#5b5b5b; line-height:normal; font-weight: 700;}
 .quickpool ul {  padding: 0 0 0 20px; margin:0;}
 .quickpool ul li { margin:0 0 15px 0; padding:0 0 0 0px; font-weight:normal; text-transform:uppercase;}
 .quickpool .radio {padding-left:0px;}
@@ -509,7 +509,8 @@ h2.titlesame { padding:5px 5px 5px 0; margin:0px 0 0 0; font-size:14px; color:#0
 
 /* quiz feed page css start */
 .mypet_quiz { margin:0px 0;}
-.mypet_quiz ul li { padding:20px 0;}
+.mypet_quiz ul li { padding:20px 0; cursor: pointer;}
+.mypet_quiz ul li:hover{border-left:5px solid #0074c1;}
 .mypet_quiz ul li h3 { padding:0px; margin:0px 0; font-size:14px; color:#5b5b5b; font-weight:300; text-transform:uppercase; font-weight:bold; font-family: 'Montserrat', sans-serif; line-height:normal;}
 /* quiz feed page css end */
 
@@ -793,9 +794,10 @@ footer {margin:40px auto auto}
 /************** Profile/Account setting - 07/10/15 - Emp1682 ***************/
 
 .profilesetting_top{
-  margin: 0;padding:0;display: block;border-bottom: 4px solid #abc4cc;
+  margin: 0;padding:0;display: block;
 }
-.profilesetting_top>div{padding: 0;}
+.profilesetting_top>div{padding: 0;border-bottom: 4px solid #abc4cc;}
+
 .profilesetting_top .tabs{
   display:block;background: #d6f5ff;font-size: 14px;padding: 15px 0 15px 20px;
   color:#72c4ff; font-weight: bold;margin: 0;cursor: pointer;
@@ -821,10 +823,10 @@ footer {margin:40px auto auto}
   background: transparent;border:none;width:60%;padding:5px 0px 5px 10px;font-size: 14px;color:#5b5b5b;
 }
 .form_section .grybdr{border-bottom: 1px solid #d4e3e6; width:60%; margin: 0px 0 15px 0;}
-.form_section a.save{color:#008fed;text-decoration: none;font-size: 12px; font-weight: bold; display: inline-block;
+.form_section .save{color:#008fed;text-decoration: none;font-size: 12px; font-weight: bold; display: inline-block;
   padding: 3px 7px; border: 2px solid #008fed; border-radius: 10px; float: right; margin:20px 50px 30px;
 }
-.form_section a.save:hover{background: #008fed; color:#fff;}
+.form_section .save:hover{background: #008fed; color:#fff;}
 
 .form_section td{padding-right: 20px;text-align: center;}
 .form_section span{display: block; max-width: 80px;}
@@ -855,17 +857,17 @@ footer {margin:40px auto auto}
 }
 .account_section .btn_sel a:hover,.account_section .btn_sel a.selected{background: #008fed; color:#fff;}
 
-.account_section button.save{color:#008fed;text-decoration: none;font-size: 12px; font-weight: bold; display: inline-block;
+.account_section .save{color:#008fed;text-decoration: none;font-size: 12px; font-weight: bold; display: inline-block;
   padding: 3px 7px; border: 2px solid #008fed; border-radius: 10px; float: right; margin:20px 50px 30px; background: transparent;
 }
-.account_section a.save:hover{background: #008fed; color:#fff;}
+.account_section .save:hover{background: #008fed; color:#fff;}
 @media (max-width: 1199px){
 
   .form_section{
     padding: 10px 20px;
   }
   .form_section input,.form_section .grybdr{width:80%;}
-  .form_section a.save{margin-right: 20px;}
+  .form_section .save{margin-right: 20px;}
   .account_section input,.account_section .grybdr{width:80%;}
 }
 @media (max-width: 1100px){

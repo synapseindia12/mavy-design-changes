@@ -434,20 +434,25 @@ myApp.controller('pollsCtrl', function($scope, $rootScope, $location, $localStor
 								if(result.result.result.Entries[i]){
 									if(voteCounts.result.result.length>0){
 										if(result.result.result.Entries[i].itemId == voteCounts.result.result[0].itemId){
-											for(var j=0; j<voteCounts.result.result[0].values.length; j++){
-												for(var p=0; p<result.result.result.Entries[i].options.categories.length; p++){
-													if(voteCounts.result.result[0].values[j]){
-														if(voteCounts.result.result[0].values[j].value == result.result.result.Entries[i].options.categories[p].values){
-															voteCounts.result.result[0].values[j].count = (voteCounts.result.result[0].values[j].count /voteCounts.result.result[0].responseCount)*100;
-															$scope.pollforResults.push({'count': voteCounts.result.result[0].values[j].count, 'category': result.result.result.Entries[i].options.categories[p].description});
+											for(var j=0; j<result.result.result.Entries[i].options.categories.length; j++){
+												if(voteCounts.result.result[0].values[j]){
+													for(var p=0; p<voteCounts.result.result[0].values.length; p++){
+														debugger;
+														if(voteCounts.result.result[0].values[p].value == result.result.result.Entries[i].options.categories[j].values){
+															voteCounts.result.result[0].values[p].count = (voteCounts.result.result[0].values[p].count /voteCounts.result.result[0].responseCount)*100;
+															$scope.pollforResults.push({'count': voteCounts.result.result[0].values[p].count, 'category': result.result.result.Entries[i].options.categories[j].description});
 														}
 													}
+												}
+												else{
+													$scope.pollforResults.push({'count': '0', 'category': result.result.result.Entries[i].options.categories[j].description});
 												}
 											}
 										}
 									}
 								}
 							}
+							
 							$rootScope.dataforResults.push({'pollresults': $scope.pollforResults, 'pollTitle': result.result.result.Entries[$scope.incrementedVal].pollTitle});
 							$scope.incrementedVal = $scope.incrementedVal + 1;
 							$rootScope.pollforResults = [];
@@ -2161,6 +2166,10 @@ myApp.controller('profileCtrl', function($scope, $localStorage, $location, $root
 			$location.path('/rewards');
 		}
 	};
+	
+	$scope.openFile = function(){
+		$('#photo-upload').click();
+	}
 	
 	endpoints.mobileHandler.getPanelistAttributes($scope.apiKey, $scope.userId, $scope.panelistId, function(callback){
 		if(callback.result.success){
