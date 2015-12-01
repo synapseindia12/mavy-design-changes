@@ -311,7 +311,6 @@ myApp.controller('indexCtrl', function($scope, $cookieStore, $rootScope, $localS
 	};
 	
 	endpoints.mobileHandler.getPanelistAttributes($scope.apiKey, $scope.userId, $scope.panelistId, function(callback){
-		debugger;
 		if(callback.result.success){
 			$scope.avatarUrl = callback.result.result.AvatarUrl;
 			$rootScope.avatarUrl = callback.result.result.AvatarUrl;
@@ -437,7 +436,6 @@ myApp.controller('pollsCtrl', function($scope, $rootScope, $location, $localStor
 											for(var j=0; j<result.result.result.Entries[i].options.categories.length; j++){
 												if(voteCounts.result.result[0].values[j]){
 													for(var p=0; p<voteCounts.result.result[0].values.length; p++){
-														debugger;
 														if(voteCounts.result.result[0].values[p].value == result.result.result.Entries[i].options.categories[j].values){
 															voteCounts.result.result[0].values[p].count = (voteCounts.result.result[0].values[p].count /voteCounts.result.result[0].responseCount)*100;
 															$scope.pollforResults.push({'count': voteCounts.result.result[0].values[p].count, 'category': result.result.result.Entries[i].options.categories[j].description});
@@ -2059,10 +2057,18 @@ myApp.controller('messageconversationCtrl', function($scope,$localStorage,$cooki
 	
 	
 	$scope.internalMessages = [];
+	$scope.firstMessage = [];
 	endpoints.mobileHandler.getInboxMessages($scope.apiKey, $scope.userId, $routeParams.conversationId, null, null, function(result){
 		
-		for(var i=1; i<result.result.result.Messages.length; i++){
+		for(var i=0; i<result.result.result.Messages.length; i++){
+			if(i<result.result.result.Messages.length-1){
 				$scope.internalMessages.push(result.result.result.Messages[i]);
+			}
+			else{
+				
+				$scope.firstMessage.push(result.result.result.Messages[i]);
+			}
+				
 		}		
 		$scope.$apply();
 	});	
@@ -2088,6 +2094,7 @@ myApp.controller('messageconversationCtrl', function($scope,$localStorage,$cooki
 					$scope.internalMessages = [];
 					$scope.messages = [];
 					$rootScope.messages=[];
+					$scope.firstMessage = [];
 					endpoints.mobileHandler.getInbox($scope.apiKey, $scope.userId, null, null, function(result){
 						if(result.result.result.Conversations){
 							for(var i=0; i<result.result.result.Conversations.length; i++){
@@ -2098,8 +2105,14 @@ myApp.controller('messageconversationCtrl', function($scope,$localStorage,$cooki
 						$scope.$apply();
 					});
 					endpoints.mobileHandler.getInboxMessages($scope.apiKey, $scope.userId, $routeParams.conversationId, null, null, function(result){
-						for(var i=1; i<result.result.result.Messages.length; i++){
-								$scope.internalMessages.push(result.result.result.Messages[i]);
+						for(var i=0; i<result.result.result.Messages.length; i++){
+								if(i<result.result.result.Messages.length-1){
+									$scope.internalMessages.push(result.result.result.Messages[i]);
+								}
+								else{
+									
+									$scope.firstMessage.push(result.result.result.Messages[i]);
+								}
 						}						
 						$scope.$apply();
 					});	
@@ -2112,6 +2125,7 @@ myApp.controller('messageconversationCtrl', function($scope,$localStorage,$cooki
 		}
 	}
 });
+
 
 myApp.controller('profileCtrl', function($scope, $localStorage, $location, $rootScope){
 	if(!$localStorage.loginDetails){
@@ -2128,6 +2142,7 @@ myApp.controller('profileCtrl', function($scope, $localStorage, $location, $root
 	$scope.messages = [];
 	$scope.tempArr = [];
 	$scope.resetPassword = {};
+	$scope.formData = {};
 	
 	/* Getting all local Storage data for User Authentication */
 	var loginDetails = $localStorage.loginDetails;
@@ -2173,44 +2188,44 @@ myApp.controller('profileCtrl', function($scope, $localStorage, $location, $root
 	
 	endpoints.mobileHandler.getPanelistAttributes($scope.apiKey, $scope.userId, $scope.panelistId, function(callback){
 		if(callback.result.success){
-			$scope.avatarUrl = callback.result.result.AvatarUrl;
-			$scope.fname = callback.result.result.fname;
-			$scope.lname = callback.result.result.lname;
-			$scope.email = callback.result.result.email;
+			$scope.formData.avatarUrl = callback.result.result.AvatarUrl;
+			$scope.formData.fname = callback.result.result.fname;
+			$scope.formData.lname = callback.result.result.lname;
+			$scope.formData.email = callback.result.result.email;
 			if(callback.result.result.bdate.slice('/')[1] == '/')
-				$scope.selectedMonth = callback.result.result.bdate.slice('/')[0];
+				$scope.formData.selectedMonth = callback.result.result.bdate.slice('/')[0];
 			else
-				$scope.selectedMonth = callback.result.result.bdate.slice('/')[0] + callback.result.result.bdate.slice('/')[1];
+				$scope.formData.selectedMonth = callback.result.result.bdate.slice('/')[0] + callback.result.result.bdate.slice('/')[1];
 			if(callback.result.result.bdate.slice('/')[1] != '/')
-				$scope.selectedDate = callback.result.result.bdate.slice('/')[3] + callback.result.result.bdate.slice('/')[4];
+				$scope.formData.selectedDate = callback.result.result.bdate.slice('/')[3] + callback.result.result.bdate.slice('/')[4];
 			else
 				if(callback.result.result.bdate.slice('/')[3] == '/')
-					$scope.selectedDate = callback.result.result.bdate.slice('/')[2];
+					$scope.formData.selectedDate = callback.result.result.bdate.slice('/')[2];
 				else
-					$scope.selectedDate = callback.result.result.bdate.slice('/')[2] + callback.result.result.bdate.slice('/')[3];
+					$scope.formData.selectedDate = callback.result.result.bdate.slice('/')[2] + callback.result.result.bdate.slice('/')[3];
 			if(callback.result.result.bdate.slice('/')[3] == '/')
-				$scope.selectedYear = callback.result.result.bdate.slice('/')[4]+callback.result.result.bdate.slice('/')[5]+callback.result.result.bdate.slice('/')[6]+callback.result.result.bdate.slice('/')[7];				
+				$scope.formData.selectedYear = callback.result.result.bdate.slice('/')[4]+callback.result.result.bdate.slice('/')[5]+callback.result.result.bdate.slice('/')[6]+callback.result.result.bdate.slice('/')[7];				
 			if(callback.result.result.bdate.slice('/')[4] == '/')
-				$scope.selectedYear = callback.result.result.bdate.slice('/')[5]+callback.result.result.bdate.slice('/')[6]+callback.result.result.bdate.slice('/')[7]+callback.result.result.bdate.slice('/')[8];
+				$scope.formData.selectedYear = callback.result.result.bdate.slice('/')[5]+callback.result.result.bdate.slice('/')[6]+callback.result.result.bdate.slice('/')[7]+callback.result.result.bdate.slice('/')[8];
 			if(callback.result.result.bdate.slice('/')[5] == '/')
-				$scope.selectedYear = callback.result.result.bdate.slice('/')[6]+callback.result.result.bdate.slice('/')[7]+callback.result.result.bdate.slice('/')[8]+callback.result.result.bdate.slice('/')[9];
-			if($scope.selectedYear){
+				$scope.formData.selectedYear = callback.result.result.bdate.slice('/')[6]+callback.result.result.bdate.slice('/')[7]+callback.result.result.bdate.slice('/')[8]+callback.result.result.bdate.slice('/')[9];
+			if($scope.formData.selectedYear){
 				if(selectedYearValue){
 					for(var i=0; i<selectedYearValue.length; i++){
-						if($scope.selectedYear == selectedYearValue.options[i].text){
+						if($scope.formData.selectedYear == selectedYearValue.options[i].text){
 							$scope.yearSelected = false;
-							$scope.selectedYear = $scope.selectedYear;
+							$scope.formData.selectedYear = $scope.selectedYear;
 						}
 					}
 					if($scope.yearSelected)
-						$scope.selectedYear = selectedYearValue.options[selectedYearValue.length -1].text;
+						$scope.formData.selectedYear = selectedYearValue.options[selectedYearValue.length -1].text;
 				}
 			}
 			
-			$scope.gender = callback.result.result.gend;
-			$scope.zipcode = callback.result.result.zipc;
+			$scope.formData.gender = callback.result.result.gend;
+			$scope.formData.zipcode = callback.result.result.zipc;
 			if(callback.result.result.cellphone){
-				$scope.mobileNumber = callback.result.result.cellphone.replace(/-/g, "");
+				$scope.formData.mobileNumber = callback.result.result.cellphone.replace(/-/g, "");
 			}
 			
 			endpoints.mobileHandler.getIncentives($scope.apiKey, $scope.userId, $scope.panelistId, null, null, function(result){
@@ -2238,9 +2253,10 @@ myApp.controller('profileCtrl', function($scope, $localStorage, $location, $root
 			// return false;
 		// }
 		
-		$scope.bdate = $scope.selectedMonth + '/' + $scope.selectedDate + '/' + $scope.selectedYear;
-		$scope.attributes = [{"name": "fname", "value": $scope.fname}, {"name": "lname", "value": $scope.lname}, {"name": "email", "value": $scope.email}, {"name": "bdate", "value": $scope.bdate}, {"name": "gend", "value": $scope.gender}, {"name": "zipc", "value": $scope.zipcode}, {"name": "cellphone", "value": $scope.mobileNumber}];
+		$scope.bdate = $scope.formData.selectedMonth + '/' + $scope.formData.selectedDate + '/' + $scope.formData.selectedYear;
+		$scope.attributes = [{"name": "fname", "value": $scope.formData.fname}, {"name": "lname", "value": $scope.formData.lname}, {"name": "email", "value": $scope.formData.email}, {"name": "bdate", "value": $scope.formData.bdate}, {"name": "gend", "value": $scope.formData.gender}, {"name": "zipc", "value": $scope.formData.zipcode}, {"name": "cellphone", "value": $scope.formData.mobileNumber}];
 		$scope.skipAddressVerify = false;
+		debugger;
 		endpoints.mobileHandler.updatePanelistAttributes($scope.apiKey, $scope.userId, $scope.panelistId, $scope.attributes, $scope.skipAddressVerify, function(response){
 			if(response.result.success){
 				alert('Profile successfully updated');
@@ -3274,7 +3290,7 @@ myApp.controller('rewardDetailsCtrl', function($scope, $rootScope, $modalInstanc
 				scope.$evalAsync(function () {
 				  if (!attrs.ngOptions || /track by/.test(attrs.ngOptions)) element.val(newVal);
 				  element.selectpicker('refresh');
-				  scope.dropChange(newVal);
+				  //scope.dropChange(newVal);
 				});
 			});
 

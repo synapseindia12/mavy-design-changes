@@ -84,21 +84,21 @@
 						<label>FIRST NAME</label>
 					</div>
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<input type="text" class="name first bottom-border" name="first_name" id="userFirstName" ng-model="fname" required />
+						<input type="text" class="name first bottom-border" name="fname" id="userFirstName" ng-model="formData.fname" required />
 						<div class="grybdr"></div>
 					</div>
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<label>LAST NAME</label>
 					</div>
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<input type="text" class="name last bottom-border" name="last_name" id="userLastName" ng-model="lname" required />
+						<input type="text" class="name last bottom-border" name="lname" id="userLastName" ng-model="formData.lname" required />
 						<div class="grybdr"></div>
 					</div>
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<label>EMAIL ADDRESS</label>
 					</div>
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<input type="email" class="email bottom-border" name="location" id="userEmail" ng-model="email" required />
+						<input type="email" class="email bottom-border" name="location" id="userEmail" ng-model="formData.email" required />
 						<div class="grybdr"></div>
 					</div>
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -112,7 +112,7 @@
 							<tr>
 								<td>
 									<span>
-										<select name="months" class="selectpicker" ng-model="selectedMonth" required>
+										<select name="months" class="selectpicker" ng-model="formData.selectedMonth" required initialize-selectpicker>
 											<option value="1">1</option>
 											<option value="2">2</option>
 											<option value="3">3</option>
@@ -130,7 +130,7 @@
 								</td>
 								<td>
 									<span>
-										<select id="form_dob_day" class="selectpicker" name="dob_day" ng-model="selectedDate" required>
+										<select id="form_dob_day" class="selectpicker" name="dob_day" ng-model="formData.selectedDate" required initialize-selectpicker>
 											<option value="1">1</option>
 											<option value="2">2</option>
 											<option value="3">3</option>
@@ -167,7 +167,7 @@
 								</td>
 								<td>
 									<span style="max-width:200px;">
-										<select id="birthyear" name="birthyear" class="selectpicker" ng-model="selectedYear" required>
+										<select id="birthyear" name="birthyear" class="selectpicker" ng-model="formData.selectedYear" required initialize-selectpicker>
 											<option value="2006">2006</option>
 											<option value="2005">2005</option>
 											<option value="2004">2004</option>
@@ -219,8 +219,8 @@
 					</div>
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<span style="max-width:100px;">
-										<select class="selectpicker" name="gender" id="userGender" ng-model="gender" required>
-											<option value="-">-</option>
+										<select class="selectpicker" name="gender" id="userGender" ng-model="formData.gender" required initialize-selectpicker>
+											<!--<option value="-">-</option>-->
 											<option value="F">Female</option>
 											<option value="M">Male</option>
 										</select>
@@ -231,14 +231,14 @@
 						<label>ZIP CODE</label>
 					</div>
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<input type="text" class="zipcode bottom-border" name="zipcode" id="zipcode" ng-model="zipcode" />
+						<input type="text" class="zipcode bottom-border" name="zipcode" id="zipcode" ng-model="formData.zipcode" />
 						<div class="grybdr"></div>
 					</div>
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<label>MOBILE NUMBER</label>
 					</div>
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<input name="phonenumber" ui-mask="(999) 999-9999" ng-blur="y='(999) 999-9999'" ng-model="mobileNumber" class="mobile bottom-border" numbers-only="numbers-only" maxlength="28" name="mobile" id="userMobile" />
+						<input name="phonenumber" ui-mask="(999) 999-9999" ng-blur="y='(999) 999-9999'" ng-model="formData.mobileNumber" class="mobile bottom-border" numbers-only="numbers-only" maxlength="28" name="mobile" id="userMobile" />
 						<div class="grybdr"></div>
 					</div>
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

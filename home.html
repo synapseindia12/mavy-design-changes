@@ -98,7 +98,7 @@
 		</div>	
 		<div class="msg_postsec clearfix bdr_pink">
 		<p class="postname">{{post.Author.DisplayName}}</p>
-		<p class="posttitle">{{post.Subject}}</p>
+		<p class="posttitle" bind-html-compile="post.Subject"></p>
 		<p dynamic="{{post.Body}}"></p>		
 		<div class="display_comment clearfix">
 		<ul>

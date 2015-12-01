@@ -51,22 +51,22 @@
 	<div class="msg_internal">
 		<div class="row">
 			<div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
-				<img src="{{messages[0].CreatedUser.AvatarUrl}}" class="sender">
+				<img src="{{firstMessage[0].Author.AvatarUrl}}" class="sender">
 			</div>
 			<div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
 				<div class="show_message">
 					<div class="clearfix">
-						<label>{{messages[0].CreatedUser.DisplayName}}</label>
+						<label>{{firstMessage[0].Author.DisplayName}}</label>
 						<a href="javascript:void(0)" class="delete-thread">Delete Thread</a>
-						<cite class="date-show">{{localDate(messages[0].CreatedDate) | date:"MM/dd/yyyy 'at' h:mma"}}</cite>
+						<cite class="date-show">{{localDate(firstMessage[0].CreatedDate) | date:"MM/dd/yyyy 'at' h:mma"}}</cite>
 					</div>
-					<p class="msg-content" bind-html-compile="messages[0].LastMessage.Body"></p>
+					<p class="msg-content" bind-html-compile="firstMessage[0].Body"></p>
 				</div>
 			</div>
 			<div class="col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
 		</div>
 	</div>
-	<div class="msg_internal receiver" ng-repeat="items in internalMessages | filter: ConversationId">
+	<div class="msg_internal receiver" ng-repeat="items in internalMessages.slice().reverse() | filter: ConversationId">
 		<div class="row">
 			<div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
 				
