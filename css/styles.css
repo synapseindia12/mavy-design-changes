@@ -1302,10 +1302,11 @@ body{
     color: #fff;
     font-weight: 700;
     padding:10px 15px;
-    position: absolute;}
+    position: absolute;
+}
 
 .quiz_tip:before {
-     background-image: url("../images/icon_triblue_down.png");
+    background-image: url("../images/icon_triblue_down.png");
     background-repeat: no-repeat;
     bottom: -20px;
     content: "";
@@ -1314,4 +1315,51 @@ body{
     position: absolute;
     right: 40%;
     width: 30px;
+}
+
+.head_rightsec .selected{
+  display: none;
+}
+
+.postbody {
+    max-height: 60px;
+    overflow: hidden;
+}
+
+.readmore a {
+    border: 0.5px solid;
+    border-radius: 5px;
+    color: #008eeb;
+    display: inline-block;
+    font-size: 11px;
+    padding: 0 5px 2px;
+}
+.readmore a:hover{
+  background: #008eeb;
+  color:#fff;
+}
+#pp-nav li a, .pp-slidesNav li a{
+  background: none repeat scroll 0 0 #e465d4 !important;
+}
+#pp-nav li .active, .pp-slidesNav .active {
+    background: none repeat scroll 0 0 #0099ff !important;
+}
+
+/* Style for notification */
+
+.switch-email {
+    border: 1px solid;
+    height: 30px;
+    margin-left: 0 !important;
+    position: absolute;
+    width: 32%;
+	opacity:0;
+}
+.switch-sms {
+    border: 1px solid;
+    height: 30px;
+    margin-left: 0 !important;
+    position: absolute;
+    width: 32%;
+	opacity:0;
 }

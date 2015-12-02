@@ -106,7 +106,7 @@ myApp.controller('createUserCtrl', function($scope, $location){
 	}
 });
 
-myApp.controller('signupCtrl', function($scope, $rootScope, $location, $cookieStore, $localStorage, $timeout, $window, $facebook, $modal){
+myApp.controller('signupCtrl', function($scope, $rootScope, $location, $cookieStore, $localStorage, $timeout, $window, $facebook, $modal, $route){
 	$scope.sign={'uname':'','password':''};
 	if ($localStorage.loggedIn) {
 		$('body').addClass('dashboard_pages');
@@ -122,7 +122,8 @@ myApp.controller('signupCtrl', function($scope, $rootScope, $location, $cookieSt
 		$scope.userSysteminfo = [];
 		if($scope.sign.uname && $scope.sign.password){
 			endpoints.mobileHandler.login($scope.sign.uname, $scope.sign.password, $scope.userSysteminfo, function(result){
-				if(result){
+				debugger;
+				if(result.result.success){
 					$scope.isLoggedIn = true;
 					$cookieStore.put('userName', $scope.sign.uname);
 					$scope.sign.uname = '';
@@ -132,6 +133,12 @@ myApp.controller('signupCtrl', function($scope, $rootScope, $location, $cookieSt
 					$('body').addClass('dashboard_pages');
 					$location.path('/dashboard');
 					
+					$scope.$apply();
+				}
+				else{
+					$scope.sign.uname = '';
+					$scope.sign.password = '';
+					$location.path('/');
 					$scope.$apply();
 				}
 			});
@@ -606,10 +613,14 @@ myApp.controller('navCtrl', function($scope, $cookieStore, $rootScope, $location
 	});
 	endpoints.mobileHandler.getInbox($scope.apiKey, $scope.userId, 20, null, function(msg){
 		if(msg.result.result.Conversations){
-			$rootScope.msgCount = msg.result.result.Conversations.length;
+			$scope.messageCount = [];
 			for(var i=0; i<msg.result.result.Conversations.length; i++){
+				if(msg.result.result.Conversations[i].HasRead != true){
+					$scope.messageCount.push(msg.result.result.Conversations[i]);
+				}
 				$scope.recentMessages.push(msg.result.result.Conversations[i]);
 			}
+			$rootScope.msgCount = $scope.messageCount.length;
 			$scope.$apply();
 		}	
 	});
@@ -2330,18 +2341,12 @@ myApp.controller('profileCtrl', function($scope, $localStorage, $location, $root
 	/* Notification for the new design */
 	
 	endpoints.mobileHandler.getNotifications($scope.apiKey, $scope.userId, $scope.panelistId, function(result){
+		debugger;
 		if(result.result.success){
 			var resultArray = result.result.result;
 			$scope.preferences = resultArray;
 			for(var i=0; i<resultArray.length; i++){
 				switch(resultArray[i]){
-					case "3a": 
-						if($scope.preferences.indexOf("3e") !== -1){
-							if($scope.preferences.indexOf("3h") !== -1){
-								$scope.pushCheck = true;
-							}
-						}	
-					break;
 					case "2a": 
 						if($scope.preferences.indexOf("2e") !== -1){
 							if($scope.preferences.indexOf("2h") !== -1){
@@ -2356,11 +2361,6 @@ myApp.controller('profileCtrl', function($scope, $localStorage, $location, $root
 							}
 						}
 					break;
-					case "3b": 
-						if($scope.preferences.indexOf("3c") !== -1){
-							$scope.forumPush = true;							
-						}
-					break;
 					case "2b": 
 						if($scope.preferences.indexOf("2c") !== -1){
 							$scope.forumSMS = true;
@@ -2371,18 +2371,12 @@ myApp.controller('profileCtrl', function($scope, $localStorage, $location, $root
 							$scope.forumEmail = true;
 						}
 					break;
-					case "3f": 
-						$scope.messagesPush = true;
-					break;
 					case "2f": 
 						$scope.messagesSMS = true;
 					break;
 					case "1f": 
 						$scope.messagesEmail = true;
 					break;
-					case "3d":
-						$scope.resultsPush = true;
-						break;
 					case "2d":
 						$scope.resultsSMS = true;
 						break;
@@ -2396,7 +2390,7 @@ myApp.controller('profileCtrl', function($scope, $localStorage, $location, $root
 	});
 	
 	$scope.updateNotification = function() {
-		
+		debugger;
 		if($scope.emailCheck){
 			if($scope.preferences.indexOf("3a") == -1)
 				$scope.preferences.push("3a", "3e", "3h");
@@ -2452,23 +2446,7 @@ myApp.controller('profileCtrl', function($scope, $localStorage, $location, $root
 				}
 			}
 		}
-		if($scope.pushCheck){
-			if($scope.preferences.indexOf("1a") == -1)
-				$scope.preferences.push("1a", "1e", "1h");
-		}
-		else {
-			var findIndexes = [];
-			if($scope.preferences.indexOf("1a") !== -1){
-				findIndexes.push($scope.preferences.indexOf("1a"));
-				findIndexes.push($scope.preferences.indexOf("1e"));
-				findIndexes.push($scope.preferences.indexOf("1h"));
-				if(findIndexes.length > 0){
-					for(var i=0; i< findIndexes.length; i++){
-						$scope.preferences.splice(findIndexes[i], 1);
-					}
-				}
-			}
-		}
+		
 		if($scope.forumEmail){
 			if($scope.preferences.indexOf("3b") == -1)
 				$scope.preferences.push("3b", "3c");
@@ -2522,22 +2500,7 @@ myApp.controller('profileCtrl', function($scope, $localStorage, $location, $root
 				}
 			}
 		}
-		if($scope.forumPush){
-			if($scope.preferences.indexOf("1b") == -1)
-				$scope.preferences.push("1b", "1c");
-		}
-		else{
-			var findIndexes = [];
-			if($scope.preferences.indexOf("1b") !== -1){
-				findIndexes.push($scope.preferences.indexOf("1b"));
-				findIndexes.push($scope.preferences.indexOf("1c"));
-				if(findIndexes.length > 0){
-					for(var i=0; i< findIndexes.length; i++){
-						$scope.preferences.splice(findIndexes[i], 1);
-					}
-				}
-			}
-		}
+		
 		if($scope.resultsEmail){
 			if($scope.preferences.indexOf("3d") == -1)
 				$scope.preferences.push("3d");
@@ -2577,15 +2540,7 @@ myApp.controller('profileCtrl', function($scope, $localStorage, $location, $root
 			if(index !== -1)
 				$scope.preferences.splice(index, 1);
 		}
-		if($scope.resultsPush){
-			if($scope.preferences.indexOf("1d") == -1)
-				$scope.preferences.push("1d");
-		}
-		else{
-			var index = $scope.preferences.indexOf("1d");
-			if(index !== -1)
-				$scope.preferences.splice(index, 1);
-		}
+		
 		if($scope.messagesEmail){
 			if($scope.preferences.indexOf("3f") == -1)
 				$scope.preferences.push("3f");
@@ -2625,15 +2580,7 @@ myApp.controller('profileCtrl', function($scope, $localStorage, $location, $root
 			if(index !== -1)
 				$scope.preferences.splice(index, 1);
 		}
-		if($scope.messagesPush){
-			if($scope.preferences.indexOf("1f") == -1)
-				$scope.preferences.push("1f");
-		}
-		else{
-			var index = $scope.preferences.indexOf("1f");
-			if(index !== -1)
-				$scope.preferences.splice(index, 1);
-		}
+		
 		endpoints.mobileHandler.updateNotifications($scope.apiKey, $scope.userId, $scope.panelistId, $scope.preferences, function(result){
 			
 		});
@@ -3262,8 +3209,9 @@ myApp.controller('rewardDetailsCtrl', function($scope, $rootScope, $modalInstanc
 	return{
 		restrict: 'A',
 		link: function (scope, element, attrs) {
-			
+			element.hide();
 			if(!$rootScope.initialized){
+				debugger;
 				if($('#pp-nav').length){
 					$('#pp-nav').remove();
 				}
@@ -3275,7 +3223,10 @@ myApp.controller('rewardDetailsCtrl', function($scope, $rootScope, $modalInstanc
 					},
 					keyboardScrolling: false
 				});
-				$rootScope.initialized = true;
+				setTimeout(function(){
+					$rootScope.initialized = true;
+					element.show();
+				}, 100);
 			}
 		}
 	}
@@ -3290,7 +3241,7 @@ myApp.controller('rewardDetailsCtrl', function($scope, $rootScope, $modalInstanc
 				scope.$evalAsync(function () {
 				  if (!attrs.ngOptions || /track by/.test(attrs.ngOptions)) element.val(newVal);
 				  element.selectpicker('refresh');
-				  //scope.dropChange(newVal);
+				  scope.dropChange(newVal);
 				});
 			});
 

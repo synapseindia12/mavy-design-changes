@@ -284,15 +284,19 @@
 								<div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
 									<label>QUIZZES</label>
 									<div class="btn_sel">
-										<a href="javascript: void(0)" ng-click="updateNotification()">EMAIL</a>
-										<a href="javascript: void(0)" ng-click="updateNotification()" class="selected">TEXT</a>
+										<input type="checkbox" class="switch-email" ng-model="emailCheck" ng-change="updateNotification()" />
+										<a href="javascript: void(0)" ng-class="{selected: emailCheck}">EMAIL</a>
+										<input type="checkbox" class="switch-sms" ng-model="smsCheck" ng-change="updateNotification()" />
+										<a href="javascript: void(0)" ng-class="{selected: smsCheck}">TEXT</a>
 									</div>
 								</div>
 								<div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
 									<label>RESULTS</label>
 									<div class="btn_sel">
-										<a href="javascript: void(0)" ng-click="updateNotification()">EMAIL</a>
-										<a href="javascript: void(0)" ng-click="updateNotification()">TEXT</a>
+										<input type="checkbox" class="switch-email" ng-model="resultsEmail" ng-change="updateNotification()" />
+										<a href="javascript: void(0)" ng-class="{selected: resultsEmail}">EMAIL</a>
+										<input type="checkbox" class="switch-sms" ng-model="resultsSMS" ng-change="updateNotification()" />
+										<a href="javascript: void(0)" ng-class="{selected: resultsSMS}">TEXT</a>
 									</div>
 								</div>
 							</div>
@@ -300,15 +304,19 @@
 								<div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
 									<label>FORUM</label>
 									<div class="btn_sel">
-										<a href="javascript: void(0)" ng-click="updateNotification()">EMAIL</a>
-										<a href="javascript: void(0)" ng-click="updateNotification()">TEXT</a>
+										<input type="checkbox" class="switch-email" ng-model="forumEmail" ng-change="updateNotification()" />
+										<a href="javascript: void(0)" ng-class="{selected: forumEmail}">EMAIL</a>
+										<input type="checkbox" class="switch-sms" ng-model="forumSMS" ng-change="updateNotification()" />
+										<a href="javascript: void(0)" ng-class="{selected: forumSMS}">TEXT</a>
 									</div>
 								</div>
 								<div class="col-lg-4 col-md-6 col-sm-6 col-xs-6">
 									<label>MESSAGES</label>
 									<div class="btn_sel">
-										<a href="javascript: void(0)" ng-click="updateNotification()" class="selected">EMAIL</a>
-										<a href="javascript: void(0)" ng-click="updateNotification()" class="selected">TEXT</a>
+										<input type="checkbox" class="switch-email" ng-model="messagesEmail" ng-change="updateNotification()" />
+										<a href="javascript: void(0)" ng-class="{selected: messagesEmail}">EMAIL</a>
+										<input type="checkbox" class="switch-sms" ng-model="messagesSMS" ng-change="updateNotification()" />
+										<a href="javascript: void(0)" ng-class="{selected: messagesSMS}">TEXT</a>
 									</div>
 								</div>
 							</div>

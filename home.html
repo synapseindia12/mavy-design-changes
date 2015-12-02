@@ -99,7 +99,9 @@
 		<div class="msg_postsec clearfix bdr_pink">
 		<p class="postname">{{post.Author.DisplayName}}</p>
 		<p class="posttitle" bind-html-compile="post.Subject"></p>
-		<p dynamic="{{post.Body}}"></p>		
+		<p class="postbody" dynamic="{{post.Body}}"></p>	
+		<p class="readmore clearfix" ng-if="post.Body.length>100"><a style="float:right;" href="javascript:void(0)">..Read more</a></p>
+
 		<div class="display_comment clearfix">
 		<ul>
 		<li><a href="javascript:void(0)" ng-click="showForum(post.Id)"><img src="images/back_icon.png" alt=""></a></li>
@@ -127,7 +129,8 @@
 		</div>	
 		<div class="msg_postsec clearfix bdr_pink">
 		<span class="postname">{{message.CreatedUser.DisplayName | uppercase}}</span>		
-		<p dynamic="{{message.LastMessage.FilteredBody}}"></p>
+		<p class="postbody" dynamic="{{message.LastMessage.FilteredBody}}"></p>
+		<p class="readmore clearfix" ng-if="message.LastMessage.FilteredBody.length>100"><a style="float:right;" href="javascript:void(0)">..Read more</a></p>
 		</div>	
 		</div>
 	</li>

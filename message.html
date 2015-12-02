@@ -55,7 +55,8 @@
 		<div class="txtBx"><img alt="" src="{{message.CreatedUser.AvatarUrl}}" class="img-responsive img-circle"></div>
 		<div class="text">
 			<h2>{{message.CreatedUser.DisplayName | uppercase}}</h2>
-			<p dynamic="{{message.LastMessage.Body}}"></p>
+			<p class="postbody" dynamic="{{message.LastMessage.Body}}"></p>
+			<p class="readmore clearfix" ng-if="message.LastMessage.Body.length>200"><a style="float:right;" href="javascript:void(0)">..Read more</a></p>
 		</div>
 		<div class="deleteBx">
 			<a href="javascript:void(0)" ng-click="showMessage(message)"><i class="fa back"></i></a>
