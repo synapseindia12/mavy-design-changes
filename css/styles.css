@@ -1363,3 +1363,127 @@ body{
     width: 32%;
 	opacity:0;
 }
+
+.quizeesbox_left ul li cite {
+    border: 1px solid #008eeb;
+    border-radius: 50%;
+    color: #008eeb;
+    display: block;
+    font-family: "Montserrat",sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    height: 35px;
+    margin: 0 auto;
+    padding-top: 5px;
+    text-align: center;
+    width: 35px;
+}
+.quizeesbox_left ul li{
+  padding: 0 0 10px;
+}
+.pad_bot_20px{
+  padding-bottom: 20px;
+}
+
+#pollContent {
+    padding: 10px 50px;
+    color:#5b5b5b;
+}
+#pollContent h5{color:#5b5b5b; font-size: 20px; font-size: 17px;}
+#pollContent label{text-transform: uppercase;margin: 0; font-size: 13px;}
+#pollContent input{margin: 0;}
+#pollContent #pollSubmit{
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: 2px solid #009afe;
+    border-radius: 10px;
+    bottom: 0;
+    color: #0099ff;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0 0 15px;
+    max-width: 165px;
+    padding: 5px 25px;
+    position: relative;
+    right: 0;
+    text-transform: uppercase;
+    float:right;
+}
+#pollContent #pollSubmit:hover { background:#028dea; color:#fff; }
+
+.norQP{background: whitesmoke;padding-top: 10px;}
+
+.norQP .profile {
+    background: none repeat scroll 0 0 #edfdff;
+    border-radius: 50%;
+    display: block;
+    height: 65px;
+    margin: 0 auto;
+    text-align: center;
+    width: 65px;
+}
+.norQP .uname {
+    color: #008dea;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+}
+.norQP .subject {
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 3px
+}
+.norQP .title {
+    font-weight: 700;
+    text-transform: capitalize;
+}
+.norQP .date {
+    font-size: 10px;
+    padding: 0 30px;
+    text-align: right;
+    margin: 0;
+}
+.norQP .replys {
+    padding: 0 30px 0 0;
+}
+.norQP .replys a{color:#008dea;}
+.norQP .forum-label {
+    display: block;
+    padding: 0 20px;
+}
+.norQP .forum-label textarea {
+    border: medium none;
+    border-radius: 10px;
+    display: block;
+    height: 100px;
+    margin: 10px 0;
+    resize: none;
+    width: 100%;
+    padding: 10px;
+}
+.norQP #add-comment {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: 2px solid #009afe;
+    border-radius: 10px;
+    bottom: 0;
+    color: #0099ff;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0 0 15px;
+    max-width: 165px;
+    padding: 5px 25px;
+    position: relative;
+    right: 0;
+    text-transform: uppercase;
+    font-family: 'Lato', sans-serif;
+    float:right;
+    margin-right: 30px;
+}
+.norQP #add-comment:hover{
+  color:#fff;
+  background: #0099ff;
+}
+.norQP .postContent,.norQP .childComments{
+    border-top: 1px solid #d4e3e6;
+    margin: 0 10px;
+    padding: 10px 0 0;
+}

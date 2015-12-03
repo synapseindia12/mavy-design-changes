@@ -2138,7 +2138,7 @@ myApp.controller('messageconversationCtrl', function($scope,$localStorage,$cooki
 });
 
 
-myApp.controller('profileCtrl', function($scope, $localStorage, $location, $rootScope){
+myApp.controller('profileCtrl', function($scope, $localStorage, $location, $rootScope, $route){
 	if(!$localStorage.loginDetails){
 		delete $localStorage.loggedIn;
 		$location.path('/');
@@ -2263,14 +2263,14 @@ myApp.controller('profileCtrl', function($scope, $localStorage, $location, $root
 			// alert('Gender can not be blank');
 			// return false;
 		// }
-		
 		$scope.bdate = $scope.formData.selectedMonth + '/' + $scope.formData.selectedDate + '/' + $scope.formData.selectedYear;
-		$scope.attributes = [{"name": "fname", "value": $scope.formData.fname}, {"name": "lname", "value": $scope.formData.lname}, {"name": "email", "value": $scope.formData.email}, {"name": "bdate", "value": $scope.formData.bdate}, {"name": "gend", "value": $scope.formData.gender}, {"name": "zipc", "value": $scope.formData.zipcode}, {"name": "cellphone", "value": $scope.formData.mobileNumber}];
+		$scope.attributes = [{"name": "fname", "value": $scope.formData.fname}, {"name": "lname", "value": $scope.formData.lname}, {"name": "email", "value": $scope.formData.email}, {"name": "bdate", "value": $scope.bdate}, {"name": "gend", "value": $scope.formData.gender}, {"name": "zipc", "value": $scope.formData.zipcode}, {"name": "cellphone", "value": $scope.formData.mobileNumber}];
 		$scope.skipAddressVerify = false;
-		debugger;
+
 		endpoints.mobileHandler.updatePanelistAttributes($scope.apiKey, $scope.userId, $scope.panelistId, $scope.attributes, $scope.skipAddressVerify, function(response){
 			if(response.result.success){
 				alert('Profile successfully updated');
+				$route.reload();
 			}
 		});
 	};
@@ -2336,254 +2336,6 @@ myApp.controller('profileCtrl', function($scope, $localStorage, $location, $root
 			$scope.resetPassword.vnpass = '';
 			return;
 		}
-	};
-	
-	/* Notification for the new design */
-	
-	endpoints.mobileHandler.getNotifications($scope.apiKey, $scope.userId, $scope.panelistId, function(result){
-		debugger;
-		if(result.result.success){
-			var resultArray = result.result.result;
-			$scope.preferences = resultArray;
-			for(var i=0; i<resultArray.length; i++){
-				switch(resultArray[i]){
-					case "2a": 
-						if($scope.preferences.indexOf("2e") !== -1){
-							if($scope.preferences.indexOf("2h") !== -1){
-								$scope.smsCheck = true;
-							}
-						}
-					break;
-					case "1a": 
-						if($scope.preferences.indexOf("1e") !== -1){
-							if($scope.preferences.indexOf("1h") !== -1){
-								$scope.emailCheck = true;
-							}
-						}
-					break;
-					case "2b": 
-						if($scope.preferences.indexOf("2c") !== -1){
-							$scope.forumSMS = true;
-						}
-					break;
-					case "1b": 
-						if($scope.preferences.indexOf("1c") !== -1){
-							$scope.forumEmail = true;
-						}
-					break;
-					case "2f": 
-						$scope.messagesSMS = true;
-					break;
-					case "1f": 
-						$scope.messagesEmail = true;
-					break;
-					case "2d":
-						$scope.resultsSMS = true;
-						break;
-					case "1d":
-						$scope.resultsEmail = true;
-						break;
-				}
-			}
-			$scope.$apply();
-		}
-	});
-	
-	$scope.updateNotification = function() {
-		debugger;
-		if($scope.emailCheck){
-			if($scope.preferences.indexOf("3a") == -1)
-				$scope.preferences.push("3a", "3e", "3h");
-		}
-		else{
-			var findIndexes = [];
-			if($scope.preferences.indexOf("3a") !== -1){
-				findIndexes.push($scope.preferences.indexOf("3a"));
-				findIndexes.push($scope.preferences.indexOf("3e"));
-				findIndexes.push($scope.preferences.indexOf("3h"));
-				if(findIndexes.length > 0){
-					for(var i=0; i< findIndexes.length; i++){
-						$scope.preferences.splice(findIndexes[i], 1);
-					}
-				}
-			}
-		}
-		if($scope.smsCheck){
-			if($scope.preferences.indexOf("2a") == -1){
-				endpoints.mobileHandler.getPanelistAttributes($scope.apiKey, $scope.userId, $scope.panelistId, function(callback){
-					if(callback.result.success){
-						if(callback.result.result.cellphone){
-							$scope.mobileNumber = callback.result.result.cellphone.replace(/-/g, "");
-							if($scope.mobileNumber.length == 10){
-								$scope.preferences.push("2a", "2e", "2h");
-							}
-							else{
-								alert('Phone Number not valid');
-								$scope.smsCheck = '';
-								$location.path('/profile');
-							}
-						}
-						else{
-							alert('Please update your phone number');
-							$scope.smsCheck = '';
-							$location.path('/profile');
-						}
-					}
-					$scope.$apply();
-				});
-			}
-		}
-		else{
-			var findIndexes = [];
-			if($scope.preferences.indexOf("2a") !== -1){
-				findIndexes.push($scope.preferences.indexOf("2a"));
-				findIndexes.push($scope.preferences.indexOf("2e"));
-				findIndexes.push($scope.preferences.indexOf("2h"));
-				if(findIndexes.length > 0){
-					for(var i=0; i< findIndexes.length; i++){
-						$scope.preferences.splice(findIndexes[i], 1);
-					}
-				}
-			}
-		}
-		
-		if($scope.forumEmail){
-			if($scope.preferences.indexOf("3b") == -1)
-				$scope.preferences.push("3b", "3c");
-		}
-		else {
-			var findIndexes = [];
-			if($scope.preferences.indexOf("3b") !== -1){
-				findIndexes.push($scope.preferences.indexOf("3b"));
-				findIndexes.push($scope.preferences.indexOf("3c"));
-				if(findIndexes.length > 0){
-					for(var i=0; i< findIndexes.length; i++){
-						$scope.preferences.splice(findIndexes[i], 1);
-					}
-				}
-			}
-		}
-		if($scope.forumSMS){
-			if($scope.preferences.indexOf("2b") == -1){
-				endpoints.mobileHandler.getPanelistAttributes($scope.apiKey, $scope.userId, $scope.panelistId, function(callback){
-					if(callback.result.success){
-						if(callback.result.result.cellphone){
-							$scope.mobileNumber = callback.result.result.cellphone.replace(/-/g, "");
-							if($scope.mobileNumber.length == 10){
-								$scope.preferences.push("2b", "2c");
-							}
-							else{
-								alert('Phone Number not valid');
-								$scope.forumSMS = '';
-								$location.path('/profile');
-							}
-						}
-						else{
-							alert('Please update your phone number');
-							$scope.forumSMS = '';
-							$location.path('/profile');
-						}
-					}
-					$scope.$apply();
-				});
-			}
-		}
-		else{
-			var findIndexes = [];
-			if($scope.preferences.indexOf("2b") !== -1){
-				findIndexes.push($scope.preferences.indexOf("2b"));
-				findIndexes.push($scope.preferences.indexOf("2c"));
-				if(findIndexes.length > 0){
-					for(var i=0; i< findIndexes.length; i++){
-						$scope.preferences.splice(findIndexes[i], 1);
-					}
-				}
-			}
-		}
-		
-		if($scope.resultsEmail){
-			if($scope.preferences.indexOf("3d") == -1)
-				$scope.preferences.push("3d");
-		}
-		else{
-			var index = $scope.preferences.indexOf("3d");
-			if(index !== -1)
-				$scope.preferences.splice(index, 1);
-		}
-		if($scope.resultsSMS){
-			if($scope.preferences.indexOf("2d") == -1){
-				endpoints.mobileHandler.getPanelistAttributes($scope.apiKey, $scope.userId, $scope.panelistId, function(callback){
-					if(callback.result.success){
-						if(callback.result.result.cellphone){
-							$scope.mobileNumber = callback.result.result.cellphone.replace(/-/g, "");
-							if($scope.mobileNumber.length == 10){
-								$scope.preferences.push("2d");
-							}
-							else{
-								alert('Phone Number not valid');
-								$scope.forumSMS = '';
-								$location.path('/profile');
-							}
-						}
-						else{
-							alert('Please update your phone number');
-							$scope.forumSMS = '';
-							$location.path('/profile');
-						}
-					}
-					$scope.$apply();
-				});
-			}
-		}
-		else{
-			var index = $scope.preferences.indexOf("2d");
-			if(index !== -1)
-				$scope.preferences.splice(index, 1);
-		}
-		
-		if($scope.messagesEmail){
-			if($scope.preferences.indexOf("3f") == -1)
-				$scope.preferences.push("3f");
-		}
-		else{
-			var index = $scope.preferences.indexOf("3f");
-			if(index !== -1)
-				$scope.preferences.splice(index, 1);
-		}
-		if($scope.messagesSMS){
-			if($scope.preferences.indexOf("2f") == -1){
-				endpoints.mobileHandler.getPanelistAttributes($scope.apiKey, $scope.userId, $scope.panelistId, function(callback){
-					if(callback.result.success){
-						if(callback.result.result.cellphone){
-							$scope.mobileNumber = callback.result.result.cellphone.replace(/-/g, "");
-							if($scope.mobileNumber.length == 10){
-								$scope.preferences.push("2f");
-							}
-							else{
-								alert('Phone Number not valid');
-								$scope.forumSMS = '';
-								$location.path('/profile');
-							}
-						}
-						else{
-							alert('Please update your phone number');
-							$scope.forumSMS = '';
-							$location.path('/profile');
-						}
-					}
-					$scope.$apply();
-				});
-			}
-		}
-		else{
-			var index = $scope.preferences.indexOf("2f");
-			if(index !== -1)
-				$scope.preferences.splice(index, 1);
-		}
-		
-		endpoints.mobileHandler.updateNotifications($scope.apiKey, $scope.userId, $scope.panelistId, $scope.preferences, function(result){
-			
-		});
 	};
 });
 
@@ -2685,17 +2437,11 @@ myApp.controller('notificationCtrl', function($scope, $localStorage, $location){
 	$scope.notificationPage = 'setting-page-active';
 	endpoints.mobileHandler.getNotifications($scope.apiKey, $scope.userId, $scope.panelistId, function(result){
 		if(result.result.success){
+			debugger;
 			var resultArray = result.result.result;
 			$scope.preferences = resultArray;
 			for(var i=0; i<resultArray.length; i++){
 				switch(resultArray[i]){
-					case "3a": 
-						if($scope.preferences.indexOf("3e") !== -1){
-							if($scope.preferences.indexOf("3h") !== -1){
-								$scope.pushCheck = true;
-							}
-						}	
-					break;
 					case "2a": 
 						if($scope.preferences.indexOf("2e") !== -1){
 							if($scope.preferences.indexOf("2h") !== -1){
@@ -2703,16 +2449,11 @@ myApp.controller('notificationCtrl', function($scope, $localStorage, $location){
 							}
 						}
 					break;
-					case "1a": 
-						if($scope.preferences.indexOf("1e") !== -1){
-							if($scope.preferences.indexOf("1h") !== -1){
+					case "3a": 
+						if($scope.preferences.indexOf("3e") !== -1){
+							if($scope.preferences.indexOf("3h") !== -1){
 								$scope.emailCheck = true;
 							}
-						}
-					break;
-					case "3b": 
-						if($scope.preferences.indexOf("3c") !== -1){
-							$scope.forumPush = true;							
 						}
 					break;
 					case "2b": 
@@ -2720,27 +2461,21 @@ myApp.controller('notificationCtrl', function($scope, $localStorage, $location){
 							$scope.forumSMS = true;
 						}
 					break;
-					case "1b": 
-						if($scope.preferences.indexOf("1c") !== -1){
+					case "3b": 
+						if($scope.preferences.indexOf("3c") !== -1){
 							$scope.forumEmail = true;
 						}
-					break;
-					case "3f": 
-						$scope.messagesPush = true;
 					break;
 					case "2f": 
 						$scope.messagesSMS = true;
 					break;
-					case "1f": 
+					case "3f": 
 						$scope.messagesEmail = true;
 					break;
-					case "3d":
-						$scope.resultsPush = true;
-						break;
 					case "2d":
 						$scope.resultsSMS = true;
 						break;
-					case "1d":
+					case "3d":
 						$scope.resultsEmail = true;
 						break;
 				}
@@ -2750,7 +2485,7 @@ myApp.controller('notificationCtrl', function($scope, $localStorage, $location){
 	});
 	
 	$scope.updateNotification = function() {
-		
+	
 		if($scope.emailCheck){
 			if($scope.preferences.indexOf("3a") == -1)
 				$scope.preferences.push("3a", "3e", "3h");
@@ -2806,23 +2541,7 @@ myApp.controller('notificationCtrl', function($scope, $localStorage, $location){
 				}
 			}
 		}
-		if($scope.pushCheck){
-			if($scope.preferences.indexOf("1a") == -1)
-				$scope.preferences.push("1a", "1e", "1h");
-		}
-		else {
-			var findIndexes = [];
-			if($scope.preferences.indexOf("1a") !== -1){
-				findIndexes.push($scope.preferences.indexOf("1a"));
-				findIndexes.push($scope.preferences.indexOf("1e"));
-				findIndexes.push($scope.preferences.indexOf("1h"));
-				if(findIndexes.length > 0){
-					for(var i=0; i< findIndexes.length; i++){
-						$scope.preferences.splice(findIndexes[i], 1);
-					}
-				}
-			}
-		}
+		
 		if($scope.forumEmail){
 			if($scope.preferences.indexOf("3b") == -1)
 				$scope.preferences.push("3b", "3c");
@@ -2876,22 +2595,7 @@ myApp.controller('notificationCtrl', function($scope, $localStorage, $location){
 				}
 			}
 		}
-		if($scope.forumPush){
-			if($scope.preferences.indexOf("1b") == -1)
-				$scope.preferences.push("1b", "1c");
-		}
-		else{
-			var findIndexes = [];
-			if($scope.preferences.indexOf("1b") !== -1){
-				findIndexes.push($scope.preferences.indexOf("1b"));
-				findIndexes.push($scope.preferences.indexOf("1c"));
-				if(findIndexes.length > 0){
-					for(var i=0; i< findIndexes.length; i++){
-						$scope.preferences.splice(findIndexes[i], 1);
-					}
-				}
-			}
-		}
+		
 		if($scope.resultsEmail){
 			if($scope.preferences.indexOf("3d") == -1)
 				$scope.preferences.push("3d");
@@ -2931,15 +2635,7 @@ myApp.controller('notificationCtrl', function($scope, $localStorage, $location){
 			if(index !== -1)
 				$scope.preferences.splice(index, 1);
 		}
-		if($scope.resultsPush){
-			if($scope.preferences.indexOf("1d") == -1)
-				$scope.preferences.push("1d");
-		}
-		else{
-			var index = $scope.preferences.indexOf("1d");
-			if(index !== -1)
-				$scope.preferences.splice(index, 1);
-		}
+		
 		if($scope.messagesEmail){
 			if($scope.preferences.indexOf("3f") == -1)
 				$scope.preferences.push("3f");
@@ -2988,8 +2684,9 @@ myApp.controller('notificationCtrl', function($scope, $localStorage, $location){
 			if(index !== -1)
 				$scope.preferences.splice(index, 1);
 		}
+		debugger;
 		endpoints.mobileHandler.updateNotifications($scope.apiKey, $scope.userId, $scope.panelistId, $scope.preferences, function(result){
-			
+			alert('Notifications updated');
 		});
 	}
 });
@@ -3209,7 +2906,7 @@ myApp.controller('rewardDetailsCtrl', function($scope, $rootScope, $modalInstanc
 	return{
 		restrict: 'A',
 		link: function (scope, element, attrs) {
-			element.hide();
+			element.css({'opacity': 0});
 			if(!$rootScope.initialized){
 				debugger;
 				if($('#pp-nav').length){
@@ -3225,7 +2922,7 @@ myApp.controller('rewardDetailsCtrl', function($scope, $rootScope, $modalInstanc
 				});
 				setTimeout(function(){
 					$rootScope.initialized = true;
-					element.show();
+					element.css({'opacity': 1});
 				}, 100);
 			}
 		}
@@ -3241,7 +2938,8 @@ myApp.controller('rewardDetailsCtrl', function($scope, $rootScope, $modalInstanc
 				scope.$evalAsync(function () {
 				  if (!attrs.ngOptions || /track by/.test(attrs.ngOptions)) element.val(newVal);
 				  element.selectpicker('refresh');
-				  scope.dropChange(newVal);
+				  if(scope.dropChange)
+					scope.dropChange(newVal);
 				});
 			});
 

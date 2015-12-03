@@ -11,6 +11,7 @@
 
 <div class="col-lg-8 col-md-6 col-sm-6 col-xs-12">
 <div class="middle_forum">
+
 <div class="forumtitle_top feedblue">QUIZZES</div>
 <div class="row">
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -21,6 +22,7 @@
 					<div class="mypet_quiz clearfix">
 					<ul>
 						<li ng-repeat="assignment in allAssignments track by $index" ng-click="showAssignmentTasks(assignment)">
+
 							<div class="row">
 								<div class="col-lg-2 col-md-2 col-sm-12">
 									<cite>{{$index+1}}.</cite>
@@ -36,8 +38,10 @@
 									<a href="javascript:void(0)" data-time="{{assignment.modules[0].lengthInMinutes}} minutes" ng-if="assignment.modules[0].lengthInMinutes>=15"><img src="images/qtr_watch.png" alt="More than 15 mins"></a>
 									<a href="javascript:void(0)" data-time="{{assignment.modules[0].lengthInMinutes}} minutes" ng-if="assignment.modules[0].lengthInMinutes>=5 && assignment.modules[0].lengthInMinutes<15"><img src="images/less15watch.png" alt="less than 15 mins"></a>
 									<a href="javascript:void(0)" data-time="{{assignment.modules[0].lengthInMinutes}} minutes" ng-if="assignment.modules[0].lengthInMinutes<5"><img src="images/less5watch.png" alt="less than 5 mins"></a>
-									<a href="javascript:void(0)"><img src="images/desktop.png"></a>
-									<a href="javascript:void(0)"><img src="images/mobile_icon.png"></a>
+									<a ng-if="assignment.modules[0].mode==3" href="javascript:void(0)"><img src="images/desktop.png"></a>
+									<a ng-if="assignment.modules[0].mode==2" href="javascript:void(0)"><img src="images/desktop.png"></a>
+									<a ng-if="assignment.modules[0].mode==1" href="javascript:void(0)"><img src="images/mobile_icon.png"></a>
+									<a ng-if="assignment.modules[0].mode==2" href="javascript:void(0)"><img src="images/mobile_icon.png"></a>
 								</div>
 							</div>
 							
