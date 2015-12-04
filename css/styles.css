@@ -825,6 +825,7 @@ footer {margin:40px auto auto}
 .form_section .grybdr{border-bottom: 1px solid #d4e3e6; width:60%; margin: 0px 0 15px 0;}
 .form_section .save{color:#008fed;text-decoration: none;font-size: 12px; font-weight: bold; display: inline-block;
   padding: 3px 7px; border: 2px solid #008fed; border-radius: 10px; float: right; margin:20px 50px 30px;
+  background: transparent;
 }
 .form_section .save:hover{background: #008fed; color:#fff;}
 
@@ -1338,10 +1339,10 @@ body{
   background: #008eeb;
   color:#fff;
 }
-#pp-nav li a, .pp-slidesNav li a{
+#pp-nav li a.appslide, .pp-slidesNav li a.appslide{
   background: none repeat scroll 0 0 #e465d4 !important;
 }
-#pp-nav li .active, .pp-slidesNav .active {
+#pp-nav li .active.appslide, .pp-slidesNav .active.appslide {
     background: none repeat scroll 0 0 #0099ff !important;
 }
 
@@ -1363,6 +1364,8 @@ body{
     width: 32%;
 	opacity:0;
 }
+
+/******* 03-12-15 *******/
 
 .quizeesbox_left ul li cite {
     border: 1px solid #008eeb;
@@ -1389,7 +1392,7 @@ body{
     padding: 10px 50px;
     color:#5b5b5b;
 }
-#pollContent h5{color:#5b5b5b; font-size: 20px; font-size: 17px;}
+#pollContent h5 p{color:#5b5b5b; font-size: 20px; font-size: 17px;}
 #pollContent label{text-transform: uppercase;margin: 0; font-size: 13px;}
 #pollContent input{margin: 0;}
 #pollContent #pollSubmit{
@@ -1486,4 +1489,5 @@ body{
     border-top: 1px solid #d4e3e6;
     margin: 0 10px;
     padding: 10px 0 0;
+    clear:both;
 }

@@ -1947,7 +1947,7 @@ myApp.controller('messagesCtrl', function($scope, $cookieStore, $rootScope, $loc
 	// Creating new handler for APIs
 	endpoints.mobileHandler = new MobileHandler();
 	//Querying APi for response using endpoints
-	
+	debugger;
 	endpoints.mobileHandler.getInbox($scope.apiKey, $scope.userId, null, null, function(result){
 		if(result.result.result.Conversations){
 			for(var i=0; i<result.result.result.Conversations.length; i++){
@@ -1994,8 +1994,9 @@ myApp.controller('messagesCtrl', function($scope, $cookieStore, $rootScope, $loc
 			$scope.userNames.push($cookieStore.get('userName'));
 		}
 		if($scope.userNames.length > 0){
-			endpoints.mobileHandler.sendMessage($scope.apiKey, $scope.userId, $scope.subject, $scope.messageBody, $scope.userNames, null, null, function(result){
+			endpoints.mobileHandler.sendMessageToModerators($scope.apiKey, $scope.userId, $scope.subject, $scope.messageBody, function(result){
 				if(result.result.success){
+					alert('Message successfully sent to moderators');
 					$scope.subject = '';
 					$scope.messageBody = '';
 					$route.reload();
@@ -2340,7 +2341,7 @@ myApp.controller('profileCtrl', function($scope, $localStorage, $location, $root
 });
 
 myApp.controller('badgesCtrl', function($scope, $localStorage, $location, $route){
-
+	debugger;
 	if(!$localStorage.loginDetails){
 		delete $localStorage.loggedIn;
 		$location.path('/');
@@ -2362,8 +2363,8 @@ myApp.controller('badgesCtrl', function($scope, $localStorage, $location, $route
 	endpoints.mobileHandler.getPanelistAttributes($scope.apiKey, $scope.userId, $scope.panelistId, function(callback){
 		if(callback.result.success){
 			$scope.avatarUrl = callback.result.result.AvatarUrl;
-			$scope.fname = callback.result.result.fname1;
-			$scope.lname = callback.result.result.lname1;
+			$scope.fname = callback.result.result.fname;
+			$scope.lname = callback.result.result.lname;
 			$scope.$apply();
 			
 		}
@@ -2879,7 +2880,35 @@ myApp.controller('rewardDetailsCtrl', function($scope, $rootScope, $modalInstanc
             }
         }
     })
-  
+.directive('initializeRadio', function(){
+	return {
+			restrict: 'A',
+            link: function(scope, elm, attr) {
+				elm.wrap("<span class='custom-radio'></span>");
+				if(elm.is(':checked')){
+					elm.parent().addClass("selected");
+				}
+				
+				// function customRadio(radioName){
+					// var radioButton = $('input[name="'+ radioName +'"]');
+					// $(radioButton).each(function(){
+						// $(this).wrap( "<span class='custom-radio'></span>" );
+						// if($(this).is(':checked')){
+							// $(this).parent().addClass("selected");
+						// }
+					// });
+					// $(radioButton).click(function(){
+						// if($(this).is(':checked')){
+							// $(this).parent().addClass("selected");
+						// }
+						// $(radioButton).not(this).each(function(){
+							// $(this).parent().removeClass("selected");
+						// });
+					// });
+				// }
+            }
+        }
+})
 .directive('docListWrapper', ['$timeout', function ($timeout) {
         return {
             restrict: 'C',
@@ -2908,7 +2937,6 @@ myApp.controller('rewardDetailsCtrl', function($scope, $rootScope, $modalInstanc
 		link: function (scope, element, attrs) {
 			element.css({'opacity': 0});
 			if(!$rootScope.initialized){
-				debugger;
 				if($('#pp-nav').length){
 					$('#pp-nav').remove();
 				}
