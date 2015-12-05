@@ -7,7 +7,7 @@
 				<ul>
 					<li ng-repeat="option in item.options.categories" ng-if="item.type == 'SingleChoice'">
 						<div class="radio">
-							<label><input type="radio" name="poll" id="poll-radio-{{$index}}" value="{{option.values}}" ng-model="option.pollvote" /> {{option.description}}</label>
+							<label><span class='custom-radio' ng-class="{'selected': option.pollvote == option.values}"><input type="radio" name="pollvote" ng-value="option.values" ng-model="option.pollvote" /></span> {{option.description}}</label>
 						</div>
 					</li>
 					<li ng-repeat="option in item.options.categories" ng-if="item.type != 'SingleChoice'">

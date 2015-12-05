@@ -2135,7 +2135,30 @@ myApp.controller('messageconversationCtrl', function($scope,$localStorage,$cooki
 				}
 			});
 		}
-	}
+	};
+	
+	$scope.createNewMessage = function() {
+		$scope.userNames = [];
+		$scope.projectId = '';
+		if($rootScope.messages.length > 0){
+			for(var i=0; i<$rootScope.messages[0].Participants.length; i++){
+				$scope.userNames.push($rootScope.messages[0].Participants[i].Username);
+			}
+		}
+		else{
+			$scope.userNames.push($cookieStore.get('userName'));
+		}
+		if($scope.userNames.length > 0){
+			endpoints.mobileHandler.sendMessageToModerators($scope.apiKey, $scope.userId, $scope.subject, $scope.messageBody, function(result){
+				if(result.result.success){
+					alert('Message successfully sent to moderators');
+					$scope.subject = '';
+					$scope.messageBody = '';
+					$route.reload();
+				}
+			});
+		}
+	};
 });
 
 
