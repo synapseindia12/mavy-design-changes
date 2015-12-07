@@ -1491,3 +1491,12 @@ body{
     padding: 10px 0 0;
     clear:both;
 }
+
+.quiz_close{
+	background:url('../images/cancel-icon.png') no-repeat;
+	display:inline-block;
+	width:25px;
+	height:25px;
+	float:right;
+	background-size:20px;
+}

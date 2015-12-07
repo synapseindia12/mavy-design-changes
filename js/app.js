@@ -304,18 +304,11 @@ myApp.controller('indexCtrl', function($scope, $cookieStore, $rootScope, $localS
 		$location.path('/forum-expanded/'+forumId);
 	}
 	
-	$scope.localDate = function(date){	
-		
-		var d = new Date(date);
-		var offset = d.getTimezoneOffset() / 60;
-		var hours = d.getHours();
-		var minsLim = Math.floor(offset)-offset;
-		var mins = (d.getMinutes()-3)/60;
-		
-		d.setHours(hours - Math.ceil(offset));
-		d.setMinutes((mins - minsLim)*60);
-		return d;
-	};
+	$scope.localDate = function(date){
+		var localTime  = moment.utc(date).toDate();
+		localTime = moment(localTime).subtract(3,'m').format('MMMM Do YYYY, h:mm a');
+		return localTime;
+	}
 	
 	endpoints.mobileHandler.getPanelistAttributes($scope.apiKey, $scope.userId, $scope.panelistId, function(callback){
 		if(callback.result.success){
@@ -444,7 +437,7 @@ myApp.controller('pollsCtrl', function($scope, $rootScope, $location, $localStor
 												if(voteCounts.result.result[0].values[j]){
 													for(var p=0; p<voteCounts.result.result[0].values.length; p++){
 														if(voteCounts.result.result[0].values[p].value == result.result.result.Entries[i].options.categories[j].values){
-															voteCounts.result.result[0].values[p].count = (voteCounts.result.result[0].values[p].count /voteCounts.result.result[0].responseCount)*100;
+															voteCounts.result.result[0].values[p].count = Math.round((voteCounts.result.result[0].values[p].count /voteCounts.result.result[0].responseCount)*100);
 															$scope.pollforResults.push({'count': voteCounts.result.result[0].values[p].count, 'category': result.result.result.Entries[i].options.categories[j].description});
 														}
 													}
@@ -481,28 +474,71 @@ myApp.controller('pollsCtrl', function($scope, $rootScope, $location, $localStor
 		$scope.notes = [];
 		$scope.value = [];
 		$scope.allVotes = [];
-		var value = $('input[name="poll"]:checked').val();
+		//$scope.allPolls = $rootScope.pollforvotes;
+		debugger;
+		var value = $('input[name=\"pollvote'+pollDetails.itemId+'\"]:checked').val();
 		$('input[name="pollCheck"]:checked').each(function(){
 			$scope.value.push($(this).val());
 		});	
 		
 		$scope.value.push(value);
 		
-		var response = {"projectId": $scope.allPolls[0].projectId, "moduleId": $scope.allPolls[0].moduleId, "taskId": $scope.allPolls[0].taskId, "itemId": $scope.allPolls[0].itemId, "isTestData": false, "notes": $scope.notes, "values": $scope.value};
+		for(var i=0; i<$rootScope.pollforvotes.length; i++){
+			if($rootScope.pollforvotes[i].itemId == pollDetails.itemId){
+				$scope.allPolls = $rootScope.pollforvotes[i];
+			}
+		}
+		debugger;
+		var response = {"projectId": $scope.allPolls.projectId, "moduleId": $scope.allPolls.moduleId, "taskId": $scope.allPolls.taskId, "itemId": $scope.allPolls.itemId, "isTestData": false, "notes": $scope.notes, "values": $scope.value};
 		
+		/* For saving the poll response */
 		endpoints.mobileHandler.savePollResponse($scope.apiKey, $scope.userId, $scope.panelistId, response, function(result){
 			if(result.result.success){
-				$scope.incrementedVal = 0;
-				endpoints.mobileHandler.getDashboard($scope.apiKey, $scope.userId, 5, null, null, function(result){
-					if(result.result.success){
-						for(var i=0; i<result.result.result.Entries.length; i++){
-							$rootScope.polesForResults.push(result.result.result.Entries[i]);
-						}
-						$rootScope.totalPollsResults = [];
-						$scope.newrecursiveCall(result);
+				for(var i=0; i<$rootScope.pollforvotes.length; i++){
+					if($rootScope.pollforvotes[i].itemId == $scope.allPolls.itemId){
+						$('#anm'+$scope.allPolls.itemId).animate({'height':0,'margin':0,'padding':0},{
+							easing: 'swing',
+							duration: 500,
+							complete: function(){
+								$('#anm'+$scope.allPolls.itemId).remove();
+								$rootScope.pollforvotes.splice(i, 1);
+							}
+						});
 					}
-					$scope.$apply();
-				});
+				}
+				$scope.$apply();
+			}
+		});
+		
+		// endpoints.mobileHandler.savePollResponse($scope.apiKey, $scope.userId, $scope.panelistId, response, function(result){
+			// if(result.result.success){
+				// $scope.incrementedVal = 0;
+				// endpoints.mobileHandler.getDashboard($scope.apiKey, $scope.userId, 5, null, null, function(result){
+					// if(result.result.success){
+						// for(var i=0; i<result.result.result.Entries.length; i++){
+							// $rootScope.polesForResults.push(result.result.result.Entries[i]);
+						// }
+						// $rootScope.totalPollsResults = [];
+						// $scope.newrecursiveCall(result);
+					// }
+					// $scope.$apply();
+				// });
+			// }
+		// });
+	}
+	
+	$scope.animateDiv = function(id){
+		$('#anm'+id).animate({'height':0,'margin':0,'padding':0},{
+		 easing: 'swing',
+		 duration: 500,
+		 complete: function(){
+				$('#anm'+id).remove();
+				for(var i=0; i<$rootScope.pollforvotes.length; i++){
+					if($rootScope.pollforvotes[i].itemId == id){
+						$rootScope.pollforvotes.splice(i, 1);
+					}
+				}
+				$scope.$apply();
 			}
 		});
 	}
@@ -524,6 +560,11 @@ myApp.controller('pollsCtrl', function($scope, $rootScope, $location, $localStor
 			}
 		});
 	}
+	
+	/*$scope.radioButtonChange = function(element){
+		alert('Testing');
+		debugger;
+	}*/
 });
 
 myApp.controller('pollResultCtrl', function($scope, $location, $rootScope, $localStorage, $cookieStore){
@@ -1271,7 +1312,13 @@ myApp.controller('assignmentCtrl', function($scope, $location, $cookieStore, $lo
 		}
 		$scope.childReplyId = Id;
 		$scope.TaskId = TaskId;
-	}
+	};
+	
+	$scope.localDate = function(date){
+		var localTime  = moment.utc(date).toDate();
+		localTime = moment(localTime).subtract(3,'m').format('MMMM Do YYYY, h:mm a');
+		return localTime;
+	};
 });
 
 myApp.controller('forumCtrl', function($scope,$localStorage,$rootScope,$routeParams,$location, $route, $sce){
@@ -1619,17 +1666,10 @@ myApp.controller('forumCtrl', function($scope,$localStorage,$rootScope,$routePar
 		$scope.ParentId = ParentId;
 	};
 		
-	$scope.localDate = function(date){	
-		
-		var d = new Date(date);
-		var offset = d.getTimezoneOffset() / 60;
-		var hours = d.getHours();
-		var minsLim = Math.floor(offset)-offset;
-		var mins = (d.getMinutes()-3)/60;
-		
-		d.setHours(hours - Math.ceil(offset));
-		d.setMinutes((mins - minsLim)*60);
-		return d;
+	$scope.localDate = function(date){
+		var localTime  = moment.utc(date).toDate();
+		localTime = moment(localTime).subtract(3,'m').format('MMMM Do YYYY, h:mm a');
+		return localTime;
 	};
 });
 
@@ -1733,18 +1773,11 @@ myApp.controller('forumExpandedCtrl', function($scope,$localStorage,$rootScope,$
 		}
 	};
  
-	$scope.localDate = function(date){	
-		
-		var d = new Date(date);
-		var offset = d.getTimezoneOffset() / 60;
-		var hours = d.getHours();
-		var minsLim = Math.floor(offset)-offset;
-		var mins = (d.getMinutes()-3)/60;
-		
-		d.setHours(hours - Math.ceil(offset));
-		d.setMinutes((mins - minsLim)*60);
-		return d;
-	};
+	$scope.localDate = function(date){
+		var localTime  = moment.utc(date).toDate();
+		localTime = moment(localTime).subtract(3,'m').format('MMMM Do YYYY, h:mm a');
+		return localTime;
+	}
 	
 	$scope.showChildCommentBox = function(id) {
 		$('.childCommentBox').hide();	
@@ -2085,18 +2118,11 @@ myApp.controller('messageconversationCtrl', function($scope,$localStorage,$cooki
 		$scope.$apply();
 	});	
 
-	$scope.localDate = function(date){	
-		
-		var d = new Date(date);
-		var offset = d.getTimezoneOffset() / 60;
-		var hours = d.getHours();
-		var minsLim = Math.floor(offset)-offset;
-		var mins = (d.getMinutes()-3)/60;
-		
-		d.setHours(hours - Math.ceil(offset));
-		d.setMinutes((mins - minsLim)*60);
-		return d;
-	};
+	$scope.localDate = function(date){
+		var localTime  = moment.utc(date).toDate();
+		localTime = moment(localTime).subtract(3,'m').format('MMMM Do YYYY, h:mm a');
+		return localTime;
+	}
 	
 	$scope.submitMessageReply = function() {
 		if($scope.messageReplyText){
