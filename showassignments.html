@@ -67,7 +67,7 @@
 											<div>
 												<label class="forum-label">
 													Mark Complete
-													<textarea cols="40" rows="8" name="comment" id="replyNewChild" ng-model="replyNewChild"></textarea>
+													<textarea cols="40" rows="8" name="comment" id="replyNewChild{{items.Id}}" ng-model="replyNewChild"></textarea>
 												</label>
 												<div id="comment-button">                                                
 													<input type="submit" value="Submit Comment" class="button fa" id="add-comment" />
@@ -83,7 +83,7 @@
 											<p class="uname" >{{replies.Author.Username}}</p>
 										</div>
 										<div class="col-lg-10 col-md-6 col-sm-6 col-xs-12">
-											<p bind-html-compile="items.FilteredBody"></p>
+											<p bind-html-compile="replies.FilteredBody"></p>
 											<p class="date">{{localDate(replies.Date)}}</p>
 											
 										</div>

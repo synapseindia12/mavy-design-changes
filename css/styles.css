@@ -1075,8 +1075,10 @@ background-position: 90% center}
   color:#969d9f;
   font-size: 16px;
   font-weight: 700; 
+  display: block;
+  text-align: center;
 }
-.credit_info label{font-size: 30px;color:#008dea; font-weight: 400;margin-top: 7px;}
+.credit_info label{font-size: 30px;color:#008dea; font-weight: 400;margin-top: 7px;display: block;text-align: center;}
 .history span{color:#008dea; margin-top: 7px; display: inline-block;}
 .history label{color:#969d9f; font-size: 12px; margin: 0;}
 @media (max-width:767px){
