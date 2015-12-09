@@ -126,13 +126,12 @@ myApp.controller('signupCtrl', function($scope, $rootScope, $location, $cookieSt
 				if(result.result.success){
 					$scope.isLoggedIn = true;
 					$cookieStore.put('userName', $scope.sign.uname);
-					$scope.sign.uname = '';
-					$scope.sign.password = '';
 					$localStorage.loggedIn = true;
 					$localStorage.loginDetails = result.result.result;
+					$scope.sign.uname = '';
+					$scope.sign.password = '';
 					$('body').addClass('dashboard_pages');
 					$location.path('/dashboard');
-					
 					$scope.$apply();
 				}
 				else{
@@ -145,7 +144,7 @@ myApp.controller('signupCtrl', function($scope, $rootScope, $location, $cookieSt
 		}
 	};
 	
-	$scope.fbLogin = function() {
+	$scope.fbLogin = function(){
 		$facebook.login().then(function(result){
 			if(result.status){
 				$scope.accessToken = result.authResponse.accessToken;
@@ -215,7 +214,7 @@ myApp.controller('signupModalctrl', function($scope, $modalInstance, $facebook, 
 		$modalInstance.dismiss('cancel');
 	};
 
-	$scope.cancel = function () {
+	$scope.cancel = function (){
 		$modalInstance.dismiss('cancel');
 	};
 });
@@ -296,9 +295,36 @@ myApp.controller('indexCtrl', function($scope, $cookieStore, $rootScope, $localS
 	
 	
 	$scope.showAssignmentTasks = function(assignment){
-		$cookieStore.put('assignment', assignment);
-		$location.path('/assignments/showAssignment');
-	}
+		if(assignment.modules[0].mode == 1){
+			if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ){
+				$cookieStore.put('assignment', assignment);
+				$location.path('/assignments/showAssignment');
+			}
+			else{
+				alert('This quiz can only be viewed over mobile devices');
+				return;
+			}			
+		}
+		else if(assignment.modules[0].mode == 2){
+			if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ){
+				alert('This quiz can be viewed only over desktop');
+				return;
+			}
+			else{
+				$cookieStore.put('assignment', assignment);
+				$location.path('/assignments/showAssignment');
+			}
+		}
+		else{
+			$cookieStore.put('assignment', assignment);
+			$location.path('/assignments/showAssignment');
+		}
+	};
+	
+	$scope.showMessage = function(message) {
+		$rootScope.message = message;
+		$location.path('/messages/'+message.LastMessage.ConversationId);
+	};
 	
 	$scope.showThread = function(forumId){
 		$location.path('/forum-expanded/'+forumId);
@@ -792,8 +818,30 @@ myApp.controller('assignmentCtrl', function($scope, $location, $cookieStore, $lo
 	});
 	
 	$scope.showAssignmentTasks = function(assignment){
-		$cookieStore.put('assignment', assignment);
-		$location.path('/assignments/showAssignment');
+		if(assignment.modules[0].mode == 1){
+			if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ){
+				$cookieStore.put('assignment', assignment);
+				$location.path('/assignments/showAssignment');
+			}
+			else{
+				alert('This quiz can only be viewed over mobile devices');
+				return;
+			}			
+		}
+		else if(assignment.modules[0].mode == 2){
+			if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ){
+				alert('This quiz can be viewed only over desktop');
+				return;
+			}
+			else{
+				$cookieStore.put('assignment', assignment);
+				$location.path('/assignments/showAssignment');
+			}
+		}
+		else{
+			$cookieStore.put('assignment', assignment);
+			$location.path('/assignments/showAssignment');
+		}
 	};
 	
 });
@@ -1047,7 +1095,7 @@ myApp.controller('assignmentCtrl', function($scope, $location, $cookieStore, $lo
 						if(replies.result.result[1].Replies[i].ParentId == 0){
 							$scope.allReplies.push(replies.result.result[1].Replies[i]);
 						}
-						$scope.childReplies.push(replies.result.result[1].Replies[i])
+						$scope.childReplies.push(replies.result.result[1].Replies[i]);
 					}
 				}
 				$scope.$apply();
@@ -1421,6 +1469,7 @@ myApp.controller('forumCtrl', function($scope,$localStorage,$rootScope,$routePar
 		}
 	}
  	var preID = 0;
+	$scope.repCount = {};
 	$scope.getChilds=function(id){
 		
 		if(id==preID){
@@ -1456,6 +1505,18 @@ myApp.controller('forumCtrl', function($scope,$localStorage,$rootScope,$routePar
 					 if(id == child.result.result[1].Replies[j].ThreadId)
 					  $scope.childThreads.push(child.result.result[1].Replies[j]);
 					}
+					$scope.repCount = {};
+					for(var y=0;y<$scope.childThreads.length;y++){
+						$scope.nextLevelChild=[];
+						for(var x=0;x<$scope.childThreads.length;x++){
+							if($scope.childThreads[x].ParentId==$scope.childThreads[y].Id){
+								$scope.nextLevelChild.push($scope.childThreads[x]);
+							}
+						}
+						$scope.repCount[$scope.childThreads[y].Id] = $scope.nextLevelChild.length;
+						$scope.nextLevelChild=[];
+					}
+
 				   }
 				   $scope.$apply();
 				}
@@ -2226,6 +2287,7 @@ myApp.controller('profileCtrl', function($scope, $localStorage, $location, $root
 	
 	/* Getting all local Storage data for User Authentication */
 	var loginDetails = $localStorage.loginDetails;
+	debugger;
 	$scope.apiKey = loginDetails[0].value;
 	$scope.userId = loginDetails[1].value;
 	$scope.panelistId = loginDetails[2].value;

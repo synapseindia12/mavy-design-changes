@@ -90,7 +90,7 @@
 		<div class="msg_postsec clearfix bdr_pink">
 		<span class="postname">{{reply.Author.DisplayName}}</span>
 		<span class="postdate">{{localDate(reply.Date) | date:"MM/dd/yyyy 'at' h:mma"}}</span>
-		<span class="replytopost"><a href="javascript:void(0)" ng-click="showChildCommentBox(reply.Id)">Reply</a></span>		
+		<span class="replytopost"><a href="javascript:void(0)" ng-click="showChildCommentBox(reply.Id)">Reply ({{repCount[reply.Id]}})</a></span>		
 		<p dynamic="{{reply.FilteredBody}}"></p>		
 		<p ng-if="reply.UnfilteredBodyLinks.image.length>0"><img src="{{reply.UnfilteredBodyLinks.image[0]}}" /></p><p ng-if="reply.UnfilteredBodyLinks.video.length>0">
 	        <video width="100%" controls>
