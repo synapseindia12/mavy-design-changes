@@ -14,8 +14,8 @@
 <div class="row">
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 	
-		<h5 class="quiz-title" ng-if="assignment.modules[0].moduleTitle">{{assignment.modules[0].moduleTitle}}</h5>
-		<p class="quiz-des" ng-if="assignment.modules" dynamic="{{assignment.modules[0].options.instructions}}"></p>
+		<h5 class="quiz-title" ng-if="assignment.moduleTitle">{{assignment.moduleTitle}}</h5>
+		<p class="quiz-des" ng-if="assignment.modules" dynamic="{{assignment.options.instructions}}"></p>
 		<p class="quiz-des" ng-if="!assignment.modules" dynamic="{{assignment.options.instructions}}"></p>
 		<!-- If it's not a quiz nor polls -->
 		<div class="norQP" ng-if="!showIframe && !showPolls">
@@ -129,6 +129,7 @@
 			</form>
 		</div>
 		<!-- Ends Here -->
+
 		<div ng-if="showIframe" style="padding:20px;">
 			<iframe ng-src="{{iframeSource | trustAsResourceUrl}}" class="quiz-frame"></iframe>
 		</div>

@@ -32,7 +32,7 @@
    
 </style>
 
- <body class="dashboard_pages">
+
 <!-- Header -->
 <div ng-include="'navigation.html'"></div>
 <!-- End header -->
@@ -109,30 +109,21 @@
 	<div class="credit_info history">
 		<div class="forumtitle_top feedblue">HISTORY</div>
 		<div class="credits clearfix">
-			<div class="row">
-				<div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
-					<span>$35</span>
+			<div class="row" ng-repeat="inc in incentivesDataArray">
+			
+				<div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+					<span>${{inc.amount}}</span>
 				</div>
-				<div class="col-lg-8 col-md-8 col-sm-12 col-xs-8">
-					<label>Amazon.com Gift Card</label>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
-					<span>$35</span>
-				</div>
-				<div class="col-lg-8 col-md-8 col-sm-12 col-xs-8">
-					<label>Amazon.com Gift Card</label>
+				<div class="col-lg-8 col-md-12 col-sm-12 col-xs-8">
+					<label>{{inc.description}}</label>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
-					<span>$35</span>
-				</div>
-				<div class="col-lg-8 col-md-8 col-sm-12 col-xs-8">
-					<label>Amazon.com Gift Card</label>
+			<div class="row" ng-if="incentivesDataArray.length == 0">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<span>No previous data</span>
 				</div>
 			</div>
+			
 			
 		</div>
 	</div>	
@@ -191,11 +182,3 @@
 </script>
 
 
-
-</body>
-
-
-
-
-
-</html>

@@ -295,15 +295,10 @@ myApp.controller('indexCtrl', function($scope, $cookieStore, $rootScope, $localS
 	
 	
 	$scope.showAssignmentTasks = function(assignment){
-		if(assignment.modules[0].mode == 1){
-			if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ){
-				$cookieStore.put('assignment', assignment);
-				$location.path('/assignments/showAssignment');
-			}
-			else{
-				alert('This quiz can only be viewed over mobile devices');
-				return;
-			}			
+		$('.quiz_tip').remove();
+		if(assignment.mode == 1){
+			alert('This quiz can be viewed over Mavy App only!!!');
+				return;		
 		}
 		else if(assignment.modules[0].mode == 2){
 			if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ){
@@ -795,16 +790,17 @@ myApp.controller('assignmentCtrl', function($scope, $location, $cookieStore, $lo
 	// Creating new handler for APIs
 	endpoints.mobileHandler = new MobileHandler();
 	//Querying APi for response using endpoints
-	// endpoints.mobileHandler.getAssignments($scope.apiKey, $scope.userId, $scope.panelistId, function(result){
-		// if (result.result.success){
-			// for (var i=0; i< result.result.result.length; i++) {
-				// $scope.allAssignments.push(result.result.result[i]);
-			// }
-		// }
-		// $scope.$apply();
-	// });
+	endpoints.mobileHandler.getAssignments($scope.apiKey, $scope.userId, $scope.panelistId, function(result){
+		 if (result.result.success){
+			 for (var i=0; i< result.result.result.length; i++) {
+				 $scope.allAssignments.push(result.result.result[i]);
+			 }
+		
+		 }
+		 $scope.$apply();
+	 });
 	
-	endpoints.mobileHandler.getDashboard($scope.apiKey, $scope.userId, 1, null, null, function(result){
+/*	endpoints.mobileHandler.getDashboard($scope.apiKey, $scope.userId, 1, null, null, function(result){
 		if (result.result.success){
 			
 			for (var i=0; i< result.result.result.Entries.length; i++) {
@@ -815,20 +811,15 @@ myApp.controller('assignmentCtrl', function($scope, $location, $cookieStore, $lo
 			}
 		}
 		$scope.$apply();
-	});
+	});*/
 	
 	$scope.showAssignmentTasks = function(assignment){
-		if(assignment.modules[0].mode == 1){
-			if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ){
-				$cookieStore.put('assignment', assignment);
-				$location.path('/assignments/showAssignment');
-			}
-			else{
-				alert('This quiz can only be viewed over mobile devices');
-				return;
-			}			
+		$('.quiz_tip').remove();
+		if(assignment.mode == 1){
+			alert('This quiz can be viewed over Mavy App only!!!');
+				return;		
 		}
-		else if(assignment.modules[0].mode == 2){
+		else if(assignment.mode == 2){
 			if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ){
 				alert('This quiz can be viewed only over desktop');
 				return;
@@ -890,9 +881,9 @@ myApp.controller('assignmentCtrl', function($scope, $location, $cookieStore, $lo
 	
 	$scope.assignment = $cookieStore.get('assignment');
 	$scope.projectId = $scope.assignment.projectId;
-	if($scope.assignment.modules){
-		$scope.moduleId = $scope.assignment.modules[0].moduleId;
-		$scope.moduleType = $scope.assignment.modules[0].moduleType;
+	if($scope.assignment){
+		$scope.moduleId = $scope.assignment.moduleId;
+		$scope.moduleType = $scope.assignment.moduleType;
 	}
 	else{
 		$scope.moduleId = $scope.assignment.moduleId;
@@ -926,82 +917,86 @@ myApp.controller('assignmentCtrl', function($scope, $location, $cookieStore, $lo
 			
 	};
 	
-		endpoints.mobileHandler.getPanelistModuleTasks($scope.apiKey, $scope.userId, $scope.projectId, $scope.moduleId, $scope.panelistId, 20, 0, function(result){
-			if(result.result.result.AvailableTasks[0]){
-				if(result.result.result.AvailableTasks[0].TaskTypeId == 1){
-					if(result.result.result.AvailableTasks.length > 0){
-						for(var i=0;i<result.result.result.AvailableTasks.length;i++){
-							$scope.tasks.push(result.result.result.AvailableTasks[i]);
-						}
+	endpoints.mobileHandler.getPanelistModuleTasks($scope.apiKey, $scope.userId, $scope.projectId, $scope.moduleId, $scope.panelistId, 20, 0, function(result){
+		if(result.result.result.AvailableTasks[0]){
+			if(result.result.result.AvailableTasks[0].TaskTypeId == 1){
+				if(result.result.result.AvailableTasks.length > 0){
+					for(var i=0;i<result.result.result.AvailableTasks.length;i++){
+						$scope.tasks.push(result.result.result.AvailableTasks[i]);
 					}
-				
-					if($scope.tasks.length > 0){
-						endpoints.mobileHandler.getThreadReplies($scope.apiKey,$scope.userId,$scope.tasks[$scope.i].ForumThreadId,null,null,function(response){
-							$scope.userAvatarUrl = response.result.result[0].Content.CreatedByUser.AvatarUrl;
-							$scope.displayName = response.result.result[0].Author.DisplayName;
-							$scope.displayTasks = [];
-							if(response.result.result[0].Author.DisplayName == $scope.displayName){
+				}
+			
+				if($scope.tasks.length > 0){
+					endpoints.mobileHandler.getThreadReplies($scope.apiKey,$scope.userId,$scope.tasks[$scope.i].ForumThreadId,null,null,function(response){
+						$scope.userAvatarUrl = response.result.result[0].Content.CreatedByUser.AvatarUrl;
+						$scope.displayName = response.result.result[0].Author.DisplayName;
+						$scope.displayTasks = [];
+						if(response.result.result[0].Author.DisplayName == $scope.displayName){
+							$scope.displayTasks.push($scope.tasks[$scope.i]);
+						}
+						else{
+							if($scope.tasks[$scope.i].RevealBehaviorId == 1){
 								$scope.displayTasks.push($scope.tasks[$scope.i]);
 							}
-							else{
-								if($scope.tasks[$scope.i].RevealBehaviorId == 1){
+							else if($scope.tasks[$scope.i].RevealBehaviorId == 2){
+								if(response.result.result[0].Thread.HasParticipated == true)
 									$scope.displayTasks.push($scope.tasks[$scope.i]);
-								}
-								else if($scope.tasks[$scope.i].RevealBehaviorId == 2){
-									if(response.result.result[0].Thread.HasParticipated == true)
-										$scope.displayTasks.push($scope.tasks[$scope.i]);
-								}
 							}
-							
-							if($scope.displayTasks.length > 0){
-								endpoints.mobileHandler.getTaskReplies($scope.apiKey,$scope.userId, $scope.projectId, $scope.moduleId, $scope.displayTasks[0].TaskId, $scope.panelistId, 20, 0, function(replies){
-									if(replies.result.result[1]){
-										$scope.replyCounts = replies.result.result[1].TotalCount;
-										if(replies.result.success){
-											for(var i=0; i<replies.result.result[1].Replies.length; i++){
-												if(replies.result.result[1].Replies[i].ParentId == 0){
-													$scope.allReplies.push(replies.result.result[1].Replies[i]);
-												}
-												$scope.childReplies.push(replies.result.result[1].Replies[i])
+						}
+						
+						if($scope.displayTasks.length > 0){
+							endpoints.mobileHandler.getTaskReplies($scope.apiKey,$scope.userId, $scope.projectId, $scope.moduleId, $scope.displayTasks[0].TaskId, $scope.panelistId, 20, 0, function(replies){
+								if(replies.result.result[1]){
+									$scope.replyCounts = replies.result.result[1].TotalCount;
+									if(replies.result.success){
+										for(var i=0; i<replies.result.result[1].Replies.length; i++){
+											if(replies.result.result[1].Replies[i].ParentId == 0){
+												$scope.allReplies.push(replies.result.result[1].Replies[i]);
 											}
+											$scope.childReplies.push(replies.result.result[1].Replies[i])
 										}
 									}
-									else{
-										$scope.replyCounts = 0;
-										$scope.allReplies = [];
-										$scope.childReplies = [];
-									}
-									$scope.$apply();
-								});
-							}							
-							$scope.$apply();
-						});
+								}
+								else{
+									$scope.replyCounts = 0;
+									$scope.allReplies = [];
+									$scope.childReplies = [];
+								}
+								$scope.$apply();
+							});
+						}							
+						$scope.$apply();
+					});
+				}
+			}
+			if(result.result.result.AvailableTasks[0].TaskTypeId == 2){
+				$scope.showIframe = false;
+				$scope.showPolls = true;
+				if(result.result.result.AvailableTasks.length > 0){
+					for(var i=0;i<result.result.result.AvailableTasks.length;i++){
+						$scope.tasks.push(result.result.result.AvailableTasks[i]);
 					}
 				}
-				if(result.result.result.AvailableTasks[0].TaskTypeId == 2){
-					$scope.showIframe = false;
-					$scope.showPolls = true;
-					if(result.result.result.AvailableTasks.length > 0){
-						for(var i=0;i<result.result.result.AvailableTasks.length;i++){
-							$scope.tasks.push(result.result.result.AvailableTasks[i]);
-						}
-					}
-					$scope.checkUserPolls($scope.tasks[$scope.i]);
-				}
+				$scope.checkUserPolls($scope.tasks[$scope.i]);
+			}
+		}
+		else{
+			debugger;
+			if($scope.assignment.modules){
+				$scope.showIframe = true;
+				$scope.iframeSource = $scope.assignment.modules[0].options.baseSurveyLink + $scope.panelistId;
 			}
 			else{
-				$scope.showIframe = true;
-				if($scope.assignment.modules){
-					$scope.iframeSource = $scope.assignment.modules[0].options.baseSurveyLink + $scope.panelistId;
-				}
-				else{
+				if($scope.assignment.options.baseSurveyLink){
+					$scope.showIframe = true;
 					$scope.iframeSource = $scope.assignment.options.baseSurveyLink + $scope.panelistId;
 				}
-				
-				$scope.iframeHeight = $window.innerHeight;
-				$scope.iframeWidth = $window.innerWidth;
 			}
-		});
+			
+			$scope.iframeHeight = $window.innerHeight;
+			$scope.iframeWidth = $window.innerWidth;
+		}
+	});
 
 	$scope.markCompleted = function(task) {
 		var reply = $('#reply').val();
@@ -1063,31 +1058,10 @@ myApp.controller('assignmentCtrl', function($scope, $location, $cookieStore, $lo
 		$scope.childReplyId = Id;
 		$scope.TaskId = TaskId;
 		var reply = $('#replyNewChild' + Id).val();
-		// endpoints.mobileHandler.saveTaskReply($scope.apiKey,$scope.userId,$scope.projectId,$scope.moduleId,$scope.TaskId,$scope.panelistId,$scope.childReplyId,reply,null,null, function(response){
-			// alert('Your comment is been submitted');
-			// debugger;
-			// endpoints.mobileHandler.getTaskReplies($scope.apiKey,$scope.userId, $scope.projectId, $scope.moduleId, $scope.TaskId, $scope.panelistId, 20, 0, function(replies){
-				// if(replies.result.success){
-					// alert('Child added');
-					// debugger;
-					// $('#replyNewChild').val('');
-					// $scope.childReplies = [];
-					// for(var i=0; i<replies.result.result[1].Replies.length; i++){
-						// $scope.childReplies.push(replies.result.result[1].Replies[i]);
-					// }
-				// }
-				
-				// $scope.$apply();
-			// });
-		// });
 		endpoints.mobileHandler.saveTaskReply($scope.apiKey,$scope.userId,$scope.projectId,$scope.moduleId,$scope.TaskId,$scope.panelistId,$scope.childReplyId,reply,null,null, function(response){
-			alert('Response Saved');
-			debugger;
 			$('#replyNewChild' + Id).val(' ');
 			endpoints.mobileHandler.getTaskReplies($scope.apiKey,$scope.userId, $scope.projectId, $scope.moduleId, $scope.TaskId, $scope.panelistId, 20, 0, function(replies){
 				if(replies.result.success){
-					alert('Response Saved');
-					debugger;
 					$scope.allReplies = [];
 					$scope.childReplies = [];
 					for(var i=0; i<replies.result.result[1].Replies.length; i++){
@@ -1178,7 +1152,6 @@ myApp.controller('assignmentCtrl', function($scope, $location, $cookieStore, $lo
 		}
 		else {
 			$scope.hideLeftArrow = true;
-			//alert('Project is not yet marked completed. Please complete this task and then move forward');
 		}
 	};
 	
@@ -1362,11 +1335,6 @@ myApp.controller('assignmentCtrl', function($scope, $location, $cookieStore, $lo
 		$scope.TaskId = TaskId;
 		//$('.childComments').hide();
 	};
-	
-	// $scope.showChildComments = function(parentId){
-		// $scope.childComments = true;
-		// $scope.ForumId = parentId;
-	// }
 	
 	$scope.showChildcomments = function(Id, TaskId){
 		if($scope.showComments){
@@ -2287,7 +2255,7 @@ myApp.controller('profileCtrl', function($scope, $localStorage, $location, $root
 	
 	/* Getting all local Storage data for User Authentication */
 	var loginDetails = $localStorage.loginDetails;
-	debugger;
+	
 	$scope.apiKey = loginDetails[0].value;
 	$scope.userId = loginDetails[1].value;
 	$scope.panelistId = loginDetails[2].value;
@@ -2505,6 +2473,7 @@ myApp.controller('badgesCtrl', function($scope, $localStorage, $location, $route
 		for(var i=0; i< result.result.result.length; i++){
 			$scope.allBadges.push(result.result.result[i]);
 		}
+	
 		$scope.$apply();
 	});
 	

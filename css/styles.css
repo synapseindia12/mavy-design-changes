@@ -567,9 +567,9 @@ h2.titlesame { padding:5px 5px 5px 0; margin:0px 0 0 0; font-size:14px; color:#0
 .outer_badge { padding:0; margin:0 0 20px 0;}
 .badge_box { padding:0; margin:0 auto 15px; width:190px; height:190px; border-radius:50%; border:solid 2px #d6e5e8; background:#ebfafd; text-align:center; position:relative;}
  .badge_box img { position:absolute; left:50%; transform:translateX(-50%); top:25px;}
-.outer_badge h3 {position:relative; font-size:12px; font-weight:bold; color:#495458; text-align:center; line-height:normal;}
+.outer_badge h3 {text-transform:uppercase;position:relative; font-size:12px; font-weight:bold; color:#495458; text-align:center; line-height:normal;}
 .outer_badge h3:before { position:absolute; left:50%; bottom:-5px; width:25%; content:""; background:#d6e5e8; height:2px; transform:translatex(-50%)}
-.outer_badge p {font-size:10px; color:#5b5b5b; line-height:normal; text-align:center;}
+.outer_badge p {font-size:10px; color:#5b5b5b; line-height:normal; text-align:center; text-transform: uppercase;}
 /* Badges page css end */
 
 
@@ -1079,8 +1079,8 @@ background-position: 90% center}
   text-align: center;
 }
 .credit_info label{font-size: 30px;color:#008dea; font-weight: 400;margin-top: 7px;display: block;text-align: center;}
-.history span{color:#008dea; margin-top: 7px; display: inline-block;}
-.history label{color:#969d9f; font-size: 12px; margin: 0;}
+.history span{color:#008dea; margin-top: 7px; display: block;}
+.history label{color:#969d9f; font-size: 12px; margin: 0; padding-top: 7px;}
 @media (max-width:767px){
   .credit_info{margin-top: 30px;}
 }
