@@ -95,7 +95,11 @@
 					</div>
 				</div>
 			</div>
-
+			<div class="form_section">
+				<button id="submit" value="SAVE CHANGES" class="save right-arrow" type="submit" ng-click="getNextTask(i)" ng-hide="hideLeftArrow">CONTINUE</button>
+				
+				<button id="submit" value="SAVE CHANGES" class="save left-arrow" type="submit" ng-click="getPreviousTasks(i)" ng-show="hideRightArrow">BACK</button>
+			</div>
 			<hr>
 		</div>
 		<!-- Ends Here -->

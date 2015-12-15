@@ -66,10 +66,10 @@
 			<div class="col-lg-2 col-md-2 col-sm-6 col-xs-12"></div>
 		</div>
 	</div>
-	<div class="msg_internal receiver" ng-repeat="items in internalMessages.slice().reverse() | filter: ConversationId">
+	<div class="msg_internal receiver" id="{{items.Id}}" ng-repeat="items in internalMessages.slice().reverse() | filter: ConversationId">
 		<div class="row">
 			<div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
-				
+				<img src="{{items.Author.AvatarUrl}}" ng-if="items.Author.AvatarUrl != avatarUrl" ng-init="removeReceiver(items.Id)" class="sender">
 			</div>
 			<div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
 				<div class="show_message">
@@ -80,7 +80,7 @@
 				</div>
 			</div>
 			<div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
-				<img src="{{items.Author.AvatarUrl}}" class="sender">
+				<img src="{{items.Author.AvatarUrl}}" ng-if="items.Author.AvatarUrl == avatarUrl" class="sender">
 			</div>
 		</div>
 	</div>

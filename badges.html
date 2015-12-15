@@ -1,36 +1,4 @@
- <style type="text/css">
-	.custom-radio{
-		width: 18px;
-		height: 18px;
-		display: inline-block;
-		position: relative;
-		z-index: 1;
-		top: 3px;
-		background: url("images/radio.png") no-repeat;
-	}
-	.custom-radio:hover{            
-		background: url("images/radio-selected.png") no-repeat;
-	}
-	.custom-radio.selected{
-		background: url("images/radio-selected.png") no-repeat;
-	}
-	.custom-radio input[type="radio"]{
-		margin: 1px;
-		position: absolute;
-		z-index: 2;            
-		cursor: pointer;
-		outline: none;
-		opacity: 0;
-		/* CSS hacks for older browsers */
-		_noFocusLine: expression(this.hideFocus=true); 
-		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-		filter: alpha(opacity=0);
-		-khtml-opacity: 0;
-		-moz-opacity: 0;
-	}
-    /* Let's Beautify Our Form */
-   
-</style>
+
 <!-- Header -->
  <div ng-include="'navigation.html'"></div>
 <!-- End header -->

@@ -7,11 +7,11 @@
 				<span class="user_profpic"><img class="img-responsive img-circle" src="{{avatarUrl}}" alt=""></span>
 				<div class="user_dtl_right">
 				<span class="user_dtl">{{fname}} {{lname}}</span>
-				<span class="user_alias">{{email}}</div>
+				<span class="user_alias">{{uname}}</div>
 				</div>
 				<div class="reward_sec clearfix">
 				<span class="rwd_balance">Rewards Balance:</span>
-				<div class="rwd_price" ng-if="redeemable >= 0">${{redeemable/100}}</div>
+				<div class="rwd_price" ng-if="redeemable >= 0">${{redeemable}}</div>
 				</div>
 			</div>
 			

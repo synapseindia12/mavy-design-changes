@@ -1,4 +1,36 @@
-
+<style type="text/css">
+	.custom-radio{
+		width: 18px;
+		height: 18px;
+		display: inline-block;
+		position: relative;
+		z-index: 1;
+		top: 3px;
+		background: url("images/radio.png") no-repeat;
+	}
+	.custom-radio:hover{            
+		background: url("images/radio-selected.png") no-repeat;
+	}
+	.custom-radio.selected{
+		background: url("images/radio-selected.png") no-repeat;
+	}
+	.custom-radio input[type="radio"]{
+		margin: 1px;
+		position: absolute;
+		z-index: 2;            
+		cursor: pointer;
+		outline: none;
+		opacity: 0;
+		/* CSS hacks for older browsers */
+		_noFocusLine: expression(this.hideFocus=true); 
+		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+		filter: alpha(opacity=0);
+		-khtml-opacity: 0;
+		-moz-opacity: 0;
+	}
+    /* Let's Beautify Our Form */
+   
+</style>
 <div ng-if="pollforvotes.length > 0">
 	<div class="quickpool_cont" id="anm{{item.itemId}}" ng-repeat="item in pollforvotes | limitTo: 1">
 		<form class="dailyPoll" name="pollForm" ng-submit="submitPoll(item, option)">
@@ -26,13 +58,13 @@
 </div>
 
 <div ng-if="dataforResults.length > 0">
-	<div class="quickpool_cont" ng-repeat="item in dataforResults | limitTo: 2">
-		<div class="greentitle_top">Results For Previous Polls</div>
+	<div class="quickpool_cont" id="results{{item.itemId}}" ng-repeat="item in dataforResults | limitTo: 2">
+		<div class="greentitle_top">Results For Previous Polls<a href="javascript:void(0)" ng-click="animateResults(item.itemId)" class="quiz_close"></a></div>
 		<div class="quickpool clearfix">
 			<h3 bind-html-compile="item.pollTitle"></h3>
 			<ul>
 				<li ng-repeat="option in item.pollresults">
-					<span class="result-text" id="result-poll-{{$index}}" ng-class="{'bgColor': applyBackground(item.itemId, $index)}">
+					<span class="result-text" id="result-poll-{{$index}}">
 						{{option.count}}%
 					</span>
 					{{option.category}}

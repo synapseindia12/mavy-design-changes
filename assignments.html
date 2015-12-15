@@ -1,3 +1,4 @@
+
 <!-- Header -->
 <div ng-include="'navigation.html'"></div>
 <!-- End header -->
@@ -38,10 +39,10 @@
 									<a href="javascript:void(0)" data-time="{{assignment.lengthInMinutes}} minutes" ng-if="assignment.lengthInMinutes>=15"><img src="images/qtr_watch.png" alt="More than 15 mins"></a>
 									<a href="javascript:void(0)" data-time="{{assignment.lengthInMinutes}} minutes" ng-if="assignment.lengthInMinutes>=5 && assignment.lengthInMinutes<15"><img src="images/less15watch.png" alt="less than 15 mins"></a>
 									<a href="javascript:void(0)" data-time="{{assignment.lengthInMinutes}} minutes" ng-if="assignment.lengthInMinutes<5"><img src="images/less5watch.png" alt="less than 5 mins"></a>
-									<a ng-if="assignment.mode==3" href="javascript:void(0)"><img src="images/desktop.png"></a>
-									<a ng-if="assignment.mode==2" href="javascript:void(0)"><img src="images/desktop.png"></a>
-									<a ng-if="assignment.mode==1" href="javascript:void(0)"><img src="images/mobile_icon.png"></a>
-									<a ng-if="assignment.mode==2" href="javascript:void(0)"><img src="images/mobile_icon.png"></a>
+									<a ng-if="assignment.mode==3" data-mode="{{assignment.mode}}" href="javascript:void(0)"><img src="images/desktop.png"></a>
+									<a ng-if="assignment.mode==2" data-mode="{{assignment.mode}}" href="javascript:void(0)"><img src="images/desktop.png"></a>
+									<a ng-if="assignment.mode==1" data-mode="{{assignment.mode}}" href="javascript:void(0)"><img src="images/mobile_icon.png"></a>
+									<a ng-if="assignment.mode==2" data-mode="{{assignment.mode}}" href="javascript:void(0)"><img src="images/mobile_icon.png"></a>
 								</div>
 							</div>
 							
@@ -79,6 +80,26 @@
 
 			})
 			$('body').on('mouseout','.mypet_quiz ul li a:first-child',function(){
+				$('.quiz_tip').remove();
+			})
+			$('body').on('mouseover','.mypet_quiz ul li a[data-mode]',function(){
+	
+				$('.quiz_tip').remove();
+				var mode=$(this).data('mode');
+				if(mode==1){
+					var toolT = "<div class='quiz_tip'>Mobile only quiz</div>";
+				}
+				else if(mode==3){
+					var toolT = "<div class='quiz_tip'>Desktop only quiz</div>";
+				}
+				else{
+					var toolT = "<div class='quiz_tip'>Desktop & Mobile quiz</div>";
+				}
+				$('body').append(toolT);
+				var elW = $('.quiz_tip').outerWidth()/2;
+				$('.quiz_tip').css({'top':($(this).offset().top-80),'left':($(this).offset().left-elW)});
+			})
+			$('body').on('mouseout','.mypet_quiz ul li a[data-mode]',function(){
 				$('.quiz_tip').remove();
 			})
 		})
