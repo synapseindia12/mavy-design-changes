@@ -77,8 +77,7 @@
 	<div class="credit_info history">
 		<div class="forumtitle_top feedblue">HISTORY</div>
 		<div class="credits clearfix">
-			<div class="row" ng-repeat="inc in incentivesDataArray">
-			
+			<div class="row" ng-repeat="inc in incentivesDataArray">			
 				<div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
 					<span>${{inc.amount}}</span>
 				</div>
@@ -91,13 +90,10 @@
 					<span>No previous data</span>
 				</div>
 			</div>
-			
-			
 		</div>
 	</div>	
 	<div ng-include="'polls.html'" ng-controller="pollsCtrl"></div>
 </div>
-
 </div>
 </div>
 <!-- Middle Section end -->
@@ -119,12 +115,12 @@
                 $(this).parent().removeClass("selected");
             });
         });
-    }
+    };
     $(document).ready(function (){
         customRadio("browser");
         customRadio("search-engine");            
         customRadio("confirm");
-    })
+    });
 </script>
 
 <script type="text/javascript">
@@ -147,6 +143,15 @@
 		$('.menu_right').animate({'left':'-220px'})
 		$('.mobile_nav').removeClass('shows');
 	})
+$(window).load(function(){
+
+	if($('.history .credits').height()>160){
+		$('.history .credits').slimScroll({
+	        height: '160px'
+	    });
+	}
+	
+})
 </script>
 
 

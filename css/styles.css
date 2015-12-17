@@ -1502,3 +1502,30 @@ body{
 	float:right;
 	background-size:20px;
 }
+
+.uploadMedia{float:left;position:absolute;bottom:20px;left:20px;}
+.uploadMedia button{
+	background: rgba(0, 0, 0, 0) url("../images/attach.png") no-repeat scroll 90% center;
+    border: 2px solid #5b5b5b;
+    color: #5b5b5b;
+    margin: 0;
+	border-radius: 10px;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    max-width: 165px;
+    padding: 5px 40px 5px 10px;
+	text-transform:uppercase;
+}
+.uploadMedia input{width:0;height:0;opacity:0;}
+
+
+#backtotop{display:none;cursor:pointer;position: fixed;width:40px;height:40px;bottom: 50px;right:40px;color:#008eeb; font-size: 40px;opacity:0.8;}
+#backtotop a{color:#008eeb;}
+#backtotop:hover{opacity:1;}
+
+.main_box {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    overflow: hidden;
+}

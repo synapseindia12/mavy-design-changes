@@ -24,9 +24,23 @@
 		<div class="typepost">
 			<form>
 				<input type="text" class="title-field" placeholder="POST TITLE" ng-model="postTitle">
-				<textarea class="form-field" ng-model="postBody" placeholder="Type your post here.">   </textarea>
+				<textarea class="form-field" ng-model="postBody" placeholder="Type your post here."></textarea>
 				<button class="btn_submitpost" ng-click="submitPost()">Submit Post</button>
 			</form>
+			<div class="uploadMedia">
+			
+					<div class="lvl1">
+						<div id="upload-content" style="display:none;">
+							<span style="display:inline-block;background:#e6ece1;padding:8px 15px; border-radius:3px; font-size:14px;">{{fileName}}</span>
+						</div>
+						<p>
+							<button ng-click="clickInput()">Upload Media</button>
+							<input type="file" name="file" onchange="angular.element(this).scope().uploadMedia(this)" ng-click="setProjectId()">
+						</p>
+						<!-- <a href="javascript:void(0)" ng-click="showReplyBox(items.Id)">Cancel</a> -->
+					</div>
+		
+			</div>
 		</div>
 
 	
@@ -177,3 +191,25 @@
 </div>
 </div>
 </div>
+
+<div id="backtotop" title="Back to top">
+	<a href="javascript:void(0)"><i class="fa fa-arrow-circle-up"></i></a>
+</div>
+<script type="text/javascript">
+$(function(){
+	
+	$('#backtotop a').on('click',function(){
+		$('html,body').animate({'scrollTop':'0'},500);
+		//$('#backtotop').fadeOut();
+	});
+	$(window).scroll(function(){
+		var scr = $(window).scrollTop();
+		if(scr>500){
+			$('#backtotop').fadeIn();
+		}
+		else{
+			$('#backtotop').fadeOut();
+		}
+	})
+})
+</script>
