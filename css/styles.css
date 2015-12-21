@@ -1520,12 +1520,31 @@ body{
 .uploadMedia input{width:0;height:0;opacity:0;}
 
 
-#backtotop{display:none;cursor:pointer;position: fixed;width:40px;height:40px;bottom: 50px;right:40px;color:#008eeb; font-size: 40px;opacity:0.8;}
-#backtotop a{color:#008eeb;}
-#backtotop:hover{opacity:1;}
+#backtotop{display:none;cursor:pointer;position: fixed;width:40px;height:40px;bottom: 50px;right:40px;color:#fff; font-size: 40px;opacity:1;
+-webkit-animation:bounce 1s infinite;-moz-animation:bounce 1s infinite;animation:bounce 1s infinite;}
+#backtotop a{color:#fff;}
+#backtotop:hover{opacity:0.8;}
 
 .main_box {
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     overflow: hidden;
+}
+@-webkit-keyframes bounce {
+  0%       { bottom:5px; }
+  25%, 75% { bottom:10px; }
+  50%      { bottom:15px; }
+  100%     {bottom:0;}
+}
+@-moz-keyframes bounce {
+  0%       { bottom:5px; }
+  25%, 75% { bottom:10px; }
+  50%      { bottom:15px; }
+  100%     {bottom:0;}
+}
+@keyframes bounce {
+  0%       { bottom:5px; }
+  25%, 75% { bottom:10px; }
+  50%      { bottom:15px; }
+  100%     {bottom:0;}
 }
