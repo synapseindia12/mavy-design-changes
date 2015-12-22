@@ -1,4 +1,4 @@
-var myApp = angular.module("mavyApp", ['ngRoute', 'ngCookies', 'ngStorage', 'ngFacebook', 'ui.mask', 'ui.bootstrap', 'angular-bind-html-compile', 'ngSanitize', 'angular-bootstrap-select']);
+var myApp = angular.module("mavyApp", ['ngRoute', 'ngCookies', 'ngStorage', 'ngFacebook', 'ui.mask', 'ui.bootstrap', 'angular-bind-html-compile', 'ngSanitize', 'angular-bootstrap-select', 'ngSlimScroll']);
 
 myApp.config(function($routeProvider, $httpProvider, $facebookProvider) {
     $routeProvider
@@ -157,8 +157,7 @@ myApp.controller('signupCtrl', function($scope, $rootScope, $location, $cookieSt
 				endpoints.mobileHandler.loginFb($scope.accessToken, $scope.userSystemInfo, function(response){
 					if(response.result.success){
 						$localStorage.loggedIn = true;
-						//$localStorage.userName = $scope.username;
-						$localStorage.loginDetails = response.result.result;
+						$localStorage.userName = response.result.result[4].value;
 						$localStorage.userDetails = {"userId": $scope.userId, "logindetails": response.result.result};
 						$location.path('/dashboard');
 						$scope.$apply();
@@ -169,22 +168,6 @@ myApp.controller('signupCtrl', function($scope, $rootScope, $location, $cookieSt
 					}
 				});
 			}
-			// else{
-				// endpoints.mobileHandler.loginFb("CAAWKTEZAW1ZA8BAAD9KGTBHCGL1FM445E8ZB4EFLP0BQJ0K2P3HTRZAHVAMHSFB9ZAEXMGU9ZASSXZBH6CFQTQR7Q1BYDJMVOTHOVTEMNS6WJNEYGBSYQMIZYNN8OCGHZBLMFPZC6OS2ROEFNM4EXAAZCABQTYKVBWVDEZCZC9GSBADOKUQ9ZBKUKHURKHEXY2EZB9XU1P3AAEVJQZCITUGR5UR4AIZ", $scope.userSystemInfo, function(response){
-					// if(response.result.success){
-						// $localStorage.loggedIn = true;
-						//$localStorage.userName = $scope.username;
-						// $localStorage.loginDetails = response.result.result;
-						// $localStorage.userDetails = {"userId": $scope.userId, "logindetails": response.result.result};
-						// $location.path('/dashboard');
-						// $scope.$apply();
-					// }
-					// else{
-						// alert(response.result.message);
-						// $location.path('/');
-					// }
-				// });
-			// }
 		}, {scope: "email"});
 	};
 });
@@ -274,13 +257,6 @@ myApp.controller('indexCtrl', function($scope, $cookieStore, $rootScope, $localS
 		}
 		$scope.$apply();
 	});
-	/*endpoints.mobileHandler.getDashboard($scope.apiKey,$scope.userId,2,null,null, function(result){
-		$scope.replyPosts = result.result.result;
-		for(var i=0; i< $scope.replyPosts.Entries.length; i++){
-			$scope.tempArray.push($scope.replyPosts.Entries[i]);
-			$scope.$apply();
-		}
-	});*/
 	
 	$scope.submitPoll = function(poll){
 		var index = $scope.allPolls.indexOf(poll);
@@ -1769,8 +1745,8 @@ myApp.controller('forumCtrl', function($scope,$localStorage,$rootScope,$routePar
 	};
 	
 	$scope.uploadMedia = function (input){
-		$scope.data = {};
-		$scope.data.userUpload = '';
+		$scope.vdata = {};
+		$scope.vdata.userUpload = '';
 		$scope.fileName="";
 		var x="",
 		Apikey = "6OoRO1+3C0askOF2V0gTEE4IUIyN2aNBuJLFoxCgBho=",
@@ -1789,18 +1765,20 @@ myApp.controller('forumCtrl', function($scope,$localStorage,$rootScope,$routePar
 				mediaType = mediaT[0];
 				$scope.mediaType = mediaT[0];
 				x=e.target.result.split('base64,');
-				$scope.data.userUpload = x[1];
-				console.log($scope.data.userUpload.substring(0,64).length);
+				$scope.vdata.userUpload = x[1];
+				console.log($scope.vdata.userUpload.substring(0,64).length);
 				$scope.fileName = input.files[0].name;
 				$('#upload-content').show();
-				var media_hash = CryptoJS.HmacSHA1(Apikey + bucketName + projectId + sourceAppType + $scope.data.userUpload.substring(0,64) + mediaType, secret);
+				var media_hash = CryptoJS.HmacSHA1(Apikey + bucketName + projectId + sourceAppType + $scope.vdata.userUpload.substring(0,64) + mediaType, secret);
 
 				var media_words = CryptoJS.enc.Base64.parse(media_hash.toString(CryptoJS.enc.Base64));
 
 				var media_base64 = CryptoJS.enc.Base64.stringify(media_words);
-				projectId = "communityForum";
-				
-				endpoints.mediaHandler.convertMedia(Apikey, media_base64, bucketName, projectId, sourceAppType, mediaType, $scope.data.userUpload, 0, function(result){
+				projectId = "communityforum";
+				alert('projectId');
+				debugger;
+				endpoints.mediaHandler.convertMedia(Apikey, media_base64, bucketName, projectId, sourceAppType, mediaType, $scope.vdata.userUpload, 0, function(result){
+					debugger;
 					if(result.result.success){
 						//alert('Media Uploaded');
 						$scope.MediaUrl = result.result.result.URL;
@@ -2996,6 +2974,8 @@ myApp.controller('rewardsCtrl', function($scope, $location, $rootScope, $localSt
 	// Creating new handler for APIs
 	endpoints.mobileHandler = new MobileHandler();
 	
+
+
 	endpoints.mobileHandler.getIncentives($scope.apiKey, $scope.userId, $scope.panelistId, null, null, function(result){
 		for(var i=0; i<result.result.result[0].length; i++){
 			$scope.incentivesDataArray.push(result.result.result[0][i]);
@@ -3041,6 +3021,16 @@ myApp.controller('rewardsCtrl', function($scope, $location, $rootScope, $localSt
 		  }
 		});
 	};
+
+	$(window).load(function(){
+
+		if($('.history .credits').height()>160){
+			$('.history .credits').slimScroll({
+		        height: '160px'
+		    });
+		}
+		
+	})
 });
 
 myApp.controller('rewardsModalCtrl', function($scope, $modalInstance, rewards, $rootScope){
