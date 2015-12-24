@@ -1410,7 +1410,9 @@ myApp.controller('forumCtrl', function($scope,$localStorage,$rootScope,$routePar
 	var loginDetails = $localStorage.loginDetails;
 	$scope.apiKey = loginDetails[0].value;
 	$scope.userId = loginDetails[1].value;
-	var endpoints = {};
+	var endpoints = {}
+	uploadedMediaUrl = ''
+	uploadMediaType = '';
 	endpoints.apiKey = $scope.apiKey;
 	endpoints.mobileHandler = new MobileHandler();
 	endpoints.mediaHandler = new MediaHandler();
@@ -1553,22 +1555,23 @@ myApp.controller('forumCtrl', function($scope,$localStorage,$rootScope,$routePar
 	
 	$scope.submitPost = function(){
 		debugger;
-		if($scope.mediaUrl){
-			if($scope.mediaType == 'image' || $scope.mediaType == 'Image'){
+		if(uploadedMediaUrl){
+			if(uploadMediaType == 'image' || uploadMediaType == 'Image'){
 				if($scope.postBody)
-					$scope.postBody = $scope.postBody + "<img src=\""+$scope.mediaUrl+"\">";
+					$scope.postBody = $scope.postBody + " <img src=\""+uploadedMediaUrl+"\">";
 				else
-					$scope.postBody = "<img src=\""+$scope.mediaUrl+"\">";
+					$scope.postBody = " <img src=\""+uploadedMediaUrl+"\">";
 			}
 			else{
 				if($scope.postBody)
-					$scope.postBody = $scope.postBody + "[View:"+$scope.mediaUrl+":0:0]";
+					$scope.postBody = $scope.postBody + " [View:"+uploadedMediaUrl+":0:0]";
 				else
-					$scope.postBody = "[View:"+$scope.mediaUrl+":0:0]";
+					$scope.postBody = " [View:"+uploadedMediaUrl+":0:0]";
 			}
-			$scope.mediaUrl = '';
-			$scope.mediaType = '';
+			uploadedMediaUrl = '';
+			uploadMediaType = '';
 		}
+		
 		$scope.threadInfo=[{"name":"Subject","value":$scope.postTitle},{"name":"Body","value":$scope.postBody}];
 		endpoints.mobileHandler.createThread($scope.apiKey,$scope.userId,3,$scope.threadInfo,function(response){
 			if(response.result.success){
@@ -1754,16 +1757,17 @@ myApp.controller('forumCtrl', function($scope,$localStorage,$rootScope,$routePar
 		bucketName = "cfsagency",
 		mediaType="",
 		sourceAppType = "MRTelligent";
+		projectId = "communityforum";
 		if (input.files && input.files[0]) {
 			var reader = new FileReader();
 			//reader.readAsDataURL(input);
-			reader.onload = function (e) {	 
+			reader.onload = function (e){	 
 				//Sets the Old Image to new New Image
 				//$('#photo-id').attr('src', e.target.result);	 
 				//Create a canvas and draw image on Client Side to get the byte[] equivalent
 				var mediaT = input.files[0].type.split('/');
 				mediaType = mediaT[0];
-				$scope.mediaType = mediaT[0];
+				uploadMediaType = mediaT[0];
 				x=e.target.result.split('base64,');
 				$scope.vdata.userUpload = x[1];
 				console.log($scope.vdata.userUpload.substring(0,64).length);
@@ -1774,31 +1778,12 @@ myApp.controller('forumCtrl', function($scope,$localStorage,$rootScope,$routePar
 				var media_words = CryptoJS.enc.Base64.parse(media_hash.toString(CryptoJS.enc.Base64));
 
 				var media_base64 = CryptoJS.enc.Base64.stringify(media_words);
-				projectId = "communityforum";
-				alert('projectId');
 				debugger;
 				endpoints.mediaHandler.convertMedia(Apikey, media_base64, bucketName, projectId, sourceAppType, mediaType, $scope.vdata.userUpload, 0, function(result){
 					debugger;
 					if(result.result.success){
 						//alert('Media Uploaded');
-						$scope.MediaUrl = result.result.result.URL;
-						//alert($scope.MediaUrl);
-						// if(mediaType == 'image' || mediaType == 'Image'){
-							// if($scope.replyText)
-								// replyText = $scope.replyText + "<img src=\""+result.result.result.URL+"\">";
-							// else
-								// replyText = "<img src=\""+result.result.result.URL+"\">";
-						// }
-						// else{
-							// if($scope.replyText)
-								// replyText = $scope.replyText + "[View:"+result.result.result.URL+":0:0]";
-							// else
-								// replyText = "[View:"+result.result.result.URL+":0:0]";
-						// }
-						// endpoints.mobileHandler.saveReply($scope.apiKey,$scope.userId,$scope.ThreadId,$scope.ParentId,replyText,function(response){
-							
-							// $route.reload();
-						// });
+						uploadedMediaUrl = result.result.result.URL;
 					}
 					else{
 						alert('fail');
