@@ -6,6 +6,10 @@ myApp.config(function($routeProvider, $httpProvider, $facebookProvider) {
             templateUrl: 'signup.html',
 			controller: 'signupCtrl'
         })
+		.when('/errorPage', {
+            templateUrl: 'Error.html',
+			controller: 'ErrorCtrl'
+        })
 		.when('/signup', {
             templateUrl: 'createUser.html',
 			controller: 'createUserCtrl'
@@ -62,7 +66,7 @@ myApp.config(function($routeProvider, $httpProvider, $facebookProvider) {
 			controller: 'badgesCtrl'
         })
 		.otherwise({
-            redirectTo: '/'
+            redirectTo: '/errorPage'
         });
 		
 		$facebookProvider.setAppId('1588022388118943');
@@ -103,6 +107,17 @@ myApp.controller('createUserCtrl', function($scope, $location){
 				$scope.$apply();
 			});
 		}
+	}
+});
+
+myApp.controller('ErrorCtrl', function($scope, $localStorage){
+	if ($localStorage.loggedIn) {
+		$('body').addClass('dashboard_pages');
+		$location.path('/dashboard');
+		$scope.loggedIn = true;
+	}
+	else{
+		$scope.loggedIn = false;
 	}
 });
 

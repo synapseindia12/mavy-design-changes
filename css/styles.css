@@ -1560,3 +1560,13 @@ div.slim-scroll-wrapper {
             padding-right: 20px !important;
             padding-left: 10px !important;
         }
+		
+
+/*------ Edited On 28-dec-2015 ------------*/
+		
+.error-message {color: #fff; text-align: center; max-width: 500px; font-family: "Lato",sans-serif; margin: 0 auto; font-weight: normal;}
+.error-message h1 {color: #fff; font-size: 126px; font-weight: 100; font-family: "Lato",sans-serif;}
+.error-message h3 {font-weight: normal; letter-spacing: 1.5px;}
+.error-message p {line-height: 16px;}
+.error-message p span {font-size: 13px; line-height: 10px; letter-spacing: 0.5px;}
+
