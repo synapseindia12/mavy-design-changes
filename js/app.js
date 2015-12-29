@@ -1773,7 +1773,7 @@ myApp.controller('forumCtrl', function($scope,$localStorage,$rootScope,$routePar
 		mediaType="",
 		sourceAppType = "MRTelligent";
 		projectId = "communityforum";
-		if (input.files && input.files[0]) {
+		if (input.files && input.files[0]){
 			var reader = new FileReader();
 			//reader.readAsDataURL(input);
 			reader.onload = function (e){	 
@@ -1789,15 +1789,10 @@ myApp.controller('forumCtrl', function($scope,$localStorage,$rootScope,$routePar
 				$scope.fileName = input.files[0].name;
 				$('#upload-content').show();
 				var media_hash = CryptoJS.HmacSHA1(Apikey + bucketName + projectId + sourceAppType + $scope.vdata.userUpload.substring(0,64) + mediaType, secret);
-
 				var media_words = CryptoJS.enc.Base64.parse(media_hash.toString(CryptoJS.enc.Base64));
-
 				var media_base64 = CryptoJS.enc.Base64.stringify(media_words);
-				debugger;
 				endpoints.mediaHandler.convertMedia(Apikey, media_base64, bucketName, projectId, sourceAppType, mediaType, $scope.vdata.userUpload, 0, function(result){
-					debugger;
 					if(result.result.success){
-						//alert('Media Uploaded');
 						uploadedMediaUrl = result.result.result.URL;
 					}
 					else{
@@ -1810,6 +1805,7 @@ myApp.controller('forumCtrl', function($scope,$localStorage,$rootScope,$routePar
 			reader.readAsDataURL(input.files[0]);
 		}
 	};
+	
 	var projectId="";
 	$scope.setProjectId = function(id, text){
 		$scope.replyText = text;

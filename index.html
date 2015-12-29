@@ -73,6 +73,28 @@
 	<script src="js/main.js"></script> -->
 	<script type="text/javascript">
 		$(function(){
+			$(document).on('click','.viewImage a',function(){
+				var attr = $(this).parent('.viewImage').siblings('.postbody').attr('style');
+				if (typeof attr !== typeof undefined && attr !== false) {
+				    $(this).parent('.viewImage').siblings('.postbody').removeAttr('style');
+				    $(this).html('..View Image');	
+				}
+				else{
+					$(this).parent('.viewImage').siblings('.postbody').css({'max-height':'100%'});
+					$(this).html('Collapse');
+				}
+			});
+			$(document).on('click','.readMoretab a',function(){
+				var attr = $(this).parent('.readMoretab').siblings('.postbody').attr('style');
+				if (typeof attr !== typeof undefined && attr !== false) {
+				    $(this).parent('.readMoretab').siblings('.postbody').removeAttr('style');
+				    $(this).html('..Read more');	
+				}
+				else{
+					$(this).parent('.readMoretab').siblings('.postbody').css({'max-height':'100%'});
+					$(this).html('Collapse');
+				}
+			});
 			$(document).on('click','.readmore a',function(){
 				var attr = $(this).parent('.readmore').siblings('.postbody').attr('style');
 				if (typeof attr !== typeof undefined && attr !== false) {
@@ -83,9 +105,7 @@
 					$(this).parent('.readmore').siblings('.postbody').css({'max-height':'100%'});
 					$(this).html('Collapse');
 				}
-
-
-			})
+			});
 		})
 		
 	</script>

@@ -1341,6 +1341,30 @@ body{
   background: #008eeb;
   color:#fff;
 }
+.viewImage a {
+    border: 0.5px solid;
+    border-radius: 5px;
+    color: #008eeb;
+    display: inline-block;
+    font-size: 11px;
+    padding: 0 5px 2px;
+}
+.viewImage a:hover{
+  background: #008eeb;
+  color:#fff;
+}
+.readMoretab a {
+    border: 0.5px solid;
+    border-radius: 5px;
+    color: #008eeb;
+    display: inline-block;
+    font-size: 11px;
+    padding: 0 5px 2px;
+}
+.readMoretab a:hover{
+  background: #008eeb;
+  color:#fff;
+}
 #pp-nav li a.appslide, .pp-slidesNav li a.appslide{
   background: none repeat scroll 0 0 #e465d4 !important;
 }
