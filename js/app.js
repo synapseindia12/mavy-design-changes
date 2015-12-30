@@ -1,7 +1,6 @@
 var myApp = angular.module("mavyApp", ['ngRoute', 'ngCookies', 'ngStorage', 'ngFacebook', 'ui.mask', 'ui.bootstrap', 'angular-bind-html-compile', 'ngSanitize', 'angular-bootstrap-select', 'ngSlimScroll']);
 
-myApp.config(function($routeProvider, $httpProvider, $facebookProvider, $locationProvider) {
-	debugger;
+myApp.config(function($routeProvider, $httpProvider, $facebookProvider, $locationProvider) {	
     $routeProvider
         .when('/', {
             templateUrl: 'signup.html',
@@ -141,13 +140,13 @@ myApp.controller('signupCtrl', function($scope, $rootScope, $location, $cookieSt
 		$scope.userSysteminfo = [];
 		if($scope.sign.uname && $scope.sign.password){
 			endpoints.mobileHandler.login($scope.sign.uname, $scope.sign.password, $scope.userSysteminfo, function(result){
-				debugger;
+				
 				if(result.result.success){
 					$scope.isLoggedIn = true;
 					$cookieStore.put('userName', $scope.sign.uname);
 					$localStorage.loggedIn = true;
 					$localStorage.userName = $scope.sign.uname;
-					debugger;
+					
 					$localStorage.loginDetails = result.result.result;
 					$scope.sign.uname = '';
 					$scope.sign.password = '';
@@ -168,7 +167,7 @@ myApp.controller('signupCtrl', function($scope, $rootScope, $location, $cookieSt
 	$scope.fbLogin = function(){
 		$scope.userSystemInfo = [];
 		$facebook.login().then(function(result){
-			debugger;
+			
 			if(result.status){
 				$scope.accessToken = result.authResponse.accessToken;
 				$scope.userId = result.authResponse.userID;
@@ -501,7 +500,7 @@ myApp.controller('pollsCtrl', function($scope, $rootScope, $location, $localStor
 							$rootScope.pollforvotes.push(result.result.result.Entries[$scope.incrementedVal]);
 						}
 					}
-					debugger;
+					
 					$scope.incrementedVal = $scope.incrementedVal + 1;
 					$scope.recursiveCall(result);
 					$scope.$apply();
@@ -515,7 +514,7 @@ myApp.controller('pollsCtrl', function($scope, $rootScope, $location, $localStor
 		$scope.value = [];
 		$scope.allVotes = [];
 		//$scope.allPolls = $rootScope.pollforvotes;
-		debugger;
+		
 		var value = $('input[name=\"pollvote'+pollDetails.itemId+'\"]:checked').val();
 		$('input[name="pollCheck"]:checked').each(function(){
 			$scope.value.push($(this).val());
@@ -528,7 +527,7 @@ myApp.controller('pollsCtrl', function($scope, $rootScope, $location, $localStor
 				$scope.allPolls = $rootScope.pollforvotes[i];
 			}
 		}
-		debugger;
+		
 		var response = {"projectId": $scope.allPolls.projectId, "moduleId": $scope.allPolls.moduleId, "taskId": $scope.allPolls.taskId, "itemId": $scope.allPolls.itemId, "isTestData": false, "notes": $scope.notes, "values": $scope.value};
 		
 		/* For saving the poll response */
@@ -678,7 +677,7 @@ myApp.controller('navCtrl', function($scope, $cookieStore, $rootScope, $location
 	
 	// endpoints.mobileHandler.getDashboard($scope.apiKey, $scope.userId, 1, null, null, function(assignments){
 		// if (assignments.result.success){
-			// debugger;
+			// 
 			// $rootScope.assignmentsCounts = assignments.result.result.TotalCount;
 			// $scope.$apply();
 		// }
@@ -1023,7 +1022,7 @@ myApp.controller('assignmentCtrl', function($scope, $location, $cookieStore, $lo
 			}
 		}
 		else{
-			debugger;
+			
 			if($scope.assignment.modules){
 				$scope.showIframe = true;
 				$scope.iframeSource = $scope.assignment.modules[0].options.baseSurveyLink + $scope.panelistId;
@@ -1050,7 +1049,7 @@ myApp.controller('assignmentCtrl', function($scope, $location, $cookieStore, $lo
 		}
 		endpoints.mobileHandler.saveTaskReply($scope.apiKey,$scope.userId,$scope.projectId,$scope.moduleId,task.TaskId,$scope.panelistId,task.Id,reply,null,null, function(response){
 			alert('Response Saved');
-			debugger;
+			
 			$('#reply').val(' ');
 			endpoints.mobileHandler.getTaskReplies($scope.apiKey,$scope.userId, $scope.projectId, $scope.moduleId, task.TaskId, $scope.panelistId, 20, 0, function(replies){
 				if(replies.result.success){
@@ -1107,7 +1106,7 @@ myApp.controller('assignmentCtrl', function($scope, $location, $cookieStore, $lo
 					$scope.allReplies = [];
 					$scope.childReplies = [];
 					for(var i=0; i<replies.result.result[1].Replies.length; i++){
-						debugger;
+						
 						if(replies.result.result[1].Replies[i].ParentId == 0){
 							$scope.allReplies.push(replies.result.result[1].Replies[i]);
 						}
@@ -1120,7 +1119,7 @@ myApp.controller('assignmentCtrl', function($scope, $location, $cookieStore, $lo
 	};
 	
 	$scope.getNextTask = function(i) {
-		debugger;
+		
 		if($scope.tasks[i].TaskStatus == 'Completed'){
 			var taskId = $scope.tasks[i].TaskId;
 			endpoints.mobileHandler.getNextTask($scope.apiKey,$scope.userId,$scope.projectId,$scope.moduleId,taskId,$scope.panelistId, function(response){
@@ -1359,7 +1358,7 @@ myApp.controller('assignmentCtrl', function($scope, $location, $cookieStore, $lo
 	};
 	
 	$scope.showReplies = function(){
-		debugger;
+		
 		if($scope.repliesCards)
 			$scope.repliesCards = false;
 		else
@@ -1567,7 +1566,7 @@ myApp.controller('forumCtrl', function($scope,$localStorage,$rootScope,$routePar
 	};
 	
 	$scope.submitPost = function(){
-		debugger;
+		
 		if(uploadedMediaUrl){
 			if(uploadMediaType == 'image' || uploadMediaType == 'Image'){
 				if($scope.postBody)
@@ -1728,7 +1727,7 @@ myApp.controller('forumCtrl', function($scope,$localStorage,$rootScope,$routePar
 				var media_words = CryptoJS.enc.Base64.parse(media_hash.toString(CryptoJS.enc.Base64));
 
 				var media_base64 = CryptoJS.enc.Base64.stringify(media_words);
-				debugger;
+				
 				endpoints.mediaHandler.convertMedia(Apikey, media_base64, bucketName, projectId, sourceAppType, mediaType, $scope.data.userUpload, 0, function(result){
 					if(result.result.success){
 						if(mediaType == 'image' || mediaType == 'Image'){
@@ -2138,7 +2137,7 @@ myApp.controller('messagesCtrl', function($scope, $cookieStore, $rootScope, $loc
 	// Creating new handler for APIs
 	endpoints.mobileHandler = new MobileHandler();
 	//Querying APi for response using endpoints
-	debugger;
+	
 	endpoints.mobileHandler.getInbox($scope.apiKey, $scope.userId, null, null, function(result){
 		if(result.result.result.Conversations){
 			for(var i=0; i<result.result.result.Conversations.length; i++){
@@ -2555,7 +2554,7 @@ myApp.controller('profileCtrl', function($scope, $localStorage,$cookieStore, $lo
 });
 
 myApp.controller('badgesCtrl', function($scope, $localStorage, $location, $route){
-	debugger;
+	
 	if(!$localStorage.loginDetails){
 		delete $localStorage.loggedIn;
 		$location.path('/');
@@ -2653,7 +2652,7 @@ myApp.controller('notificationCtrl', function($scope, $localStorage, $location){
 	$scope.notificationPage = 'setting-page-active';
 	endpoints.mobileHandler.getNotifications($scope.apiKey, $scope.userId, $scope.panelistId, function(result){
 		if(result.result.success){
-			debugger;
+			
 			var resultArray = result.result.result;
 			$scope.preferences = resultArray;
 			for(var i=0; i<resultArray.length; i++){
@@ -2701,7 +2700,7 @@ myApp.controller('notificationCtrl', function($scope, $localStorage, $location){
 	});
 	
 	$scope.updateNotification = function() {
-		debugger;
+		
 		if($scope.emailCheck){
 			if($scope.preferences.indexOf("3a") == -1)
 				$scope.preferences.push("3a", "3e", "3h");
@@ -2816,7 +2815,7 @@ myApp.controller('notificationCtrl', function($scope, $localStorage, $location){
 			if(index !== -1)
 				$scope.preferences.splice(index, 1);
 		}
-		debugger;
+		
 		if($scope.messagesSMS || $scope.resultsSMS || $scope.forumSMS || $scope.smsCheck){
 			endpoints.mobileHandler.getPanelistAttributes($scope.apiKey, $scope.userId, $scope.panelistId, function(callback){
 				if(callback.result.success){
