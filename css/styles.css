@@ -1467,8 +1467,8 @@ body{
 }
 .norQP .date {
     font-size: 10px;
-    padding: 0 30px;
-    text-align: right;
+    padding: 0 0px;
+    text-align: left;
     margin: 0;
 }
 .norQP .replys {

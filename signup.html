@@ -216,18 +216,6 @@
 			}
 					
 		});
-
-		$(window).load(function(){
-			$("#pp-nav ul").bind("DOMSubtreeModified", function() {
-			    if($("#pp-nav ul li:nth-child(4) a").hasClass('active')){
-			    
-			    	$('#pp-nav li a').addClass('appslide');
-			    }
-			    else{
-			    	$('#pp-nav li a').removeClass('appslide');
-			    }
-			});
-		})
 		
 		$('.footer .signup-links a').click(function(){
             var winW = $(window).width();

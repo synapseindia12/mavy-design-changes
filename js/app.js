@@ -1,6 +1,7 @@
 var myApp = angular.module("mavyApp", ['ngRoute', 'ngCookies', 'ngStorage', 'ngFacebook', 'ui.mask', 'ui.bootstrap', 'angular-bind-html-compile', 'ngSanitize', 'angular-bootstrap-select', 'ngSlimScroll']);
 
-myApp.config(function($routeProvider, $httpProvider, $facebookProvider) {
+myApp.config(function($routeProvider, $httpProvider, $facebookProvider, $locationProvider) {
+	debugger;
     $routeProvider
         .when('/', {
             templateUrl: 'signup.html',
@@ -70,9 +71,11 @@ myApp.config(function($routeProvider, $httpProvider, $facebookProvider) {
         });
 		
 		$facebookProvider.setAppId('1588022388118943');
+		
+		$locationProvider.html5Mode(true);
 	})
 
-.run(function($rootScope){
+	.run(function($rootScope){
 		(function(){
 		if (document.getElementById('facebook-jssdk')) {return;}
 		var firstScriptElement = document.getElementsByTagName('script')[0];
@@ -414,9 +417,6 @@ myApp.controller('pollsCtrl', function($scope, $rootScope, $location, $localStor
 	
 	endpoints.mobileHandler.getDashboard($scope.apiKey, $scope.userId, 5, null, null, function(result){
 		if(result.result.success){
-			// for(var i=0; i<result.result.result.Entries.length; i++){
-				// $rootScope.polesForResults.push(result.result.result.Entries[i]);
-			// }
 			$rootScope.totalPollsResults = [];
 			$scope.recursiveCall(result);
 		}
@@ -443,7 +443,6 @@ myApp.controller('pollsCtrl', function($scope, $rootScope, $location, $localStor
 							for(var i=0; i<result.result.result.Entries.length; i++){
 								if(result.result.result.Entries[i]){
 									if(voteCounts.result.result.length>0){
-										debugger;
 										if($rootScope.deletedPolls.length > 0){
 											if($.inArray(result.result.result.Entries[i].itemId, $rootScope.deletedPolls) == -1){
 												if(result.result.result.Entries[i].itemId == voteCounts.result.result[0].itemId){
@@ -835,14 +834,13 @@ myApp.controller('assignmentCtrl', function($scope, $location, $cookieStore, $lo
 	endpoints.mobileHandler = new MobileHandler();
 	//Querying APi for response using endpoints
 	endpoints.mobileHandler.getAssignments($scope.apiKey, $scope.userId, $scope.panelistId, function(result){
-		 if (result.result.success){
-			 for (var i=0; i< result.result.result.length; i++) {
-				 $scope.allAssignments.push(result.result.result[i]);
-			 }
-		
-		 }
-		 $scope.$apply();
-	 });
+		if(result.result.success){
+			for (var i=0; i< result.result.result.length; i++){
+				$scope.allAssignments.push(result.result.result[i]);
+			}
+		}
+		$scope.$apply();
+	});
 	
 /*	endpoints.mobileHandler.getDashboard($scope.apiKey, $scope.userId, 1, null, null, function(result){
 		if (result.result.success){
@@ -933,7 +931,7 @@ myApp.controller('assignmentCtrl', function($scope, $location, $cookieStore, $lo
 		$scope.moduleId = $scope.assignment.moduleId;
 		$scope.moduleType = $scope.assignment.moduleType;
 	}
-	
+
 	$scope.checkUserPolls = function(task){
 		endpoints.mobileHandler.getPanelistPollResponses($scope.apiKey, $scope.userId, $scope.panelistId, task.TaskId, function(response){
 			if(response.result.success){
@@ -2351,7 +2349,6 @@ myApp.controller('messageconversationCtrl', function($scope,$localStorage,$cooki
 	}
 });
 
-
 myApp.controller('profileCtrl', function($scope, $localStorage,$cookieStore, $location, $rootScope, $route){
 	if(!$localStorage.loginDetails){
 		delete $localStorage.loggedIn;
@@ -3162,6 +3159,14 @@ myApp.controller('rewardDetailsCtrl', function($scope, $rootScope, $modalInstanc
 					keyboardScrolling: false
 				});
 				setTimeout(function(){
+					$("#pp-nav ul").on("DOMSubtreeModified", function() {
+						if($("#pp-nav ul li:nth-child(4) a").hasClass('active')){						
+							$('#pp-nav li a').addClass('appslide');
+						}
+						else{
+							$('#pp-nav li a').removeClass('appslide');
+						}
+					});
 					$rootScope.initialized = true;
 					element.css({'opacity': 1});
 				}, 100);
