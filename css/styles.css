@@ -1594,3 +1594,4 @@ div.slim-scroll-wrapper {
 .error-message p {line-height: 16px;}
 .error-message p span {font-size: 13px; line-height: 10px; letter-spacing: 0.5px;}
 
+.msg_internal .show_message .msg-content span { word-wrap: break-word;}
