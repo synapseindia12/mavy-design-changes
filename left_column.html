@@ -1,39 +1,34 @@
 <div ng-controller="profileCtrl">
-
-		<div class="myprofile_cont brd_radius">
-			<div class="bluetitle_top">MY PROFILE</div>
-			<div class="myprofile_inner">
-				<div class="profile_name clearfix">
-				<span class="user_profpic"><img class="img-responsive img-circle" src="{{avatarUrl}}" alt=""></span>
-				<div class="user_dtl_right">
-				<span class="user_dtl">{{fname}} {{lname}}</span>
-				<span class="user_alias">{{uname}}</div>
-				</div>
-				<div class="reward_sec clearfix">
-				<span class="rwd_balance">Rewards Balance:</span>
-				<div class="rwd_price" ng-if="redeemable >= 0">${{redeemable}}</div>
-				</div>
+	<div class="myprofile_cont brd_radius">
+		<div class="bluetitle_top">MY PROFILE</div>
+		<div class="myprofile_inner">
+			<div class="profile_name clearfix">
+			<span class="user_profpic"><img class="img-responsive img-circle" src="{{avatarUrl}}" alt=""></span>
+			<div class="user_dtl_right">
+			<span class="user_dtl">{{fname}} {{lname}}</span>
+			<span class="user_alias">{{uname}}</div>
 			</div>
-			
-	<div class="profile_listing clearfix">
+			<div class="reward_sec clearfix">
+			<span class="rwd_balance">Rewards Balance:</span>
+			<div class="rwd_price" ng-if="redeemable >= 0">${{redeemable}}</div>
+			</div>
+		</div>
+		
+		<div class="profile_listing clearfix">
+			<ul>
+				<li><a ng-class="rewards == true ? 'active': ''" ng-click="redirectTo('rewards')"><span class="reward_icon"></span> REWARDS</a></li>
+				<li><a ng-class="settings == true ? 'active': ''" ng-click="redirectTo('profile')"><span class="setting_icon"></span> SETTINGS</a></li>
+				<li><a ng-class="badges == true ? 'active': ''" ng-click="redirectTo('badges')"><span class="badges_icon"></span>BADGES</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="profile_bottom clearfix">
 		<ul>
-			<li><a ng-class="rewards == true ? 'active': ''" ng-click="redirectTo('rewards')"><span class="reward_icon"></span> REWARDS</a></li>
-			<li><a ng-class="settings == true ? 'active': ''" ng-click="redirectTo('profile')"><span class="setting_icon"></span> SETTINGS</a></li>
-			<li><a ng-class="badges == true ? 'active': ''" ng-click="redirectTo('badges')"><span class="badges_icon"></span>BADGES</a></li>
+			<li><a href="#/dashboard">FEED</a> </li>
+			<li><a href="#/assignment">QUIZZES</a> </li>
+			<li><a href="#/messages">MESSAGES</a> </li>
+			<li><a href="#/forum">fORUM</a></li>
+			<li>MAVY &copy; 2015</li>
 		</ul>
 	</div>
-			
-		</div>
-		
-		<div class="profile_bottom clearfix">
-			<ul>
-				<li><a href="dashboard">FEED</a> </li>
-				<li><a href="assignment">QUIZZES</a> </li>
-				<li><a href="messages">MESSAGES</a> </li>
-				<li><a href="forum">fORUM</a> </li>
-				<li>MAVY &copy; 2015</li>
-			</ul>
-		
-		</div>
-
 </div>

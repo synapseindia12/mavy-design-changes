@@ -71,7 +71,7 @@ myApp.config(function($routeProvider, $httpProvider, $facebookProvider, $locatio
 		
 		$facebookProvider.setAppId('1588022388118943');
 		
-		$locationProvider.html5Mode(true);
+		//$locationProvider.html5Mode(true);
 	})
 
 	.run(function($rootScope){
