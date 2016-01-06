@@ -77,9 +77,9 @@
 	<div class="credit_info history">
 		<div class="forumtitle_top feedblue">HISTORY</div>
 		<div slim-scroll class="credits clearfix">
-			<div class="row" ng-repeat="inc in incentivesDataArray">			
+			<div class="row" ng-repeat="inc in incentivesDataArray">
 				<div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
-					<span>${{inc.amount}}</span>
+					<span>${{inc.amount/100}}</span>
 				</div>
 				<div class="col-lg-8 col-md-12 col-sm-12 col-xs-8">
 					<label>{{inc.description}}</label>

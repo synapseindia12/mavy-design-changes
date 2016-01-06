@@ -12,9 +12,10 @@
 			<div class="middle_forum">
 				<div class="forumtitle_top feedblue">QUIZ <span ng-if="assignment.moduleTitle"> - {{assignment.moduleTitle}}</span><a class="back_quiz" href="#/assignment" ng-href="#/assignment"><< Back to All Quizzes</a></div>
 				<div class="row">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">	
-						<p class="quiz-des" ng-if="assignment.modules" dynamic="{{assignment.options.instructions}}"></p>
-						<p class="quiz-des" ng-if="!assignment.modules" dynamic="{{assignment.options.instructions}}"></p>
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<!-- <pre>{{assignment}}</pre>
+						<p class="quiz-des" ng-if="assignment.modules" dynamic="{{assignment.options.instructions}}"></p> -->
+						<!-- <p class="quiz-des" ng-if="!assignment.modules" dynamic="{{assignment.options.instructions}}"></p> -->
 						<!-- If it's not a quiz nor polls -->
 						<div class="norQP" ng-if="!showIframe && !showPolls">
 							<div class="row">
@@ -24,8 +25,20 @@
 								</div>
 								<div class="col-lg-10 col-md-6 col-sm-6 col-xs-12">
 									<p class="subject" bind-html-compile="displayTasks[0].Subject"></p>
-									<p class="title" bind-html-compile="displayTasks[0].Title"></p>
+									<!-- <p class="title" bind-html-compile="displayTasks[0].Title"></p> -->
 									<p bind-html-compile="displayTasks[0].QuestionText"></p>
+									<p ng-if="displayTasks[0].UnfilteredQuestionTextLinks.audio.length > 0">
+<!-- 										<audio controls>
+											<source ng-src="displayTasks[0].UnfilteredQuestionTextLinks.audio[0]" type="audio/mpeg" />
+										</audio>
+ -->								<audio src="{{displayTasks[0].UnfilteredQuestionTextLinks.audio[0] | trustUrl}}" audioplayer controls></audio>	
+									</p>
+									<p ng-if="displayTasks[0].UnfilteredQuestionTextLinks.video.length > 0">
+										<!-- <video width="320" height="240" src="{{displayTasks[0].UnfilteredQuestionTextLinks.video[0]}}" controls>
+										</video> -->
+										
+										<video ng-src="{{displayTasks[0].UnfilteredQuestionTextLinks.video[0] | trustAsResourceUrl}}" width="600" height="400" controls></video>
+									</p>
 									<p class="date">{{localDate(displayTasks[0].ActivationDate)}}</p>
 									<!--<p class="replys clearfix">
 										<a href="javascript:void(0);" style="float:left;" ng-click="showReplies()">Replies ( <span class="replies-count">{{replyCounts}}</span> )</a>
@@ -104,10 +117,13 @@
 									<div id="pollContent">
 										<h5 class="pollQuestion" id="currentUpdaQuestion" bind-html-compile="tasks[i].QuestionText"></h5>
 										<p ng-repeat="option in tasks[i].options.categories" ng-if="tasks[i].type == 'SingleChoice' && !showResults">
-											<input type="radio" name="poll" id="poll-radio-{{$index}}" value="{{$index + 1}}" ng-model="option.pollvote" />
+											<!-- <input type="radio" name="poll" id="poll-radio-{{$index}}" value="{{$index + 1}}" ng-model="option.pollvote" />
 											<label for="poll-radio-{{$index}}" id="label-{{$index}}" class="inline-label">
 												{{option.description}}
-											</label>
+											</label> -->
+											<span class="radio">
+												<label><span class='custom-radio'><input type="radio" name="poll" id="poll-radio-{{index}}" value="{{$index + 1}}" ng-model="option.pollvote" /></span> {{option.description}}</label>
+											</span>
 										</p>
 										<p ng-repeat="option in tasks[i].options.categories" ng-if="tasks[i].type != 'SingleChoice' && !showResults">
 											<input type="checkBox" name="poll" id="poll-radio-{{$index}}" value="{{$index + 1}}" ng-model="option.pollvote" />
@@ -142,4 +158,10 @@
 	</div>
 </div>
 <!-- Middle Section end -->
-
+<script>
+$(function(){
+	$(document).on('click','.custom-radio',function(){
+		$('.custom-radio').removeClass('selected');
+	});	
+})
+</script>
